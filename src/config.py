@@ -5,7 +5,17 @@ import yaml
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
-load_dotenv()
+load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env")
+
+# On Streamlit Community Cloud, secrets are in st.secrets, not os.environ.
+# Inject them so the rest of the config can use os.getenv() uniformly.
+try:
+    import streamlit as st
+    for _k, _v in st.secrets.items():
+        if isinstance(_v, str):
+            os.environ.setdefault(_k, _v)
+except Exception:
+    pass
 
 
 class AppConfig(BaseModel):
