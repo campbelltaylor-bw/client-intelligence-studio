@@ -78,18 +78,18 @@ def render() -> None:
         subtitle="Generate personalized, evidence-backed collateral for client conversations.",
     )
 
-    section_header("Account Source")
+    section_header("Select a lead or add a new one")
 
     mode = st.radio(
         "Account type",
-        ["Existing CRM Account", "New Prospect"],
+        ["Select from Monday CRM", "New lead / company not in Monday"],
         horizontal=True,
         label_visibility="collapsed",
     )
 
     pipeline_input = None
 
-    if mode == "Existing CRM Account":
+    if mode == "Select from Monday CRM":
         config, config_error = _load_config()
 
         if config_error:
@@ -128,10 +128,11 @@ def render() -> None:
                 else:
                     options = {a["company_name"]: a["monday_item_id"] for a in accounts}
                     selected_name = st.selectbox(
-                        "Account",
+                        f"Select a lead ({len(accounts)} imported from CRM)",
                         list(options.keys()),
                         label_visibility="visible",
                     )
+                    st.caption("These are active leads pulled from your CRM board. Select one to generate intelligence collateral.")
                     monday_item_id = options[selected_name]
                     pipeline_input = PipelineInput(
                         company_name=selected_name,
@@ -140,6 +141,7 @@ def render() -> None:
                     )
 
     else:
+        st.caption("Enter a company that isn't in your Monday CRM board. Research will be sourced from the web only.")
         company_name = st.text_input("Company name", placeholder="e.g. Acme Capital Partners")
         website_url = st.text_input("Website URL (optional)", placeholder="https://acmecapital.com")
         if company_name:

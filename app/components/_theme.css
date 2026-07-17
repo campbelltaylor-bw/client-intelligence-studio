@@ -85,6 +85,16 @@ footer {
   padding: 1.25rem 1rem !important;
 }
 
+.ca-sidebar-built-by {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ca-border);
+  font-size: 0.75rem;
+  color: var(--ca-text-muted);
+  text-align: center;
+  font-family: var(--ca-font);
+}
+
 /* --- TYPOGRAPHY ------------------------------------------- */
 
 h1 {
@@ -429,6 +439,32 @@ hr {
 .ca-nav-item--active .ca-nav-item__step {
   background-color: var(--ca-accent);
   color: #ffffff;
+}
+
+.ca-sidebar-about {
+  margin-top: 1rem;
+  padding: 0.75rem 0;
+}
+
+.ca-sidebar-about p {
+  font-size: 0.75rem;
+  color: var(--ca-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 0.5rem;
+}
+
+.ca-sidebar-about strong {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ca-text-muted);
+}
+
+.ca-sidebar-about ul {
+  font-size: 0.75rem;
+  color: var(--ca-text-secondary);
+  line-height: 1.6;
 }
 
 .ca-sidebar-footer {

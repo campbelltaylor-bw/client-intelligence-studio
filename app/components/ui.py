@@ -114,9 +114,44 @@ def render_nav_sidebar(current_page: Literal["select", "report"]) -> None:
         st.sidebar.markdown("</div>", unsafe_allow_html=True)
 
     st.sidebar.markdown(
+        '<div class="ca-sidebar-about">'
+        "<p><strong>About</strong></p>"
+        "<p>Client Intelligence Studio pulls account data from your CRM (Monday.com or mock), "
+        "enriches it with public web research and your internal blog/content catalog, then uses "
+        "Claude AI to synthesize everything into ready-to-send client collateral — executive "
+        "summaries, product recommendations, and outreach email drafts — all traceable back to "
+        "their source.</p>"
+        "<p><strong>Connects to</strong></p>"
+        "<ul style='padding-left:1.1rem;margin:0 0 0.75rem;'>"
+        "<li>Monday.com API (CRM account &amp; contact data)</li>"
+        "<li>Web Search (public company facts)</li>"
+        "<li>Google Sheets Research Repo API (blog recommendations)</li>"
+        "<li>Internal Custom Product Catalog (product matching)</li>"
+        "<li>Anthropic Claude API (AI generation)</li>"
+        "</ul>"
+        "<p><strong>Output</strong></p>"
+        "<p>A structured intelligence report with an executive summary, "
+        "sourced talking points, matched CA products, and a draft outreach email — "
+        "ready to copy, review, and send.</p>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+    st.sidebar.markdown('<hr style="margin:0.5rem 0;">', unsafe_allow_html=True)
+
+    st.sidebar.markdown(
         '<div class="ca-sidebar-footer">'
         "<p>All generated content requires human review before use.</p>"
         "<p>No automatic email delivery.</p>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+    st.sidebar.markdown(
+        '<div class="ca-sidebar-built-by">'
+        'Built with <a href="https://claude.ai/code" target="_blank" '
+        'style="color:var(--ca-accent);text-decoration:none;font-weight:500;">'
+        "Claude Code</a>"
         "</div>",
         unsafe_allow_html=True,
     )

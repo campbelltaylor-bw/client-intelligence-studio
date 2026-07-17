@@ -3,6 +3,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import streamlit as st
 
 st.set_page_config(
@@ -15,6 +18,19 @@ st.set_page_config(
 from app.components.ui import inject_theme, render_nav_sidebar
 
 inject_theme()
+
+# Password gate
+if not st.session_state.get("authenticated"):
+    st.title("Client Intelligence Studio")
+    pwd = st.text_input("Password", type="password")
+    if st.button("Sign in"):
+        import os
+        if pwd == os.environ.get("APP_PASSWORD", "demo"):
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Incorrect password")
+    st.stop()
 
 # Session state initialization
 if "pipeline_output" not in st.session_state:
