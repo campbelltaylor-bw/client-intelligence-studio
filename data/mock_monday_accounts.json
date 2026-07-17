@@ -1,0 +1,158 @@
+[
+  {
+    "monday_item_id": "mock-001",
+    "company_name": "Meridian Capital Partners",
+    "industry": {
+      "value": "Hedge Fund — Long/Short Equity",
+      "source": "CRM_FACT",
+      "evidence": "Monday CRM field: Industry"
+    },
+    "company_size": {
+      "value": "~$4.2B AUM, 45 employees",
+      "source": "CRM_FACT",
+      "evidence": "Monday CRM field: AUM"
+    },
+    "products_discussed": [
+      {
+        "value": "News Sentiment Scores — demo completed Q3 2024, positive reaction to intraday granularity",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Products Discussed"
+      }
+    ],
+    "open_questions": [
+      {
+        "value": "Wants to understand how sentiment signals correlate with alpha generation in their long book",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Client Questions"
+      },
+      {
+        "value": "Asked about API latency for real-time trading strategies",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Client Questions"
+      }
+    ],
+    "open_followups": [
+      {
+        "value": "Send case study on sentiment-driven alpha for long/short equity funds",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Open Follow-Ups"
+      },
+      {
+        "value": "Schedule technical deep-dive call with their quant team — target Q1 2025",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Open Follow-Ups"
+      }
+    ],
+    "past_conversations": [
+      {
+        "value": "Oct 2024: Initial discovery call. PM interested in incorporating alternative data into factor model. Flagged concern about data licensing costs.",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Conversation Notes"
+      },
+      {
+        "value": "Nov 2024: Demo of News Sentiment API. CTO joined. Positive on data quality. Asked for backtest data.",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Conversation Notes"
+      }
+    ]
+  },
+  {
+    "monday_item_id": "mock-002",
+    "company_name": "Apex Investment Management",
+    "industry": {
+      "value": "Asset Manager — Multi-Asset, Fixed Income Focus",
+      "source": "CRM_FACT",
+      "evidence": "Monday CRM field: Industry"
+    },
+    "company_size": {
+      "value": "~$18B AUM, 120 employees",
+      "source": "CRM_FACT",
+      "evidence": "Monday CRM field: AUM"
+    },
+    "products_discussed": [
+      {
+        "value": "Earnings Call Analytics — reviewed product sheet, no demo yet",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Products Discussed"
+      },
+      {
+        "value": "ESG Sentiment Analytics — mentioned as interest area during intro call",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Products Discussed"
+      }
+    ],
+    "open_questions": [
+      {
+        "value": "How does CA's ESG sentiment differ from MSCI and Sustainalytics ratings?",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Client Questions"
+      }
+    ],
+    "open_followups": [
+      {
+        "value": "Schedule ESG Sentiment demo — contact is Sarah Chen, Head of Responsible Investing",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Open Follow-Ups"
+      }
+    ],
+    "past_conversations": [
+      {
+        "value": "Sep 2024: Intro call with Head of Quant Research. Interested in alternative data to complement their fundamental fixed income process.",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Conversation Notes"
+      }
+    ]
+  },
+  {
+    "monday_item_id": "mock-003",
+    "company_name": "Boulder Creek Asset Management",
+    "industry": {
+      "value": "RIA — Wealth Management, Equity Focus",
+      "source": "CRM_FACT",
+      "evidence": "Monday CRM field: Industry"
+    },
+    "company_size": {
+      "value": "~$900M AUM, 22 employees",
+      "source": "CRM_FACT",
+      "evidence": "Monday CRM field: AUM"
+    },
+    "products_discussed": [
+      {
+        "value": "Bridgewise Equity Ratings — strong interest, evaluating for portfolio construction",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Products Discussed"
+      }
+    ],
+    "open_questions": [
+      {
+        "value": "Can Bridgewise ratings be integrated with their existing Bloomberg Terminal workflow?",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Client Questions"
+      },
+      {
+        "value": "What is the track record of Bridgewise buy/sell signals over the last 3 years?",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Client Questions"
+      }
+    ],
+    "open_followups": [
+      {
+        "value": "Provide Bridgewise performance attribution data for 2022-2024",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Open Follow-Ups"
+      },
+      {
+        "value": "Connect with Bridgewise team for Bloomberg integration discussion",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Open Follow-Ups"
+      }
+    ],
+    "past_conversations": [
+      {
+        "value": "Dec 2024: Discovery call with CIO. Growing firm looking to differentiate their stock-picking process. Interested in AI-driven fundamental analysis.",
+        "source": "CRM_FACT",
+        "evidence": "Monday CRM: Conversation Notes"
+      }
+    ]
+  }
+]

@@ -1,0 +1,225 @@
+company:
+  name: Context Analytics, Inc.
+  formerly: Social Market Analytics
+  tagline: The Leader In Unstructured Data for Finance
+  website: https://www.contextanalytics-ai.com
+  contact: ContactUs@ContextAnalytics-AI.com
+  patents: 3 U.S. patents behind CA's core data process
+
+product_categories:
+
+  - category: Social Media Analytics (S-Factor)
+    website: https://www.contextanalytics-ai.com/products/s-factor-social-feed/
+    description: >
+      Social-media-derived sentiment metrics and account-rating analytics
+      built on X (Twitter), StockTwits, and Reddit data.
+    data_feeds:
+      - name: Tweet Level
+        description: Tweet-level NLP and Account Rating analysis; no tweet text included.
+        latency: 300 milliseconds
+      - name: Lexical
+        description: >
+          Enhanced Tweet Level feed adding phrase ID and CA-dictionary-based
+          sentiment.
+        latency: 300 milliseconds
+      - name: S-Factor
+        description: >
+          Aggregated tweets compared against a topic's own baseline;
+          15 metrics delivered every minute (24H lookback, 20D baseline
+          with decay). Snapshots available at 1m/15m/hourly/daily cycles.
+      - name: Activity
+        description: >
+          Minute-level isolated and aggregated activity data for building
+          custom baselines/metrics; suited to HFT and algo execution, with
+          longer weekly/monthly/quarterly baselines for trading and indices.
+    delivery: RESTful JSON APIs, 24/7, available in 4 data formats
+    key_metric:
+      name: S-Score
+      description: >
+        One of 15 unique S-Factors. |S-Score| > 2 indicates sentiment
+        98.6% more negative/positive than a 20-day baseline over the past
+        24 hours; levels beyond +/-2 are statistically significant and
+        precede price movement over the next hour to 1-2 days.
+    strategies:
+      - name: Daily S-Score Long/Short Strategy
+        description: >
+          Long securities with S-Score >= 2, short S-Score <= -2, equal
+          dollar-weighted baskets, rebalanced daily. Universe: price > $5.
+      - name: Quintile Strategy
+        description: >
+          Securities bucketed into 5 equally weighted quintiles by S-Score,
+          rebalanced daily; Quintile 5 = highest sentiment.
+      - name: CA S&P 500 x Sentiment Index
+        description: >
+          Monthly index replicating the S&P 500 using top 200 sentiment
+          scores weighted by market cap, based on Weighted Raw-S
+          (exponentially weighted decayed sentiment).
+    security_coverage:
+      us_equities: ~4500
+      europe_equities: ~1600
+      tsx_equities: ~450
+      india_equities: 500+
+      asx_equities: ~800
+      etfs: ~2200
+      commodities: 113
+      currency_pairs: 49
+      crypto: ~800
+      top_private_companies: 500+
+    community_sources:
+      - X (formerly Twitter)
+      - StockTwits
+      - Reddit (40+ tracked subreddits, e.g. r/WallStreetBets, r/stocks, r/investing, r/CryptoMarkets)
+
+  - category: Corporate Filings (Machine-Readable Filings)
+    website: https://www.contextanalytics-ai.com/products/corporate-fillings/
+    description: >
+      Parsed, machine-readable textual data from regulatory and corporate
+      filings, delivered as structured multi-level JSON, produced in
+      partnership with S&P Global Market Intelligence.
+    products:
+      - name: MRF (U.S. Machine Readable Filings)
+        launched: April 2020
+        partner: S&P Global Market Intelligence
+        description: >
+          First product to parse SEC EDGAR filings at the Item, Section,
+          Sub-section, and Notes level, with history back to 2006.
+          Header-level parsing (~2.8M documents 2006-2025) covers forms
+          including 10-K, 10-Q, 8-K, 20-F, 6-K, 40-F, S-1, and DEF 14A.
+      - name: GMRF (Global Machine Readable Filings)
+        launched: April 2021
+        partner: S&P Global Market Intelligence
+        description: >
+          First product to parse international companies' Annual,
+          Quarterly, Semi-Annual reports and Financial Supplements
+          (~3M documents across 200+ countries) into multi-level JSON,
+          following each document's native magazine-style structure.
+    use_cases:
+      - name: Lazy Prices / Alpha Return (MRF)
+        description: >
+          Uses word-count and CA sentiment changes in filing sections to
+          identify reporting-practice changes that signal alpha; quintile
+          spreads show higher cumulative/annualized returns and Sharpe
+          ratios in the most-changed quintile.
+      - name: Lazy Prices / Alpha Return (GMRF)
+        description: >
+          Global equivalent - a long/short portfolio of non-changers vs.
+          changers in reporting practice generates excess returns.
+      - name: Europe Sentiment Quintiles
+        description: >
+          Quintiles of EU companies by average annual-report sentiment
+          show the highest-sentiment quintile outperforming the lowest.
+
+  - category: Quantitative News Feed
+    website: https://www.contextanalytics-ai.com/quantitative-news-feed/
+    description: >
+      In-house financial NLP scoring and tagging financial news articles
+      with sentiment metrics for machine-readable, quantitative use.
+    coverage:
+      articles_per_month: 150,000+
+      news_sources: 4,000+
+    features:
+      - Sentiment scoring per article
+      - Topic tagging (M&A, Earnings, Analyst Rating Change, etc.)
+      - Security identifier mapping
+      - Machine-readable JSON API delivery
+    analytics:
+      - News Quintile Spreads
+      - News Positivity Ratio
+
+  - category: Podcast Data Feed
+    website: https://www.contextanalytics-ai.com/podcast-sentiment-analysis-feed/
+    description: >
+      Podcasts are ingested, transcribed, summarized, and scored for
+      sentiment at the entity (security) level.
+    coverage:
+      unique_podcasts_tracked: 51,000+
+      unique_episodes: 462,000+
+      avg_episode_length_minutes: ~38
+      unique_securities_mentioned: 6,800+
+      avg_tickers_per_episode: ~3
+      summary_records_to_date: 1.4 million+
+      history_start: January 2016
+      episodes_per_year_2016: ~8,500
+      episodes_per_year_2025: 91,000+
+      episodes_processed_per_day: ~250
+      tickers_covered_daily: ~313
+      example_shows:
+        - Bloomberg Surveillance
+        - Mad Money w/ Jim Cramer
+        - Squawk on the Street
+    feeds:
+      - name: Quantitative Feed
+        description: Structured sentiment scores/fields per security per episode.
+      - name: Qualitative Feed
+        description: >
+          Company-mention summaries generated per episode across Business,
+          Finance, News, and Technology genre podcasts.
+    signal_construction:
+      example_factor: 60-Day Sum of Average Sentiment with 120-Day Baseline
+      methods:
+        - Aggregate over trailing windows (5-10 days for recent shifts, 60-90 days for persistent trends)
+        - Normalize cross-sectionally via Z-scores for cross-ticker comparability
+
+  - category: Unstructured Data Terminal (UDT)
+    website: https://www.contextanalytics-ai.com/products/unstructured-data-terminal-udt/
+    description: >
+      Dashboard integrating Machine Readable Filings, Social Sentiment,
+      and News in one environment, giving fundamental investors access to
+      quant-grade data.
+    features:
+      - Word count and sentiment change detection vs. prior filings
+      - Document red-lining
+      - Sentiment tools, alerts, and visuals for earnings calls, filings, social media, and news
+      - Earnings call schedule
+      - ThemeX custom topic modeling (advanced search, new-document alerts, smart synonym suggestions)
+    data_sources:
+      - Full universe of SEC documents
+      - Largest repository of Global Filings
+      - Social media APIs (X, StockTwits, Reddit)
+      - News articles from multiple sources
+
+  - category: Private Company Data
+    description: >
+      Sentiment and mention data on large, pre-IPO private companies.
+    coverage:
+      universe_size: 500+ largest private companies likely to go public
+      history_start: January 2021
+    notes: >
+      Crypto/NFT-related private companies can show inflated social volume
+      from bot and community activity; CA continues refining topic models
+      to filter noise. CA's tools flagged red flags in FTX/FTX token hours
+      before its collapse.
+
+  - category: Universal Document Processor (UDP)
+    website: https://www.contextanalytics-ai.com/udp/
+    description: >
+      Parses any document type into machine-readable JSON, separately
+      extracting text and tables for analysis at scale.
+    experience_with:
+      - VC pitch decks
+      - PE data rooms
+      - Real estate memorandums
+      - Corporate reports
+    features:
+      - Text extraction (improves LLM accuracy, enables textual analytics and complex search)
+      - Table extraction (enables charting/modeling on tabular PDF data)
+      - Centralized delivery into Excel, Snowflake, CSV, SQL Server, Databricks, and more
+      - Search by company or filter by metric standards
+      - Dynamic filtering by value, date, interpolation, and other variables
+
+  - category: Generative AI Summaries
+    description: >
+      LLM-generated, security-level summaries and trend detection
+      delivered via API and alerting.
+    delivery_channels:
+      - name: JSON API
+        description: Security-level summaries published every 10 minutes.
+      - name: Hourly Trend Detection
+        description: >
+          AI identifies trending market topics hourly and links the
+          securities being discussed within each trend.
+      - name: Email Alert Integration
+        description: Automated email delivery of generative AI summaries.
+    examples:
+      - TSLA
+      - AAPL

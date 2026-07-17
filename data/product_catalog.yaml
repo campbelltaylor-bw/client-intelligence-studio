@@ -1,0 +1,168 @@
+products:
+  - name: "News Sentiment Scores"
+    vendor: "Context Analytics"
+    description: "Real-time and historical NLP-based sentiment scores derived from thousands of news sources. Available at company, sector, and index levels with intraday granularity."
+    use_cases:
+      - "Systematic alpha signal for long/short equity strategies"
+      - "Risk monitoring and portfolio hedging"
+      - "Fundamental research enhancement"
+    target_segments:
+      - "Hedge Funds"
+      - "Quant Funds"
+      - "Asset Managers"
+    asset_classes:
+      - "Equities"
+      - "Fixed Income"
+    tags:
+      - sentiment
+      - nlp
+      - news
+      - alpha
+      - quant
+
+  - name: "Earnings Call Analytics"
+    vendor: "Context Analytics"
+    description: "NLP analysis of earnings call transcripts, including tone analysis, keyword extraction, and sentiment shifts versus prior quarters. Covers 5,000+ public companies."
+    use_cases:
+      - "Earnings surprise prediction"
+      - "Forward guidance analysis"
+      - "Management tone and confidence monitoring"
+    target_segments:
+      - "Asset Managers"
+      - "Hedge Funds"
+      - "Fundamental Research Teams"
+    asset_classes:
+      - "Equities"
+    tags:
+      - earnings
+      - nlp
+      - fundamental
+      - alpha
+      - research
+
+  - name: "ESG Sentiment Analytics"
+    vendor: "Context Analytics"
+    description: "Real-time ESG sentiment derived from news, social media, and regulatory filings. Provides dynamic ESG signals that update faster than periodic ratings, covering environmental, social, and governance dimensions separately."
+    use_cases:
+      - "ESG portfolio screening and monitoring"
+      - "Controversy detection and risk management"
+      - "Supplement or challenge static ESG ratings"
+    target_segments:
+      - "Asset Managers"
+      - "ESG-focused Funds"
+      - "Insurance and Pension Funds"
+    asset_classes:
+      - "Equities"
+      - "Fixed Income"
+      - "Multi-Asset"
+    tags:
+      - esg
+      - sentiment
+      - responsible-investing
+      - risk
+      - nlp
+
+  - name: "Social Media Sentiment"
+    vendor: "Context Analytics"
+    description: "Aggregated sentiment from Twitter/X, Reddit (WallStreetBets and investing communities), and StockTwits. Includes retail investor sentiment signals and viral trend detection."
+    use_cases:
+      - "Retail sentiment monitoring"
+      - "Meme stock and momentum signals"
+      - "Brand and reputational risk tracking"
+    target_segments:
+      - "Hedge Funds"
+      - "Market Makers"
+      - "Quant Funds"
+    asset_classes:
+      - "Equities"
+    tags:
+      - social
+      - sentiment
+      - retail
+      - momentum
+      - alternative-data
+
+  - name: "Bridgewise Equity Ratings"
+    vendor: "Bridgewise"
+    description: "AI-generated buy/hold/sell ratings for 10,000+ global equities, updated weekly. Ratings are produced by a proprietary AI model trained on fundamental financial data, and include detailed reasoning and confidence scores."
+    use_cases:
+      - "Portfolio construction and stock screening"
+      - "Investment idea generation"
+      - "Portfolio manager workflow augmentation"
+      - "Second opinion on analyst recommendations"
+    target_segments:
+      - "RIAs"
+      - "Asset Managers"
+      - "Family Offices"
+      - "Retail Brokerage Platforms"
+    asset_classes:
+      - "Equities"
+    tags:
+      - bridgewise
+      - ratings
+      - fundamental
+      - stock-selection
+      - ai
+
+  - name: "Options Flow Intelligence"
+    vendor: "Context Analytics"
+    description: "Analysis of unusual options activity to detect potential institutional positioning, earnings plays, and directional bets before they appear in conventional data."
+    use_cases:
+      - "Detecting institutional activity ahead of events"
+      - "Volatility trading signals"
+      - "Risk-on/risk-off sentiment gauge"
+    target_segments:
+      - "Hedge Funds"
+      - "Options Traders"
+      - "Quant Funds"
+    asset_classes:
+      - "Equities"
+      - "Options"
+    tags:
+      - options
+      - flow
+      - institutional
+      - alpha
+      - trading
+
+  - name: "SEC Filing Analytics"
+    vendor: "Context Analytics"
+    description: "NLP analysis of 10-K, 10-Q, 8-K, and proxy filings to detect sentiment changes, risk factor shifts, and language anomalies that may precede adverse events."
+    use_cases:
+      - "Risk signal detection from regulatory filings"
+      - "Management language change analysis"
+      - "Governance and fraud risk screening"
+    target_segments:
+      - "Hedge Funds"
+      - "Asset Managers"
+      - "Credit Research Teams"
+    asset_classes:
+      - "Equities"
+      - "Fixed Income"
+    tags:
+      - sec
+      - filings
+      - risk
+      - governance
+      - nlp
+
+  - name: "Thematic Research Signals"
+    vendor: "Context Analytics"
+    description: "Tracks the rise and fall of investment themes (AI, clean energy, deglobalization, etc.) across news and financial content. Provides theme momentum scores and exposure mapping."
+    use_cases:
+      - "Thematic portfolio construction"
+      - "Narrative-driven investing research"
+      - "Sector rotation signals"
+    target_segments:
+      - "Asset Managers"
+      - "Thematic ETF Providers"
+      - "Research Desks"
+    asset_classes:
+      - "Equities"
+      - "Multi-Asset"
+    tags:
+      - thematic
+      - research
+      - narrative
+      - sector
+      - momentum

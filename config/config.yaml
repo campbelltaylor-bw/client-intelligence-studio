@@ -1,0 +1,9 @@
+use_mock_data: true
+web_research_provider: "claude"
+model: "claude-sonnet-4-6"
+max_web_pages: 3
+blog_catalog_path: "data/blog_catalog.csv"
+product_catalog_path: "data/context_analytics_products.yaml"
+mock_monday_path: "data/mock_monday_accounts.json"
+mock_web_research_path: "data/mock_web_research.json"
+outputs_dir: "outputs"

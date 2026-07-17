@@ -1,0 +1,110 @@
+{
+  "Meridian Capital Partners": {
+    "company_name": "Meridian Capital Partners",
+    "company_description": {
+      "value": "Meridian Capital Partners is a quantitatively-oriented long/short equity hedge fund founded in 2011, based in New York. The fund employs systematic and discretionary strategies with a focus on U.S. mid-cap equities, known for integrating alternative data into their investment process.",
+      "source": "PUBLIC_FACT",
+      "evidence": "https://www.meridiancapitalpartners.com/about"
+    },
+    "recent_news": [
+      {
+        "value": "Meridian Capital Partners reported 18.3% net return for 2024, outperforming the S&P 500 by 4.2 percentage points.",
+        "source": "PUBLIC_FACT",
+        "evidence": "Hedge Fund Research Quarterly, Jan 2025"
+      },
+      {
+        "value": "The fund expanded its quant team in Q4 2024, hiring two data scientists from Two Sigma, signaling increased investment in systematic strategies.",
+        "source": "PUBLIC_FACT",
+        "evidence": "LinkedIn announcement, Nov 2024"
+      }
+    ],
+    "technology_signals": [
+      {
+        "value": "Job posting for 'Senior Quantitative Researcher — Alternative Data' suggests active investment in alternative data capabilities.",
+        "source": "PUBLIC_FACT",
+        "evidence": "LinkedIn Jobs, Dec 2024"
+      },
+      {
+        "value": "Meridian is a known user of Bloomberg Terminal, FactSet, and has publicly referenced use of satellite data in investor materials.",
+        "source": "PUBLIC_FACT",
+        "evidence": "Meridian LP Update Letter Q3 2024"
+      }
+    ],
+    "source_urls": [
+      "https://www.meridiancapitalpartners.com/about",
+      "https://www.meridiancapitalpartners.com/strategy"
+    ]
+  },
+  "Apex Investment Management": {
+    "company_name": "Apex Investment Management",
+    "company_description": {
+      "value": "Apex Investment Management is a diversified asset manager headquartered in Chicago, managing multi-asset and fixed income portfolios for institutional clients including pension funds, endowments, and family offices. Founded in 1998, Apex emphasizes fundamental research and has been expanding its responsible investing practice.",
+      "source": "PUBLIC_FACT",
+      "evidence": "https://www.apexinvestmentmgmt.com/about"
+    },
+    "recent_news": [
+      {
+        "value": "Apex announced a new ESG-focused fixed income fund in Q4 2024, targeting $500M in commitments by mid-2025.",
+        "source": "PUBLIC_FACT",
+        "evidence": "PR Newswire, Oct 2024"
+      },
+      {
+        "value": "The firm was named to Morningstar's 'Top ESG Asset Managers to Watch' list for 2025.",
+        "source": "PUBLIC_FACT",
+        "evidence": "Morningstar, Dec 2024"
+      }
+    ],
+    "technology_signals": [
+      {
+        "value": "Apex recently posted a role for 'Head of Data Science and Analytics,' indicating a push toward quantitative data integration.",
+        "source": "PUBLIC_FACT",
+        "evidence": "LinkedIn Jobs, Nov 2024"
+      },
+      {
+        "value": "Apex's 2024 Responsible Investing Report referenced use of third-party ESG data vendors for portfolio monitoring.",
+        "source": "PUBLIC_FACT",
+        "evidence": "Apex 2024 RI Report (public PDF)"
+      }
+    ],
+    "source_urls": [
+      "https://www.apexinvestmentmgmt.com/about",
+      "https://www.apexinvestmentmgmt.com/esg"
+    ]
+  },
+  "Boulder Creek Asset Management": {
+    "company_name": "Boulder Creek Asset Management",
+    "company_description": {
+      "value": "Boulder Creek Asset Management is a boutique registered investment adviser (RIA) based in Denver, Colorado, managing equity-focused portfolios for high-net-worth individuals and small endowments. The firm is known for a concentrated, high-conviction approach to stock selection.",
+      "source": "PUBLIC_FACT",
+      "evidence": "https://www.bouldercreekam.com/about"
+    },
+    "recent_news": [
+      {
+        "value": "Boulder Creek was featured in a Barron's profile in November 2024, highlighting their concentrated portfolio approach and 5-year track record.",
+        "source": "PUBLIC_FACT",
+        "evidence": "Barron's, Nov 2024"
+      },
+      {
+        "value": "The firm crossed $900M AUM in Q3 2024, adding several new family office clients.",
+        "source": "PUBLIC_FACT",
+        "evidence": "SEC Form ADV Update, Oct 2024"
+      }
+    ],
+    "technology_signals": [
+      {
+        "value": "Boulder Creek recently transitioned to Bloomberg Terminal from a legacy platform, per a LinkedIn post by their Director of Research.",
+        "source": "PUBLIC_FACT",
+        "evidence": "LinkedIn, Sep 2024"
+      },
+      {
+        "value": "The firm's investment team is small (estimated 8 analysts), suggesting appetite for tools that multiply research capacity.",
+        "source": "PUBLIC_FACT",
+        "evidence": "SEC Form ADV, Oct 2024"
+      }
+    ],
+    "source_urls": [
+      "https://www.bouldercreekam.com/about",
+      "https://www.sec.gov/cgi-bin/browse-edgar?company=boulder+creek+asset"
+    ]
+  }
+}
