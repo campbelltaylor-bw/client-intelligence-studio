@@ -25,7 +25,8 @@ if not st.session_state.get("authenticated"):
     pwd = st.text_input("Password", type="password")
     if st.button("Sign in"):
         import os
-        if pwd == os.environ.get("APP_PASSWORD", "demo"):
+        app_password = os.environ.get("APP_PASSWORD")
+        if app_password and pwd == app_password:
             st.session_state.authenticated = True
             st.rerun()
         else:
