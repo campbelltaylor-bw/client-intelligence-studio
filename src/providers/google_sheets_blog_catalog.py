@@ -112,7 +112,7 @@ class GoogleSheetsBlogRepository(BlogCatalogProvider):
     # ------------------------------------------------------------------
 
     def _build_credentials(self):
-        """Build google-auth credentials from a service-account file."""
+        """Build google-auth credentials from a service-account file or Streamlit secrets."""
         try:
             from google.oauth2 import service_account
         except ImportError as exc:
@@ -120,20 +120,20 @@ class GoogleSheetsBlogRepository(BlogCatalogProvider):
                 "google-auth is not installed. Run: pip install google-auth"
             ) from exc
 
-        path = self._credentials_path
-        if not path:
-            # Try the standard GOOGLE_APPLICATION_CREDENTIALS env var
-            import os
-            path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "")
+        # 1. Try Streamlit secrets first (preferred on Streamlit Community Cloud).
+        creds = _try_streamlit_credentials(service_account, _SCOPES)
+        if creds is not None:
+            return creds
 
-        if not path:
-            # Try Streamlit secrets if available
-            path = _try_streamlit_credentials()
+        # 2. Fall back to a credentials file.
+        import os
+        path = self._credentials_path or os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "")
 
         if not path:
             raise GoogleSheetsError(
-                "No credentials found. Set GOOGLE_APPLICATION_CREDENTIALS to the path "
-                "of your service-account JSON file."
+                "No credentials found. Either add [gcp_service_account] to "
+                "Streamlit secrets, or set GOOGLE_APPLICATION_CREDENTIALS to "
+                "the path of your service-account JSON file."
             )
 
         import pathlib
@@ -145,15 +145,13 @@ class GoogleSheetsBlogRepository(BlogCatalogProvider):
             )
 
         try:
-            creds = service_account.Credentials.from_service_account_file(
+            return service_account.Credentials.from_service_account_file(
                 str(p), scopes=_SCOPES
             )
         except Exception as exc:
             raise GoogleSheetsError(
                 f"Invalid service-account credentials at {path}: {exc}"
             ) from exc
-
-        return creds
 
     def _fetch_sheet_values(self) -> list[list[str]]:
         """Call the Sheets API (read-only) and return the raw 2-D value array."""
@@ -327,25 +325,31 @@ def _redact_id(sheet_id: str) -> str:
     return sheet_id[:4] + "****" + sheet_id[-4:]
 
 
-def _try_streamlit_credentials() -> str:
-    """Return a credentials file path from st.secrets if available, else empty string."""
-    try:
-        import json
-        import os
-        import tempfile
+def _try_streamlit_credentials(service_account_module, scopes: list[str]):
+    """
+    Load credentials directly from st.secrets["gcp_service_account"] if present.
 
+    Returns a Credentials object, or None if secrets aren't available.
+    Using from_service_account_info() avoids temp-file issues on Streamlit
+    Community Cloud and correctly handles escaped newlines in private keys.
+    """
+    try:
         import streamlit as st  # noqa: PLC0415
 
         if "gcp_service_account" not in st.secrets:
-            return ""
+            return None
+
         creds_dict = dict(st.secrets["gcp_service_account"])
-        # Write to a temp file so google-auth can load it the normal way
-        fd, path = tempfile.mkstemp(suffix=".json")
-        with os.fdopen(fd, "w") as f:
-            json.dump(creds_dict, f)
-        return path
+
+        # Streamlit TOML parsing can leave private_key newlines escaped as \\n.
+        if "private_key" in creds_dict:
+            creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
+
+        return service_account_module.Credentials.from_service_account_info(
+            creds_dict, scopes=scopes
+        )
     except Exception:
-        return ""
+        return None
 
 
 class GoogleSheetsError(RuntimeError):
