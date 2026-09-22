@@ -9,3 +9,5 @@ pytest>=8.0
 monday-api-python-sdk>=1.6
 google-api-python-client>=2.0.0
 google-auth>=2.0.0
+pypdf>=4.0
+fpdf2>=2.7

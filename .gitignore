@@ -4,7 +4,8 @@ __pycache__/
 *.pyo
 .pytest_cache/
 .ruff_cache/
-outputs/*.json
+outputs/
+competitor_intelligence/outputs/
 *.egg-info/
 .venv/
 venv/
@@ -15,6 +16,10 @@ build/
 secrets/
 *service-account*.json
 *service_account*.json
+
+# R
+.Rhistory
+.RData
 
 # macOS
 .DS_Store

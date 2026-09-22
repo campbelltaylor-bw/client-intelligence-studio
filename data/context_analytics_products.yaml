@@ -1,6 +1,5 @@
 company:
   name: Context Analytics, Inc.
-  formerly: Social Market Analytics
   tagline: The Leader In Unstructured Data for Finance
   website: https://www.contextanalytics-ai.com
   contact: ContactUs@ContextAnalytics-AI.com
@@ -223,3 +222,51 @@ product_categories:
     examples:
       - TSLA
       - AAPL
+
+  - category: SentimentWise (Embedded Sentiment Widgets)
+    website: https://www.contextanalytics-ai.com/sentimentwise/
+    description: >
+      White-label, embeddable front-end widgets that surface CA's S-Factor
+      sentiment data in consumer-facing and institutional applications.
+      Licensed X data (not scraped); 1-minute refresh cadence; global coverage
+      across equities, ETFs, futures, forex, and crypto — per asset class,
+      never mixed. Proven at scale: the Market Sentiment Heatmap is live in
+      the Fidelity mobile app as its highest-engagement widget.
+    delivery:
+      - Embeddable widgets (available now)
+      - JSON API (coming soon)
+      - Raw data feeds
+    customization:
+      - "Score display: raw numeric, normalized (0-100), or English labels"
+      - "Universe: Russell 3000, S&P 500, or custom watchlist"
+      - AI summaries in any language
+      - Internal security ID mapping
+      - Coverage isolation (no mixed asset-class feeds)
+    products:
+      - name: Social Sentiment Movers
+        description: >
+          Top 10 positive and top 10 negative stocks ranked by sentiment shift.
+          Displays sentiment score, tweet volume, and dispersion for each name.
+          Ideal for surfacing momentum and retail flow signals at a glance.
+      - name: Market Sentiment Heatmap
+        description: >
+          Box size represents tweet volume; color represents sentiment direction
+          and intensity. Available at market-level or portfolio-level.
+          Live in Fidelity mobile app — highest-engagement widget on the platform.
+      - name: Social Sentiment Trend
+        description: >
+          Security-level deep dive showing 30-day, 6-month, and 1-year sentiment
+          history with an AI-generated summary of current drivers. Supports
+          fundamental and PM workflows that need longitudinal context.
+      - name: Sentiment Score & AI Summary
+        description: >
+          Real-time sentiment score for a single security paired with a live
+          AI-generated explanation of what is driving the score at that moment.
+          Customizable score format and summary language.
+    target_clients:
+      - Retail brokerage platforms embedding sentiment in their app or web UI
+      - Institutional portals adding sentiment overlays to existing dashboards
+      - Fintech companies white-labeling sentiment as a product feature
+    proof_points:
+      - "Fidelity mobile app: Market Sentiment Heatmap is the platform's highest-engagement widget"
+      - 1-minute refresh on licensed X data (not scraped)
