@@ -1,0 +1,54 @@
+product_categories:
+  - category: "AI Equity Ratings"
+    description: >
+      AI-generated buy/hold/sell ratings for global equities, produced by a proprietary
+      AI model trained on fundamental financial data. Ratings include detailed reasoning
+      and confidence scores, updated on a regular cadence.
+    products:
+      - name: "Bridgewise Equity Ratings"
+        coverage: "10,000+ global equities"
+        update_frequency: "Weekly"
+        deliverable_formats:
+          - "API"
+          - "Dashboard"
+          - "White-label embed"
+        target_audience: "RIAs, Asset Managers, Family Offices, Retail Brokerage Platforms"
+        use_cases:
+          - "Portfolio construction and stock screening"
+          - "Investment idea generation"
+          - "Portfolio manager workflow augmentation"
+          - "Second opinion on analyst recommendations"
+
+  - category: "Financial Research Augmentation"
+    description: >
+      AI-powered tools that help investment professionals generate, validate, and
+      distribute investment research and recommendations faster and at scale.
+    products:
+      - name: "AI-Powered Research Assistant"
+        coverage: "Global equities, multi-asset"
+        deliverable_formats:
+          - "API"
+          - "Dashboard"
+          - "Embedded widgets"
+        target_audience: "Wealth managers, RIAs, brokerage platforms"
+        use_cases:
+          - "Automated research report generation"
+          - "Client-facing investment commentary"
+          - "Compliance-ready AI outputs"
+
+  - category: "White-Label Investment Intelligence"
+    description: >
+      Embeddable AI investment intelligence widgets and APIs that financial institutions
+      can deploy under their own brand to power investor-facing digital experiences.
+    products:
+      - name: "Bridgewise Embedded Intelligence"
+        coverage: "Global equities"
+        deliverable_formats:
+          - "Embedded widgets"
+          - "White-label UI components"
+          - "API"
+        target_audience: "Retail brokerage platforms, digital wealth apps, neobrokers"
+        use_cases:
+          - "In-app stock analysis for retail investors"
+          - "AI-generated buy/sell reasoning for end-users"
+          - "Personalised portfolio insights at scale"

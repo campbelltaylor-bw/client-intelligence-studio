@@ -1,0 +1,78 @@
+competitors:
+- category: AI Investment Ratings
+  name: Danelfin
+  website: https://danelfin.com
+  why_relevant: AI-powered stock scoring platform that rates 1,000+ US and European
+    equities daily using ML models trained on 900+ features; direct overlap with
+    Bridgewise's AI equity ratings for retail and wealth management platforms.
+- category: AI Investment Ratings
+  name: TipRanks
+  website: https://www.tipranks.com
+  why_relevant: Aggregates analyst ratings, smart score AI rankings, and insider activity
+    signals for 10,000+ stocks; competes on AI-generated equity scoring and white-label
+    intelligence delivered to brokerage platforms.
+- category: AI Investment Ratings
+  name: Simply Wall St
+  website: https://simplywall.st
+  why_relevant: Visual AI-driven stock analysis and ratings platform used by retail
+    investors and wealth advisors; competes on AI equity insights and white-label embeds
+    for brokerage apps.
+- category: AI Investment Ratings
+  name: Tickeron
+  website: https://tickeron.com
+  why_relevant: AI trading patterns and buy/sell signals for equities and ETFs targeting
+    retail investors and RIAs; overlaps with Bridgewise on AI-generated investment
+    intelligence for individual investors.
+- category: Embedded Financial Intelligence
+  name: Intrinio
+  website: https://intrinio.com
+  why_relevant: Financial data API platform delivering fundamentals, news, and derived
+    analytics to fintech apps and wealth platforms; competes on embedded investment
+    intelligence delivered via API to brokerages.
+- category: Embedded Financial Intelligence
+  name: Barchart
+  website: https://www.barchart.com
+  why_relevant: Market data and analytics platform with white-label solutions for
+    brokerage and wealth management apps; overlaps on embedding investment data and
+    signals into third-party platforms.
+- category: Embedded Financial Intelligence
+  name: Morningstar Data
+  website: https://www.morningstar.com/products/data
+  why_relevant: Dominant incumbent in equity and fund ratings delivered to wealth
+    managers, RIAs, and retail brokerages; Bridgewise's AI ratings compete as a faster,
+    more dynamic alternative to Morningstar's periodic analyst ratings.
+- category: Embedded Financial Intelligence
+  name: FactSet
+  website: https://www.factset.com
+  why_relevant: Enterprise financial data and analytics platform with embedded solutions
+    for wealth management; competes on institutional and RIA market intelligence delivery
+    channels that Bridgewise targets.
+- category: AI Portfolio Tools
+  name: Kavout
+  website: https://www.kavout.com
+  why_relevant: AI stock ranking (K Score) and portfolio intelligence for institutional
+    and retail investors; direct competitor on AI-generated equity scores and buy/sell
+    signals for wealth platforms.
+- category: AI Portfolio Tools
+  name: Magnifi
+  website: https://www.magnifi.com
+  why_relevant: AI investment search and recommendation engine for retail investors
+    and advisors; competes on AI-generated investment guidance embedded into brokerage
+    and wealth management workflows.
+- category: AI Portfolio Tools
+  name: Equbot
+  website: https://www.equbot.com
+  why_relevant: AI-powered ETF and equity analysis platform (partners with AI Powered
+    Equity ETF); overlaps with Bridgewise on applying ML to equity selection for retail
+    and institutional audiences.
+- category: Wealth Tech Intelligence
+  name: YCharts
+  website: https://ycharts.com
+  why_relevant: Financial data and client communication tools for RIAs and wealth managers;
+    competes on delivering investment intelligence and data-driven insights to the
+    advisor market Bridgewise targets.
+- category: Wealth Tech Intelligence
+  name: Riskalyze (Nitrogen)
+  website: https://www.nitrogen.com
+  why_relevant: Risk-aligned portfolio intelligence platform for RIAs and advisors;
+    competes in the wealth tech ecosystem where Bridgewise embeds AI equity intelligence.

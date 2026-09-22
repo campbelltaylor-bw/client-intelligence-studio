@@ -1,0 +1,144 @@
+competitors:
+- category: News Sentiment & NLP
+  name: RavenPack
+  website: https://www.ravenpack.com
+  why_relevant: 'Leading NLP provider converting news, social media, filings, and
+    transcripts into structured sentiment scores and event data across 40,000+ sources
+    in 13 languages.
+
+    '
+- category: Document Intelligence
+  name: AlphaSense
+  website: https://www.alpha-sense.com
+  why_relevant: 'AI-powered market intelligence platform over 500M+ documents with
+    a generative AI research suite; used by 88% of S&P 100 companies and top hedge
+    funds.
+
+    '
+- category: Financial NLP & Sentiment
+  name: Accern
+  website: https://www.accern.com
+  why_relevant: 'No-code AI platform extracting signals from unstructured financial
+    data; direct overlap on sentiment scoring and alt-data synthesis for institutional
+    trading.
+
+    '
+- category: Financial NLP & Sentiment
+  name: Sentifi
+  website: https://www.sentifi.com
+  why_relevant: 'Transforms raw news and social data into investment-grade sentiment
+    analytics for institutional investors; direct overlap on sentiment and alt-data
+    products.
+
+    '
+- category: Financial NLP & Sentiment
+  name: Alexandria Technology
+  website: https://www.alexandriatechnology.com
+  why_relevant: 'ML-based sentiment analysis on news and SEC filings; extracts predictive
+    signals for institutional investment strategies — overlaps on filings and NLP
+    sentiment.
+
+    '
+- category: Alt-Data Discovery
+  name: Neudata
+  website: https://www.neudata.co
+  why_relevant: 'Curates 7,000+ alternative datasets across 19 categories including
+    sentiment, social media, and news; helps institutional investors source and evaluate
+    alt-data.
+
+    '
+- category: Alt-Data Discovery
+  name: Eagle Alpha
+  website: https://www.eaglealpha.com
+  why_relevant: 'Alt-data aggregation and discovery platform connecting institutional
+    buyers with thousands of data products including sentiment and web-scraped signals.
+
+    '
+- category: Alt-Data Marketplace
+  name: Quandl (Nasdaq Data Link)
+  website: https://data.nasdaq.com
+  why_relevant: 'Nasdaq''s curated alt-data marketplace with pricing, ESG, satellite
+    imagery, transaction panels, and web-derived sentiment for institutional investors.
+
+    '
+- category: Alt-Data Marketplace
+  name: Thinknum Alternative Data
+  website: https://www.thinknum.com
+  why_relevant: 'Web-scraped datasets (web traffic, jobs, geo, consumer signals) from
+    public sources used by hedge funds and asset managers for quantitative strategies.
+
+    '
+- category: Consumer & Transaction Data
+  name: YipitData
+  website: https://www.yipitdata.com
+  why_relevant: 'Aggregates billions of data points including credit card and email
+    receipt data; monitors real-time company performance for 1,000+ public companies.
+
+    '
+- category: Consumer & Transaction Data
+  name: M Science
+  website: https://www.mscience.com
+  why_relevant: 'KPI predictions, web traffic analysis, and credit card data for hedge
+    funds and asset managers; competes on alternative signal generation.
+
+    '
+- category: Private Company & Alternative Assets
+  name: Preqin
+  website: https://www.preqin.com
+  why_relevant: 'Specialist in alternative assets data (PE, hedge funds, VC); overlaps
+    directly with CA''s private company data product targeting institutional investors.
+
+    '
+- category: News Sentiment & NLP
+  name: Finnhub
+  website: https://finnhub.io
+  why_relevant: 'Real-time financial news API with sentiment scoring and market calendars;
+    developer-friendly overlap with CA''s quantitative news and sentiment data feeds.
+
+    '
+- category: Quantitative Alt-Data
+  name: Daloopa
+  website: https://www.daloopa.com
+  why_relevant: 'Macro sentiment, consumer spending, and KPI signals for hedge funds;
+    overlaps on alternative signal delivery to institutional investors.
+
+    '
+- category: Quantitative Alt-Data
+  name: Advan Research
+  website: https://www.advanresearch.com
+  why_relevant: 'Proprietary datasets and signals for quantitative trading; competes
+    in the broader alt-data signal space alongside RavenPack and Thinknum.
+
+    '
+- category: Financial NLP & Sentiment
+  name: Amenity Analytics
+  website: https://www.amenityanalytics.com
+  why_relevant: Amenity Analytics applies NLP to earnings calls, SEC filings, and
+    news to generate sentiment and risk signals for institutional investors, directly
+    overlapping with CA's S-Factor sentiment scores and machine-readable filings products.
+- category: Document Intelligence
+  name: Sentieo
+  website: https://www.sentieo.com
+  why_relevant: Sentieo provides AI-powered financial research including NLP-driven
+    search across SEC filings, earnings transcripts, and news with AI summaries, competing
+    directly with CA's machine-readable filings and AI-generated summary offerings.
+- category: Quantitative Alt-Data
+  name: Visible Alpha
+  website: https://www.visiblealpha.com
+  why_relevant: Visible Alpha aggregates and structures consensus data from sell-side
+    models and financial documents to deliver quantitative signals for institutional
+    investors, overlapping with CA's alt-data feeds targeting hedge funds and asset
+    managers.
+- category: News Sentiment & NLP
+  name: StockPulse
+  website: https://www.stockpulse.com
+  why_relevant: StockPulse delivers real-time social media and news sentiment analytics
+    on equities and crypto for institutional traders, competing directly with CA's
+    S-Factor social sentiment scores and quantitative news feed products.
+- category: News Sentiment & NLP
+  name: Meltwater
+  website: https://www.meltwater.com
+  why_relevant: Meltwater offers AI-driven media monitoring, social listening, and
+    sentiment analysis across news and social platforms, overlapping with CA's social
+    media sentiment and quantitative news feed products consumed by institutional
+    investors.
