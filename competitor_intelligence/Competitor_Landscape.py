@@ -19,6 +19,28 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+
+def _check_password() -> bool:
+    if st.session_state.get("authenticated"):
+        return True
+    app_password = st.secrets.get("APP_PASSWORD", "")
+    if not app_password:
+        return True  # no password configured — open access
+    st.markdown("## Competitor Landscape")
+    pwd = st.text_input("Password", type="password")
+    if st.button("Login", type="primary"):
+        if pwd == app_password:
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Incorrect password.")
+    return False
+
+
+if not _check_password():
+    st.stop()
+
+
 # Inject shared theme
 _css_path = Path(__file__).parent.parent / "app" / "components" / "_theme.css"
 if _css_path.exists():
