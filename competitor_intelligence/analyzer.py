@@ -116,10 +116,10 @@ def _parse_analysis(data: dict) -> CompetitiveAnalysis:
         if not isinstance(c, dict):
             continue
         comparisons.append(ProductComparison(
-            our_product=c.get("our_product", ""),
-            their_product=c.get("their_product"),
-            overlap_summary=c.get("overlap_summary", ""),
-            differentiator=c.get("differentiator", ""),
+            our_product=c.get("our_product") or "",
+            their_product=c.get("their_product") or "",
+            overlap_summary=c.get("overlap_summary") or "",
+            differentiator=c.get("differentiator") or "",
         ))
 
     raw_overlap = data.get("audience_overlap") or {}
