@@ -7,6 +7,7 @@ from competitor_intelligence.models import (
     CompetitiveAnalysis,
     CompetitorProfile,
     CompetitorReport,
+    NewsItem,
 )
 
 
@@ -25,35 +26,13 @@ def render_competitor_profile(profile: CompetitorProfile) -> None:
         _section_header("Mission Statement")
         st.markdown(f"> {profile.mission_statement}")
 
-    if profile.additional_locations:
-        _section_header("Additional Locations")
-        st.markdown("\n".join(f"- {loc}" for loc in profile.additional_locations))
-
-    if profile.products:
-        _section_header("Products")
-        for product in profile.products:
-            label = product.name
-            if product.launched:
-                label += f" (launched {product.launched})"
-            with st.expander(label):
-                if product.target_audience:
-                    st.markdown(f"**Target Audience:** {product.target_audience}")
-                if product.primary_users:
-                    st.markdown(f"**Primary Users:** {product.primary_users}")
-                if product.coverage:
-                    st.markdown(f"**Coverage:** {product.coverage}")
-                if product.use_cases:
-                    st.markdown("**Use Cases:**")
-                    st.markdown("\n".join(f"- {u}" for u in product.use_cases))
-                if product.deliverable_formats:
-                    st.markdown(f"**Deliverable Formats:** {', '.join(product.deliverable_formats)}")
-                if product.source_url:
-                    st.markdown(f"[Source]({product.source_url})")
-
     if profile.recent_news:
         _section_header("Recent News")
         for item in profile.recent_news:
-            st.markdown(f"- {item}")
+            if item.url:
+                st.markdown(f"- [{item.headline}]({item.url})")
+            else:
+                st.markdown(f"- {item.headline}")
 
 
 def render_comparative_analysis(analysis: CompetitiveAnalysis) -> None:
@@ -63,10 +42,10 @@ def render_comparative_analysis(analysis: CompetitiveAnalysis) -> None:
         unsafe_allow_html=True,
     )
 
-    if analysis.product_comparisons:
+    comparable = [c for c in analysis.product_comparisons if c.their_product]
+    if comparable:
         _section_header("Product Comparison")
-        for comp in analysis.product_comparisons:
-            their_label = comp.their_product if comp.their_product else "_No equivalent_"
+        for comp in comparable:
             html = f"""
 <div class="ca-card">
   <p class="ca-card__label">Our Product vs. Theirs</p>
@@ -75,7 +54,7 @@ def render_comparative_analysis(analysis: CompetitiveAnalysis) -> None:
       <strong style="font-size:0.9375rem;">{comp.our_product}</strong>
     </div>
     <div>
-      <strong style="font-size:0.9375rem;">{their_label}</strong>
+      <strong style="font-size:0.9375rem;">{comp.their_product}</strong>
     </div>
   </div>
   <p class="ca-card__body"><strong>Overlap:</strong> {comp.overlap_summary}</p>
@@ -85,54 +64,17 @@ def render_comparative_analysis(analysis: CompetitiveAnalysis) -> None:
 
     _section_header("Audience Overlap")
     ao = analysis.audience_overlap
-    col_shared, col_ours, col_theirs = st.columns(3)
+    col_shared, col_theirs = st.columns(2)
     with col_shared:
         st.markdown("**Shared Segments**")
         if ao.shared_segments:
             st.markdown("\n".join(f"- {s}" for s in ao.shared_segments))
         else:
             st.caption("None identified")
-    with col_ours:
-        st.markdown("**Our Exclusive Segments**")
-        if ao.our_exclusive_segments:
-            st.markdown("\n".join(f"- {s}" for s in ao.our_exclusive_segments))
-        else:
-            st.caption("None identified")
     with col_theirs:
         st.markdown("**Their Exclusive Segments**")
         if ao.their_exclusive_segments:
             st.markdown("\n".join(f"- {s}" for s in ao.their_exclusive_segments))
-        else:
-            st.caption("None identified")
-
-    st.markdown("---")
-    col_our_str, col_their_str = st.columns(2)
-    with col_our_str:
-        _section_header("Our Strengths")
-        if analysis.our_strengths:
-            st.markdown("\n".join(f"- {s}" for s in analysis.our_strengths))
-        else:
-            st.caption("None identified")
-    with col_their_str:
-        _section_header("Their Strengths")
-        if analysis.their_strengths:
-            st.markdown("\n".join(f"- {s}" for s in analysis.their_strengths))
-        else:
-            st.caption("None identified")
-
-    st.markdown("---")
-    _section_header("Coverage Gaps")
-    col_gap_ours, col_gap_theirs = st.columns(2)
-    with col_gap_ours:
-        st.markdown("**We cover, they don't**")
-        if analysis.gaps.we_cover_they_dont:
-            st.markdown("\n".join(f"- {g}" for g in analysis.gaps.we_cover_they_dont))
-        else:
-            st.caption("None identified")
-    with col_gap_theirs:
-        st.markdown("**They cover, we don't**")
-        if analysis.gaps.they_cover_we_dont:
-            st.markdown("\n".join(f"- {g}" for g in analysis.gaps.they_cover_we_dont))
         else:
             st.caption("None identified")
 
@@ -195,13 +137,6 @@ def render_battle_card(battle_card: BattleCard, company_short: str = "CA") -> No
 
 
 def render_sources_and_export(report: CompetitorReport) -> None:
-    _section_header("Sources Cited")
-    if report.competitor_profile.source_urls:
-        for url in report.competitor_profile.source_urls:
-            st.markdown(f"- [{url}]({url})")
-    else:
-        st.caption("No sources recorded.")
-
     _section_header("Our Profile Files Loaded")
     if report.our_profile_files_loaded:
         for fname in report.our_profile_files_loaded:

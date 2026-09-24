@@ -15,13 +15,13 @@ COMPETITOR_RESEARCH_USER = """Research the following company and return a JSON o
 {{
   "company_name": "...",
   "website": "URL or null",
-  "about": "2-4 sentence company description",
-  "company_size": "headcount range or funding stage if known, else null",
-  "headquarters": "City, Country or null",
-  "additional_locations": ["office city 1", "office city 2"],
+  "about": "2-4 sentences on what the company does and what market it serves. Include whether they operate globally or are regionally focused. Do not repeat company size, headquarters, or founded year. Do not include quarterly earnings or financial results.",
+  "company_size": "latest reported headcount or headcount range — no 'as of' date, or null",
+  "headquarters": "City and Country only — no street address or postal code, or null",
+  "additional_locations": [],
   "founded": "year as string or null",
   "mission_statement": "exact quote or close paraphrase if found, else null",
-  "market_cap": "string like '$2.1B' or 'private' or null",
+  "market_cap": "publicly reported valuation as a dollar figure (e.g. '$2.1B'), or 'private' if not publicly traded, or null. Do not include funding round details.",
   "products": [
     {{
       "name": "product name",
@@ -34,9 +34,15 @@ COMPETITOR_RESEARCH_USER = """Research the following company and return a JSON o
       "source_url": "URL where this product info was found"
     }}
   ],
-  "recent_news": ["news headline with date if known — up to 8 items from last 18 months"],
+  "recent_news": [
+    {{"headline": "news headline with date", "url": "source URL or null"}}
+  ],
   "source_urls": ["all URLs cited across the research"]
 }}
+
+Notes:
+- recent_news: up to 6 items from the past 6 months only. Each item must be an object with "headline" and "url" fields.
+- additional_locations: always return an empty array [].
 
 Company to research: {company_name}
 {website_hint}
@@ -141,25 +147,25 @@ COMPETITIVE_ANALYSIS_USER = """Produce a competitive analysis of {company_name} 
 Return a JSON object with this exact structure:
 
 {{
-  "executive_summary": "3-5 sentence strategic summary of how we compare",
+  "executive_summary": "2-3 sentence strategic summary. Open by classifying whether {company_name} is a direct competitor (offers the same product type as {our_company_name}) or an adjacent/complementary player (e.g. an intelligence/research platform, a trading terminal). Do not include {company_name}'s valuation, ARR, or detailed technical specifications.",
   "product_comparisons": [
     {{
       "our_product": "{our_company_name} product name",
       "their_product": "competitor product name or null if no equivalent",
       "overlap_summary": "what both products have in common",
-      "differentiator": "what makes each distinct — be specific"
+      "differentiator": "1-sentence differentiator — concise and non-technical. State the meaningful difference without elaborating on either product's full capabilities."
     }}
   ],
   "audience_overlap": {{
-    "shared_segments": ["investor type or persona both companies serve"],
-    "our_exclusive_segments": ["segment {our_company_name} serves that they do not"],
-    "their_exclusive_segments": ["segment they serve that {our_company_name} does not"]
+    "shared_segments": ["Job title only — e.g. 'Quantitative Analyst', 'Portfolio Manager'"],
+    "our_exclusive_segments": [],
+    "their_exclusive_segments": ["Job title only — e.g. 'Equity Research Analyst'"]
   }},
-  "our_strengths": ["specific {our_company_name} advantage with brief supporting evidence"],
-  "their_strengths": ["specific competitor advantage with brief supporting evidence"],
+  "our_strengths": [],
+  "their_strengths": [],
   "gaps": {{
-    "we_cover_they_dont": ["data type, asset class, or capability {our_company_name} has but they lack"],
-    "they_cover_we_dont": ["data type, asset class, or capability they have but {our_company_name} lacks"]
+    "we_cover_they_dont": [],
+    "they_cover_we_dont": []
   }}
 }}
 
@@ -171,8 +177,10 @@ Your job is to create crisp, conversation-ready battle cards for sales reps comp
 
 RULES:
 - Write for a sales rep who has 30 seconds to scan this before a call.
-- Every differentiator must be a single punchy sentence — no jargon, no hedging.
-- Objection responses must be direct and confident, not defensive.
+- Each differentiator is exactly one sentence — what {our_company_name} has that the competitor does not. No second clause, no elaboration.
+- Objection questions must be tailored to the audiences identified in the competitive analysis. Do not invent objections for audiences not present in the analysis.
+- Objection responses focus on what differentiates the offering — not on explaining {our_company_name}'s full product suite. Maintain a direct, professional tone.
+- Discovery questions must be accessible to a non-technical sales rep — avoid jargon and technical specifications. Focus on buyer pain points and use cases.
 - Be honest about when the competitor is a better fit — sales reps need to qualify deals, not spin them.
 - Return ONLY a valid JSON object — no markdown fences, no commentary.
 """
@@ -187,14 +195,14 @@ Return a JSON object with this exact structure:
 {{
   "positioning_statement": "One crisp sentence: what makes {our_company_name} distinctly different from {company_name}.",
   "top_differentiators": [
-    "Differentiator 1 — specific, punchy, evidence-backed",
-    "Differentiator 2",
-    "Differentiator 3"
+    "Single punchy sentence: what {our_company_name} has that {company_name} doesn't.",
+    "Single punchy sentence: what {our_company_name} has that {company_name} doesn't.",
+    "Single punchy sentence: what {our_company_name} has that {company_name} doesn't."
   ],
   "objection_handlers": [
     {{
-      "objection": "We already use {company_name} for [specific capability].",
-      "response": "Direct, confident {our_company_short} response — acknowledge their point, then pivot to what {our_company_name} adds."
+      "objection": "Objection a prospect from the identified audiences would actually raise.",
+      "response": "Direct, professional response focused on what differentiates {our_company_name}'s offering."
     }}
   ],
   "when_ca_wins": [
@@ -204,7 +212,7 @@ Return a JSON object with this exact structure:
     "Honest scenario where {company_name} is genuinely the better fit — helps reps qualify deals"
   ],
   "discovery_questions": [
-    "Question a rep can ask to surface {our_company_name}'s advantage or expose a gap in the competitor's offering"
+    "Plain-language question a rep can ask to surface a pain point or use case where {our_company_name} adds value"
   ]
 }}
 

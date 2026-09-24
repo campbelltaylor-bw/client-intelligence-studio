@@ -337,7 +337,7 @@ if st.session_state.report:
         "Competitor Profile",
         "Comparative Analysis",
         "Battle Card",
-        "Sources & Export",
+        "Export",
     ])
 
     with tab1:

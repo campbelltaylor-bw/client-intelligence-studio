@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class CompetitorProduct(BaseModel):
@@ -15,6 +15,11 @@ class CompetitorProduct(BaseModel):
     source_url: Optional[str] = None
 
 
+class NewsItem(BaseModel):
+    headline: str
+    url: Optional[str] = None
+
+
 class CompetitorProfile(BaseModel):
     company_name: str
     website: Optional[str] = None
@@ -26,8 +31,19 @@ class CompetitorProfile(BaseModel):
     mission_statement: Optional[str] = None
     market_cap: Optional[str] = None
     products: list[CompetitorProduct] = Field(default_factory=list)
-    recent_news: list[str] = Field(default_factory=list)
+    recent_news: list[NewsItem] = Field(default_factory=list)
     source_urls: list[str] = Field(default_factory=list)
+
+    @field_validator('recent_news', mode='before')
+    @classmethod
+    def coerce_news_items(cls, v):
+        result = []
+        for item in v:
+            if isinstance(item, str):
+                result.append({'headline': item})
+            else:
+                result.append(item)
+        return result
 
 
 class ProductComparison(BaseModel):

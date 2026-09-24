@@ -38,7 +38,7 @@ class AppConfig:
     our_company_name: str = "Context Analytics"
     our_company_short: str = "CA"
     model: str = "claude-sonnet-4-6"
-    research_model: str = "claude-haiku-4-5-20251001"
+    research_model: str = "claude-sonnet-4-6"
     products_yaml_path: Path = field(
         default_factory=lambda: _PROJECT_ROOT / "data" / "context_analytics_products.yaml"
     )
