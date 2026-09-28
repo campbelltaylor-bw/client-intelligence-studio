@@ -232,7 +232,7 @@ def _profile_section(pdf: _PDF, report: CompetitorReport) -> None:
     if p.recent_news:
         pdf.section_title("Recent News")
         for item in p.recent_news:
-            pdf.bullet(item)
+            pdf.bullet(item.headline)
 
 
 def _analysis_section(pdf: _PDF, report: CompetitorReport) -> None:
