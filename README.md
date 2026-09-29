@@ -104,6 +104,24 @@ docker run -p 8501:8501 -e ANTHROPIC_API_KEY=sk-ant-... client-intelligence-stud
 
 ---
 
+## Competitor Intelligence
+
+A separate Streamlit app for competitive research, included in this repo under `competitor_intelligence/`.
+
+```bash
+streamlit run competitor_intelligence/Competitor_Landscape.py
+```
+
+Enter a competitor name → Claude searches the web → generates a structured profile, comparative analysis, and sales battle card. Toggle between **Context Analytics** and **Bridgewise** modes via the sidebar.
+
+- Reports are cached to `outputs/ca/` or `outputs/bridgewise/`
+- Bridgewise mode draws on a curated profile library in `competitor_intelligence/bridgewise_profile/` (ICP, segments, personas, positioning, sales cycle, and more)
+- A second page (`pages/1_Product_Landscape.py`) scans the market for companies competing in a given product category
+
+See [`competitor_intelligence/README.md`](competitor_intelligence/README.md) for full documentation.
+
+---
+
 ## Security notes
 
 - `ClientFacingOutputs` structurally excludes all CRM fields — internal data cannot leak into client-facing content

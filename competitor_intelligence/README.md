@@ -47,7 +47,22 @@ Drop any files here to give Claude more context about CA when generating analyse
 The master CA product catalog (`data/context_analytics_products.yaml`) is always loaded first — no need to duplicate it here.
 
 ### `bridgewise_profile/` — Bridgewise reference materials
-Same behaviour as above, but used when the app is in Bridgewise mode. Currently contains the Bridgewise logo and product slides. Add more `.yaml`/`.md`/`.pdf` files here to enrich BW analysis.
+Same behaviour as above, but used when the app is in Bridgewise mode. Contains the following profile docs that Claude draws on when generating analyses and battle cards:
+
+| File | Purpose in analysis |
+|------|---------------------|
+| `boilerplate.md` | Approved product names and official descriptions |
+| `company-segments.md` | 10 priority segments — used for audience overlap mapping |
+| `icp-overview.md` | Anchor ICP, four capabilities, the Ready Moment, retail proof chain (10% → 1 in 8 → 1.8x) |
+| `personas.md` | 11 buying titles with pain points and objections — used to tailor objection handlers |
+| `positioning-and-moat.md` | Four moats and head-to-head positioning — primary source for competitive strengths |
+| `sales-cycle.md` | Proof points gated by audience type (retail / advisory / quant) |
+| `voice-and-tone.md` | Brand voice reference |
+| `writing-rules.md` | Naming conventions and approved terminology |
+
+The analysis prompt includes explicit guidance telling Claude which section to use for each output field. The battle card generation also receives the full profile so objection handlers and differentiators are grounded in actual Bridgewise data.
+
+To refresh a cached report with updated profile content, delete its JSON from `outputs/bridgewise/` and re-research the competitor.
 
 ---
 
@@ -78,7 +93,7 @@ outputs/
 1. **Research** — `CompetitorResearcher` (Haiku) runs a web search tool loop, up to 5 searches, returns a structured `CompetitorProfile`
 2. **Profile load** — `load_our_profile()` reads the active company's profile dir (YAML → MD → PDF)
 3. **Analysis** — `CompetitorAnalyzer` (Sonnet) compares competitor vs. our profile, returns `CompetitiveAnalysis`
-4. **Battle card** — `generate_battle_card()` (Sonnet) distills the analysis into a rep-ready card
+4. **Battle card** — `generate_battle_card()` (Sonnet) receives both the analysis and the full profile text; generates objection handlers, differentiators, and win/loss scenarios grounded in actual profile data
 5. **Cache** — Full report saved to `outputs/{mode}/competitor_{slug}_{timestamp}.json`
 
 ### Model split
