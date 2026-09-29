@@ -59,12 +59,14 @@ def generate_battle_card(
     analysis: CompetitiveAnalysis,
     our_company_name: str = "Context Analytics",
     our_company_short: str = "CA",
+    our_profile_text: str = "",
 ) -> BattleCard:
     system = BATTLE_CARD_SYSTEM.format(our_company_name=our_company_name)
     prompt = BATTLE_CARD_USER.format(
         company_name=company_name,
         our_company_name=our_company_name,
         our_company_short=our_company_short,
+        our_profile_text=our_profile_text,
         analysis_json=analysis.model_dump_json(indent=2),
     )
     client = anthropic.Anthropic(api_key=api_key)

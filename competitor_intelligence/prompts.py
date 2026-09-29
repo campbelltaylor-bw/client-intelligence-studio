@@ -141,6 +141,14 @@ COMPETITIVE_ANALYSIS_USER = """Produce a competitive analysis of {company_name} 
 === OUR PROFILE ({our_company_name}) ===
 {our_profile_text}
 
+=== HOW TO USE THE PROFILE SECTIONS ===
+- BOILERPLATE.MD — approved product names and official descriptions
+- COMPANY-SEGMENTS.MD — 10 priority segments in priority order; draw on these when populating audience_overlap (shared_segments, our_exclusive_segments)
+- ICP-OVERVIEW.MD — anchor ICP, the four capabilities, the Ready Moment, and the approved retail proof chain (10% of alerts clicked → 1 in 8 becomes a trade → 1.8x revenue from {our_company_name} users); use for our_strengths and executive summary framing
+- PERSONAS.MD — 11 buying titles with pain points and objections; use for identifying realistic shared_segments
+- POSITIONING-AND-MOAT.MD — the four deepest moats and head-to-head positioning; primary source for we_cover_they_dont and our_strengths
+- SALES-CYCLE.MD — which proof points apply to retail vs. advisory vs. quant audiences; do not cite retail metrics in advisory comparisons
+
 === COMPETITOR PROFILE (from web research) ===
 {competitor_profile_json}
 
@@ -186,6 +194,15 @@ RULES:
 """
 
 BATTLE_CARD_USER = """Create a sales battle card for competing against {company_name}.
+
+=== OUR PROFILE ({our_company_name}) ===
+{our_profile_text}
+
+Draw on the profile as follows:
+- PERSONAS.MD — tailor each objection_handlers entry to a buying title that actually appears in this deal (e.g. CPO, Head of Compliance, CTO)
+- ICP-OVERVIEW.MD — use the retail proof chain (10% → 1 in 8 → 1.8x) only when responding to retail-audience objections; do not cite it for advisory or quant audiences
+- POSITIONING-AND-MOAT.MD — use the four moats (exchange partnerships, regulated position, multilingual, four-capability system) as the basis for top_differentiators
+- SALES-CYCLE.MD — use deal-type and buyer-type context for when_ca_wins / when_they_win scenarios
 
 === COMPETITIVE ANALYSIS (source of truth) ===
 {analysis_json}

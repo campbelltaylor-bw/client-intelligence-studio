@@ -266,6 +266,7 @@ def _run_research(name: str, url: str | None, product_search: bool = False) -> N
                 analysis,
                 our_company_name=our_company_name,
                 our_company_short=our_company_short,
+                our_profile_text=our_text,
             )
 
             st.write("Saving report...")
@@ -376,7 +377,11 @@ if st.session_state.report:
             st.info("This report was generated before the Battle Card feature.")
             if st.button("Generate Battle Card", type="primary"):
                 from competitor_intelligence.analyzer import generate_battle_card
+                from competitor_intelligence.profile_loader import load_our_profile
                 with st.spinner(f"Generating battle card for {report.competitor_profile.company_name}..."):
+                    _bc_profile_text, _ = load_our_profile(
+                        _config.products_yaml_path, _config.our_profile_dir
+                    )
                     bc = generate_battle_card(
                         _config.anthropic_api_key,
                         _config.model,
@@ -384,6 +389,7 @@ if st.session_state.report:
                         report.competitive_analysis,
                         our_company_name=_config.our_company_name,
                         our_company_short=_config.our_company_short,
+                        our_profile_text=_bc_profile_text,
                     )
                 report = report.model_copy(update={"battle_card": bc})
                 _save_report(report, _config.outputs_dir)
