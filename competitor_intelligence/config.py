@@ -7,22 +7,21 @@ from dotenv import load_dotenv
 load_dotenv()
 
 _HERE = Path(__file__).parent
-_PROJECT_ROOT = _HERE.parent
 
 _COMPANY_CONFIGS = {
     "ca": {
         "our_company_name": "Context Analytics",
         "our_company_short": "CA",
-        "products_yaml_path": _PROJECT_ROOT / "data" / "context_analytics_products.yaml",
+        "products_yaml_path": _HERE / "data" / "context_analytics_products.yaml",
         "our_profile_dir": _HERE / "our_profile",
         "outputs_dir": _HERE / "outputs" / "ca",
-        "logo_path": _PROJECT_ROOT / "assets" / "context_analytics_logo.png",
+        "logo_path": _HERE / "assets" / "context_analytics_logo.png",
         "watchlist_path": _HERE / "competitors_to_watch.yaml",
     },
     "bridgewise": {
         "our_company_name": "Bridgewise",
         "our_company_short": "Bridgewise",
-        "products_yaml_path": _PROJECT_ROOT / "data" / "bridgewise_products.yaml",
+        "products_yaml_path": _HERE / "data" / "bridgewise_products.yaml",
         "our_profile_dir": _HERE / "bridgewise_profile",
         "outputs_dir": _HERE / "outputs" / "bridgewise",
         "logo_path": _HERE / "bridgewise_profile" / "Bridgewise-Logo_new.webp",
@@ -40,7 +39,7 @@ class AppConfig:
     model: str = "claude-sonnet-4-6"
     research_model: str = "claude-sonnet-4-6"
     products_yaml_path: Path = field(
-        default_factory=lambda: _PROJECT_ROOT / "data" / "context_analytics_products.yaml"
+        default_factory=lambda: _HERE / "data" / "context_analytics_products.yaml"
     )
     our_profile_dir: Path = field(
         default_factory=lambda: _HERE / "our_profile"
@@ -49,7 +48,7 @@ class AppConfig:
         default_factory=lambda: _HERE / "outputs" / "ca"
     )
     logo_path: Path = field(
-        default_factory=lambda: _PROJECT_ROOT / "assets" / "context_analytics_logo.png"
+        default_factory=lambda: _HERE / "assets" / "context_analytics_logo.png"
     )
     watchlist_path: Path = field(
         default_factory=lambda: _HERE / "competitors_to_watch.yaml"

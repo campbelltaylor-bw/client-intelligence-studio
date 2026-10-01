@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitor Intelligence — QA Preview</title>
+<style>
+/* ============================================================
+   CLIENT INTELLIGENCE STUDIO — DESIGN SYSTEM
+   Injected via inject_theme() in app/components/ui.py
+   ============================================================ */
+
+/* --- DESIGN TOKENS ----------------------------------------- */
+:root {
+  --ca-bg-page:        #f8fafc;
+  --ca-bg-surface:     #ffffff;
+  --ca-bg-raised:      #f1f5f9;
+  --ca-border:         #e2e8f0;
+  --ca-border-strong:  #cbd5e1;
+
+  --ca-text-primary:   #0f172a;
+  --ca-text-secondary: #475569;
+  --ca-text-muted:     #94a3b8;
+
+  --ca-accent:         #2563eb;
+  --ca-accent-hover:   #1d4ed8;
+  --ca-accent-light:   #dbeafe;
+  --ca-accent-subtle:  #eff6ff;
+
+  --ca-green:          #16a34a;
+  --ca-green-bg:       #f0fdf4;
+  --ca-green-border:   #bbf7d0;
+  --ca-amber:          #d97706;
+  --ca-amber-bg:       #fffbeb;
+  --ca-amber-border:   #fde68a;
+  --ca-red:            #dc2626;
+  --ca-red-bg:         #fef2f2;
+  --ca-red-border:     #fecaca;
+
+  --ca-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --ca-font-mono: "SF Mono", "Fira Code", Consolas, monospace;
+
+  --ca-radius-sm: 3px;
+  --ca-radius:    6px;
+  --ca-radius-lg: 10px;
+  --ca-shadow:    0 1px 3px 0 rgba(15,23,42,0.08), 0 1px 2px -1px rgba(15,23,42,0.04);
+}
+
+/* --- PAGE -------------------------------------------------- */
+
+[data-testid="stApp"],
+[data-testid="stAppViewContainer"] {
+  background-color: var(--ca-bg-page) !important;
+  font-family: var(--ca-font);
+  color: var(--ca-text-primary);
+}
+
+[data-testid="stMainBlockContainer"] {
+  max-width: 1160px !important;
+  padding: 1.5rem 2.5rem 3rem !important;
+  margin: 0 auto !important;
+}
+
+[data-testid="stHeader"] {
+  display: none !important;
+}
+
+/* Remove the gap Streamlit leaves for the hidden header */
+[data-testid="stAppViewContainer"] > section:first-child {
+  padding-top: 0 !important;
+}
+
+/* Hide the footer "Made with Streamlit" bar */
+footer {
+  display: none !important;
+}
+
+/* Hide the hamburger / main menu */
+#MainMenu {
+  display: none !important;
+}
+
+/* --- SIDEBAR ---------------------------------------------- */
+
+[data-testid="stSidebar"] {
+  background-color: var(--ca-bg-surface) !important;
+  border-right: 1px solid var(--ca-border) !important;
+}
+
+[data-testid="stSidebarContent"],
+[data-testid="stSidebarUserContent"] {
+  padding: 1.25rem 1rem !important;
+}
+
+.ca-sidebar-built-by {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ca-border);
+  font-size: 0.75rem;
+  color: var(--ca-text-muted);
+  text-align: center;
+  font-family: var(--ca-font);
+}
+
+/* --- TYPOGRAPHY ------------------------------------------- */
+
+h1 {
+  font-family: var(--ca-font) !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  color: var(--ca-text-primary) !important;
+  line-height: 1.3 !important;
+}
+
+h2 {
+  font-family: var(--ca-font) !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: var(--ca-text-primary) !important;
+  letter-spacing: -0.015em !important;
+}
+
+h3 {
+  font-family: var(--ca-font) !important;
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  color: var(--ca-text-primary) !important;
+}
+
+[data-testid="stMarkdown"] p,
+[data-testid="stMarkdown"] li {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ca-text-primary);
+}
+
+/* --- METRICS ---------------------------------------------- */
+
+[data-testid="stMetric"] {
+  background-color: var(--ca-bg-surface) !important;
+  border: 1px solid var(--ca-border) !important;
+  border-radius: var(--ca-radius-lg) !important;
+  padding: 0.875rem 1.125rem !important;
+  box-shadow: var(--ca-shadow) !important;
+}
+
+[data-testid="stMetricLabel"] {
+  font-size: 0.6875rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.07em !important;
+  color: var(--ca-text-secondary) !important;
+}
+
+[data-testid="stMetricValue"] {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: var(--ca-text-primary) !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.25 !important;
+}
+
+/* --- TABS ------------------------------------------------- */
+
+[data-testid="stTabs"] {
+  margin-bottom: 0 !important;
+}
+
+/* Tab button (role="tab" is stable ARIA attribute) */
+[data-testid="stTabs"] [role="tab"] {
+  font-family: var(--ca-font) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  color: var(--ca-text-secondary) !important;
+  letter-spacing: 0.01em !important;
+  padding: 0.625rem 1rem !important;
+  border-bottom: 2px solid transparent !important;
+  transition: color 0.15s ease, border-color 0.15s ease !important;
+}
+
+[data-testid="stTabs"] [role="tab"]:hover {
+  color: var(--ca-text-primary) !important;
+}
+
+[data-testid="stTabs"] [role="tab"][aria-selected="true"] {
+  color: var(--ca-accent) !important;
+  border-bottom-color: var(--ca-accent) !important;
+  font-weight: 600 !important;
+}
+
+[data-testid="stTabs"] [role="tabpanel"] {
+  padding-top: 1.5rem !important;
+}
+
+/* --- BUTTONS ---------------------------------------------- */
+
+/* Primary */
+[data-testid="baseButton-primary"],
+[data-testid="stButton"] button[kind="primary"] {
+  background-color: var(--ca-accent) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--ca-accent) !important;
+  border-radius: var(--ca-radius) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  letter-spacing: 0.01em !important;
+  transition: background-color 0.15s ease !important;
+}
+
+[data-testid="baseButton-primary"]:hover,
+[data-testid="stButton"] button[kind="primary"]:hover {
+  background-color: var(--ca-accent-hover) !important;
+  border-color: var(--ca-accent-hover) !important;
+}
+
+/* Secondary */
+[data-testid="baseButton-secondary"],
+[data-testid="stButton"] button[kind="secondary"] {
+  background-color: var(--ca-bg-surface) !important;
+  color: var(--ca-text-primary) !important;
+  border: 1px solid var(--ca-border-strong) !important;
+  border-radius: var(--ca-radius) !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease !important;
+}
+
+[data-testid="baseButton-secondary"]:hover,
+[data-testid="stButton"] button[kind="secondary"]:hover {
+  background-color: var(--ca-bg-raised) !important;
+  border-color: var(--ca-accent) !important;
+}
+
+/* Tertiary / ghost */
+[data-testid="baseButton-tertiary"],
+[data-testid="stButton"] button[kind="tertiary"] {
+  background: transparent !important;
+  color: var(--ca-text-secondary) !important;
+  border: none !important;
+  border-radius: var(--ca-radius) !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+}
+
+[data-testid="baseButton-tertiary"]:hover,
+[data-testid="stButton"] button[kind="tertiary"]:hover {
+  background-color: var(--ca-bg-raised) !important;
+  color: var(--ca-text-primary) !important;
+}
+
+/* Disabled */
+[data-testid="stButton"] button:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+}
+
+/* --- ALERTS ----------------------------------------------- */
+
+[data-testid="stAlert"] {
+  border-radius: var(--ca-radius) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1rem !important;
+}
+
+/* --- EXPANDERS -------------------------------------------- */
+
+[data-testid="stExpander"] {
+  border: 1px solid var(--ca-border) !important;
+  border-radius: var(--ca-radius) !important;
+  background-color: var(--ca-bg-surface) !important;
+  margin-bottom: 0.5rem !important;
+  box-shadow: var(--ca-shadow) !important;
+  overflow: hidden !important;
+}
+
+[data-testid="stExpanderDetails"] {
+  padding: 1rem !important;
+}
+
+/* --- INPUTS ----------------------------------------------- */
+
+[data-testid="stTextInput"] input,
+[data-testid="stTextArea"] textarea {
+  border: 1px solid var(--ca-border-strong) !important;
+  border-radius: var(--ca-radius) !important;
+  background-color: var(--ca-bg-surface) !important;
+  font-size: 0.9375rem !important;
+  color: var(--ca-text-primary) !important;
+  font-family: var(--ca-font) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+[data-testid="stTextInput"] input:focus,
+[data-testid="stTextArea"] textarea:focus {
+  border-color: var(--ca-accent) !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12) !important;
+  outline: none !important;
+}
+
+/* Widget labels */
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] label {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  color: var(--ca-text-secondary) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* --- PROGRESS BAR ----------------------------------------- */
+
+[data-testid="stProgressBar"] > div {
+  background-color: var(--ca-accent-light) !important;
+  border-radius: var(--ca-radius-sm) !important;
+  height: 6px !important;
+}
+
+[data-testid="stProgressBar"] > div > div {
+  background-color: var(--ca-accent) !important;
+  border-radius: var(--ca-radius-sm) !important;
+}
+
+/* --- DIVIDER ---------------------------------------------- */
+
+hr {
+  border: none !important;
+  border-top: 1px solid var(--ca-border) !important;
+  margin: 1.25rem 0 !important;
+}
+
+/* --- SELECTBOX -------------------------------------------- */
+
+[data-testid="stSelectbox"] > div > div {
+  border: 1px solid var(--ca-border-strong) !important;
+  border-radius: var(--ca-radius) !important;
+  background-color: var(--ca-bg-surface) !important;
+}
+
+/* --- SCROLLBAR (WebKit) ----------------------------------- */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--ca-bg-page); }
+::-webkit-scrollbar-thumb { background: var(--ca-border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ca-text-muted); }
+
+/* ============================================================
+   CUSTOM COMPONENT CLASSES
+   ============================================================ */
+
+/* --- APP HEADER ------------------------------------------- */
+
+.ca-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--ca-border);
+  margin-bottom: 1.75rem;
+}
+
+.ca-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ca-header__text-block { display: flex; flex-direction: column; gap: 2px; }
+
+.ca-header__title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--ca-text-primary);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.ca-header__subtitle {
+  font-size: 0.8125rem;
+  color: var(--ca-text-secondary);
+  margin: 0;
+}
+
+.ca-header__status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  align-items: flex-start;
+  padding-top: 0.25rem;
+}
+
+/* --- SIDEBAR NAV ------------------------------------------ */
+
+.ca-sidebar-logo {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--ca-border);
+}
+
+.ca-nav-section-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ca-text-muted);
+  padding: 0 0.75rem;
+  margin: 1rem 0 0.375rem;
+}
+
+.ca-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4375rem 0.75rem;
+  border-radius: var(--ca-radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ca-text-secondary);
+  margin-bottom: 0.125rem;
+  line-height: 1.4;
+}
+
+.ca-nav-item--active {
+  background-color: var(--ca-accent-subtle);
+  color: var(--ca-accent);
+  font-weight: 600;
+}
+
+.ca-nav-item__step {
+  font-size: 0.625rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ca-border);
+  color: var(--ca-text-secondary);
+  flex-shrink: 0;
+}
+
+.ca-nav-item--active .ca-nav-item__step {
+  background-color: var(--ca-accent);
+  color: #ffffff;
+}
+
+.ca-sidebar-about {
+  margin-top: 1rem;
+  padding: 0.75rem 0;
+}
+
+.ca-sidebar-about p {
+  font-size: 0.75rem;
+  color: var(--ca-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 0.5rem;
+}
+
+.ca-sidebar-about strong {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ca-text-muted);
+}
+
+.ca-sidebar-about ul {
+  font-size: 0.75rem;
+  color: var(--ca-text-secondary);
+  line-height: 1.6;
+}
+
+.ca-sidebar-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ca-border);
+}
+
+.ca-sidebar-footer p {
+  font-size: 0.6875rem;
+  color: var(--ca-text-muted);
+  line-height: 1.5;
+  margin: 0 0 0.25rem;
+}
+
+/* --- STATUS INDICATOR ------------------------------------- */
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--ca-radius-sm);
+  border: 1px solid;
+  white-space: nowrap;
+  font-family: var(--ca-font);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-indicator::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-indicator--connected {
+  color: var(--ca-green);
+  background-color: var(--ca-green-bg);
+  border-color: var(--ca-green-border);
+}
+.status-indicator--connected::before { background-color: var(--ca-green); }
+
+.status-indicator--warning {
+  color: var(--ca-amber);
+  background-color: var(--ca-amber-bg);
+  border-color: var(--ca-amber-border);
+}
+.status-indicator--warning::before { background-color: var(--ca-amber); }
+
+.status-indicator--disconnected {
+  color: var(--ca-red);
+  background-color: var(--ca-red-bg);
+  border-color: var(--ca-red-border);
+}
+.status-indicator--disconnected::before { background-color: var(--ca-red); }
+
+.status-indicator--mock {
+  color: var(--ca-text-secondary);
+  background-color: var(--ca-bg-raised);
+  border-color: var(--ca-border);
+}
+.status-indicator--mock::before { background-color: var(--ca-text-muted); }
+
+/* --- SOURCE BADGES ---------------------------------------- */
+
+.source-badge {
+  display: inline-block;
+  font-family: var(--ca-font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 1px 5px;
+  border-radius: var(--ca-radius-sm);
+  border: 1px solid;
+  vertical-align: middle;
+  line-height: 1.6;
+  white-space: nowrap;
+  position: relative;
+  top: -1px;
+}
+
+.source-badge--crm {
+  color: #1e40af;
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.source-badge--public {
+  color: #166534;
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.source-badge--ai {
+  color: #92400e;
+  background-color: #fffbeb;
+  border-color: #fde68a;
+}
+
+.source-badge--unknown {
+  color: var(--ca-text-secondary);
+  background-color: var(--ca-bg-raised);
+  border-color: var(--ca-border);
+}
+
+/* --- SECTION HEADER --------------------------------------- */
+
+.section-header {
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--ca-accent-light);
+  margin-bottom: 1rem;
+  margin-top: 0.25rem;
+}
+
+.section-header__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ca-text-primary);
+  margin: 0;
+}
+
+.section-header__subtitle {
+  font-size: 0.8125rem;
+  color: var(--ca-text-secondary);
+  margin: 0.125rem 0 0;
+}
+
+/* --- EMPTY STATE ------------------------------------------ */
+
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  background-color: var(--ca-bg-raised);
+  border: 1px dashed var(--ca-border-strong);
+  border-radius: var(--ca-radius-lg);
+  margin: 0.75rem 0;
+}
+
+.empty-state__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ca-text-secondary);
+  margin: 0 0 0.25rem;
+}
+
+.empty-state__detail {
+  font-size: 0.8125rem;
+  color: var(--ca-text-muted);
+  margin: 0;
+}
+
+/* --- ERROR STATE ------------------------------------------ */
+
+.error-state {
+  padding: 0.875rem 1.125rem;
+  background-color: var(--ca-red-bg);
+  border: 1px solid var(--ca-red-border);
+  border-left: 3px solid var(--ca-red);
+  border-radius: var(--ca-radius);
+  margin: 0.75rem 0;
+}
+
+.error-state__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ca-red);
+  margin: 0 0 0.25rem;
+}
+
+.error-state__detail {
+  font-size: 0.8125rem;
+  color: var(--ca-text-secondary);
+  margin: 0;
+}
+
+/* --- INTERNAL BANNER -------------------------------------- */
+
+.ca-internal-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--ca-amber-bg);
+  border: 1px solid var(--ca-amber-border);
+  border-left: 3px solid var(--ca-amber);
+  border-radius: var(--ca-radius);
+  margin-bottom: 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ca-amber);
+  letter-spacing: 0.02em;
+  font-family: var(--ca-font);
+}
+
+.ca-info-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--ca-accent-subtle);
+  border: 1px solid var(--ca-accent-light);
+  border-left: 3px solid var(--ca-accent);
+  border-radius: var(--ca-radius);
+  margin-bottom: 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #1e40af;
+  font-family: var(--ca-font);
+}
+
+/* --- RELEVANCE BAR ---------------------------------------- */
+
+.ca-relevance-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0.5rem 0 0.875rem;
+}
+
+.ca-relevance-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--ca-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  min-width: 5rem;
+}
+
+.ca-relevance-track {
+  flex: 1;
+  height: 4px;
+  background-color: var(--ca-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ca-relevance-fill {
+  height: 100%;
+  background-color: var(--ca-accent);
+  border-radius: 2px;
+}
+
+.ca-relevance-pct {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--ca-accent);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* --- CARD ------------------------------------------------- */
+
+.ca-card {
+  background-color: var(--ca-bg-surface);
+  border: 1px solid var(--ca-border);
+  border-radius: var(--ca-radius-lg);
+  padding: 1.125rem 1.375rem;
+  margin-bottom: 0.875rem;
+  box-shadow: var(--ca-shadow);
+}
+
+.ca-card__label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ca-text-muted);
+  margin: 0 0 0.375rem;
+}
+
+.ca-card__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ca-text-primary);
+  margin: 0 0 0.25rem;
+}
+
+.ca-card__body {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ca-text-secondary);
+  margin: 0;
+}
+
+/* --- FACT ROW --------------------------------------------- */
+
+.ca-fact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--ca-border);
+}
+
+.ca-fact-row:last-child { border-bottom: none; }
+
+.ca-fact-row__value {
+  font-size: 0.9375rem;
+  color: var(--ca-text-primary);
+  line-height: 1.55;
+  flex: 1;
+}
+
+.ca-fact-row__evidence {
+  font-size: 0.75rem;
+  color: var(--ca-text-muted);
+  margin-top: 2px;
+}
+
+/* --- CONNECTION STATUS (sidebar) -------------------------- */
+
+.ca-connection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 0.75rem;
+}
+
+
+/* QA Preview layout */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--ca-bg-page, #f8fafc);
+  font-family: var(--ca-font, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  color: var(--ca-text-primary, #0f172a);
+}
+
+.page-header {
+  background: var(--ca-bg-surface, #fff);
+  border-bottom: 1px solid var(--ca-border, #e2e8f0);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.page-header h1 {
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 2px !important;
+  letter-spacing: -0.01em !important;
+}
+
+.page-header__sub {
+  font-size: 0.8125rem;
+  color: var(--ca-text-muted, #94a3b8);
+  margin: 0;
+}
+
+.tab-nav {
+  background: var(--ca-bg-surface, #fff);
+  border-bottom: 1px solid var(--ca-border, #e2e8f0);
+  padding: 0 2rem;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ca-text-secondary, #475569);
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  transition: color 0.15s, border-color 0.15s;
+  line-height: 1;
+}
+
+.tab-btn:hover { color: var(--ca-text-primary, #0f172a); }
+
+.tab-btn[data-active] {
+  color: var(--ca-accent, #2563eb);
+  border-bottom-color: var(--ca-accent, #2563eb);
+  font-weight: 600;
+}
+
+.tab-panel {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem 4rem;
+}
+
+.tab-panel.hidden { display: none; }
+
+.badge {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid;
+  line-height: 1;
+}
+
+.badge-ca {
+  color: #1e40af;
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.badge-bw {
+  color: #166534;
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.badge-type {
+  color: var(--ca-text-muted, #94a3b8);
+  background: var(--ca-bg-raised, #f1f5f9);
+  border-color: var(--ca-border, #e2e8f0);
+}
+
+/* Inner section tabs */
+.inner-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--ca-border, #e2e8f0);
+  margin-bottom: 1.75rem;
+}
+
+.inner-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  padding: 0.5rem 0.875rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ca-text-secondary, #475569);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.inner-tab:hover { color: var(--ca-text-primary, #0f172a); }
+
+.inner-tab[data-active] {
+  color: var(--ca-accent, #2563eb);
+  border-bottom-color: var(--ca-accent, #2563eb);
+  font-weight: 600;
+}
+
+.inner-pane.hidden { display: none; }
+
+/* Metrics */
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.metric-box {
+  background: var(--ca-bg-surface, #fff);
+  border: 1px solid var(--ca-border, #e2e8f0);
+  border-radius: var(--ca-radius-lg, 10px);
+  padding: 0.875rem 1.125rem;
+  box-shadow: var(--ca-shadow, 0 1px 3px rgba(15,23,42,0.08));
+}
+
+.metric-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ca-text-secondary, #475569);
+  margin: 0 0 0.25rem;
+}
+
+.metric-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ca-text-primary, #0f172a);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* Expanders */
+.expander {
+  border: 1px solid var(--ca-border, #e2e8f0);
+  border-radius: var(--ca-radius, 6px);
+  background: var(--ca-bg-surface, #fff);
+  margin-bottom: 0.5rem;
+  box-shadow: var(--ca-shadow, 0 1px 3px rgba(15,23,42,0.08));
+  overflow: hidden;
+}
+
+.expander__summary {
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--ca-text-primary, #0f172a);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+.expander__summary::-webkit-details-marker { display: none; }
+
+.expander__summary::before {
+  content: "›";
+  font-size: 1.25rem;
+  color: var(--ca-text-muted, #94a3b8);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+details[open] > .expander__summary::before { transform: rotate(90deg); }
+
+.expander__body {
+  padding: 0.75rem 1rem 1rem;
+  border-top: 1px solid var(--ca-border, #e2e8f0);
+  font-size: 0.875rem;
+  color: var(--ca-text-secondary, #475569);
+  line-height: 1.6;
+}
+
+.expander__body p { margin: 0.25rem 0; }
+.expander__body ul { margin: 0.25rem 0; padding-left: 1.5rem; }
+
+blockquote {
+  border-left: 3px solid var(--ca-accent, #2563eb);
+  margin: 0.5rem 0 1rem;
+  padding: 0.5rem 1rem;
+  color: var(--ca-text-secondary, #475569);
+  font-style: italic;
+  background: var(--ca-accent-subtle, #eff6ff);
+  border-radius: 0 var(--ca-radius, 6px) var(--ca-radius, 6px) 0;
+}
+
+ul { padding-left: 1.5rem; margin: 0.5rem 0; }
+li { margin-bottom: 0.25rem; font-size: 0.9375rem; line-height: 1.6; color: var(--ca-text-primary, #0f172a); }
+
+p { margin: 0 0 0.75rem; line-height: 1.65; font-size: 0.9375rem; }
+
+code {
+  font-family: var(--ca-font-mono, monospace);
+  font-size: 0.8125rem;
+  background: var(--ca-bg-raised, #f1f5f9);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: var(--ca-text-secondary, #475569);
+}
+
+a { color: var(--ca-accent, #2563eb); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--ca-border, #e2e8f0);
+  margin: 1.25rem 0;
+}
+
+strong { color: var(--ca-text-primary, #0f172a); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <h1>Competitor Intelligence — QA Preview</h1>
+    <p class="page-header__sub">5 cached examples &middot; CA and Bridgewise modes &middot; Internal review only</p>
+  </div>
+  <span class="ca-internal-banner" style="margin:0;flex-shrink:0;">Internal &amp; Confidential</span>
+</div>
+
+<nav class="tab-nav"><button class="tab-btn" onclick="switchTab(0)" id="tab-0" data-active>AlphaSense<span class="badge badge-ca">CA</span><span class="badge badge-type">Competitor</span></button><button class="tab-btn" onclick="switchTab(1)" id="tab-1">RavenPack<span class="badge badge-ca">CA</span><span class="badge badge-type">Competitor</span></button><button class="tab-btn" onclick="switchTab(2)" id="tab-2">Social Media Analytics (S-Factor)<span class="badge badge-ca">CA</span><span class="badge badge-type">Product Scan</span></button><button class="tab-btn" onclick="switchTab(3)" id="tab-3">Danelfin<span class="badge badge-bw">BW</span><span class="badge badge-type">Competitor</span></button><button class="tab-btn" onclick="switchTab(4)" id="tab-4">AI Equity Ratings<span class="badge badge-bw">BW</span><span class="badge badge-type">Product Scan</span></button></nav>
+
+<div id="panel-0" class="tab-panel"><div class="inner-tabs"><button class="inner-tab" onclick="switchInner(this,'p0s0')" data-active>Profile</button><button class="inner-tab" onclick="switchInner(this,'p0s1')">Comparative Analysis</button><button class="inner-tab" onclick="switchInner(this,'p0s2')">Battle Card</button><button class="inner-tab" onclick="switchInner(this,'p0s3')">Sources</button></div><div id="p0s0" class="inner-pane"><div class="metric-grid"><div class="metric-box"><p class="metric-label">Company Size</p><p class="metric-value">~3,000–3,400 employees (3,356 as of July 2026 per Tracxn; ~3,000 per Latka); private company with $1.98B raised</p></div><div class="metric-box"><p class="metric-label">Founded</p><p class="metric-value">2011</p></div><div class="metric-box"><p class="metric-label">Headquarters</p><p class="metric-value">New York City, USA (Hudson Yards, 441 Ninth Avenue)</p></div><div class="metric-box"><p class="metric-label">Market Cap</p><p class="metric-value">private — last valuation $7.5B (June 2026 funding round)</p></div></div><hr><div class="section-header"><p class="section-header__title">About</p></div><p>AlphaSense is an AI platform redefining market intelligence for the business and financial world, founded in 2011 by Jack Kokko and Raj Neervannan. The platform aggregates over 500 million premium business documents — including equity research, earnings calls, expert interviews, SEC filings, news, and internal proprietary content — and applies purpose-built AI to help professionals extract insights, automate workflows, and make faster, higher-conviction decisions. Trusted by over 7,000 enterprises including 88% of the S&amp;P 100 and a majority of Fortune 500 companies, AlphaSense serves financial services firms, investment banks, asset managers, hedge funds, private equity, and corporate strategy teams. The company surpassed $600M in annual recurring revenue in Q1 2026 and was most recently valued at $7.5 billion.</p><div class="section-header"><p class="section-header__title">Mission Statement</p></div><blockquote>AlphaSense was founded to be the AI research partner for knowledge workers everywhere — enabling professionals to make smarter business decisions with confidence and speed.</blockquote><div class="section-header"><p class="section-header__title">Additional Locations</p></div><ul><li>Chicago, IL, USA</li><li>Boston, MA, USA</li><li>Helsinki, Finland</li><li>London, UK</li><li>Singapore</li><li>Bengaluru, India</li><li>Pune, India</li><li>New Delhi, India</li><li>Mumbai, India</li><li>Dublin, Ireland</li></ul><div class="section-header"><p class="section-header__title">Products</p></div><details class="expander"><summary class="expander__summary">AlphaSense Market Intelligence Platform (core platform) <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2011)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Financial services firms, hedge funds, asset managers, investment banks, private equity, venture capital, corporate strategy and competitive intelligence teams, life sciences firms</p><p><strong>Primary Users:</strong> Equity research analysts, portfolio managers, investment bankers, corporate strategy professionals, competitive intelligence analysts, M&amp;A professionals, investor relations teams</p><p><strong>Coverage:</strong> 500M+ documents across equities (public and private), fixed income, macroeconomics; global geographies including US, EMEA, APAC; content in 37+ languages; 10M+ private companies</p><p><strong>Use Cases:</strong></p><ul><li>Investment research and idea generation</li><li>Competitive intelligence and market monitoring</li><li>Due diligence for M&amp;A and private equity deals</li><li>Earnings call analysis and transcript search</li><li>Regulatory filing and SEC document search</li><li>Trend spotting and macroeconomic analysis</li><li>Real-time smart alerts for company and industry developments</li><li>Go-to-market planning and market entry research</li></ul><p><strong>Deliverable Formats:</strong> Web dashboard (browser-based platform), Smart Summaries (AI-generated tearsheets), Exported tables and grids (Generative Grid), Email/push smart alerts, Mobile app, Excel integration (AlphaSense for Excel), PowerPoint integration (AlphaSense for PowerPoint), API access</p><p><a href="https://www.alpha-sense.com/platform/" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Generative Search <span style="color:var(--ca-text-muted);font-weight:400;">(launched Q4-2024)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Enterprise research teams across finance and corporate sectors</p><p><strong>Primary Users:</strong> Analysts, portfolio managers, investment bankers, strategy professionals</p><p><strong>Coverage:</strong> All asset classes and sectors; 500M+ documents including filings, transcripts, broker research, news, expert calls</p><p><strong>Use Cases:</strong></p><ul><li>Natural language querying across 500M+ premium documents</li><li>Analyst-grade research question answering with citations</li><li>Drafting first-pass research deliverables and slide decks</li><li>Automated generation of recurring deliverables (earnings summaries, sector updates)</li><li>Due diligence workspace synthesis</li></ul><p><strong>Deliverable Formats:</strong> Web dashboard (cited narrative answers), PowerPoint slide decks (native export), PDF summaries, Custom branded output via firm template upload</p><p><a href="https://www.alpha-sense.com/press/alphasense-supercharges-its-generative-ai-suite-with-groundbreaking-new-features-302392420.html" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Generative Grid <span style="color:var(--ca-text-muted);font-weight:400;">(launched Q1-2025)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Investment analysts, corporate research teams, private equity, consulting</p><p><strong>Primary Users:</strong> Research analysts, portfolio managers, competitive intelligence professionals</p><p><strong>Coverage:</strong> 300M–500M+ documents including filings, call transcripts, expert interviews, news; proprietary uploaded content</p><p><strong>Use Cases:</strong></p><ul><li>Comparing peer/portfolio earnings calls across key themes in minutes</li><li>Building sector landscape and competitive overview tables</li><li>Surfacing patterns and anomalies across deal documents (VDRs, CIMs)</li><li>Generating exportable ready-for-analysis tables for stakeholder briefings</li><li>Trend spotting across large document sets using multiple simultaneous AI prompts</li></ul><p><strong>Deliverable Formats:</strong> Interactive in-platform table format, Exportable table (for stakeholder briefings), Custom and pre-built templates</p><p><a href="https://www.alpha-sense.com/resources/product-articles/product-releases-2025" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Wall Street Insights</summary><div class="expander__body"><p><strong>Target Audience:</strong> Buy-side and sell-side financial institutions, asset managers, hedge funds, investment banks</p><p><strong>Primary Users:</strong> Equity research analysts, portfolio managers, investment bankers</p><p><strong>Coverage:</strong> Equity research from 1,700+ broker sources including Goldman Sachs, Morgan Stanley, Bank of America, and Citi; global equities</p><p><strong>Use Cases:</strong></p><ul><li>Access to premium sell-side equity research</li><li>Benchmarking analyst estimates and consensus views</li><li>Sourcing broker research for investment thesis development</li><li>Tracking analyst rating changes and price target revisions</li></ul><p><strong>Deliverable Formats:</strong> Web dashboard (searchable research library), PDF research reports, Smart Summaries (AI-generated tearsheets of broker notes)</p><p><a href="https://www.alpha-sense.com/solutions/ai-in-financial-services/" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Tegus Expert Transcript Library (Expert Insights) <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2024 (integrated via $930M Tegus acquisition, July 2024))</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Hedge funds, asset managers, private equity, investment banks, venture capital, corporate strategy teams</p><p><strong>Primary Users:</strong> Investment analysts, portfolio managers, deal professionals, primary research teams</p><p><strong>Coverage:</strong> 240,000–300,000+ investor-led expert call transcripts; 24,000–27,000 public and private companies; includes 82,000+ private market transcripts; global coverage</p><p><strong>Use Cases:</strong></p><ul><li>Primary research on public and private companies via expert call transcripts</li><li>Due diligence on acquisition targets using expert interviews</li><li>Competitive intelligence via supply chain and channel expert calls</li><li>Private company research and benchmarking</li><li>Sourcing real-time channel checks and market sentiment</li></ul><p><strong>Deliverable Formats:</strong> Web dashboard (searchable transcript library), Full transcript text, AI-generated key takeaways, Channel Check grids (period-over-period sentiment tables), Mobile app (audio listening)</p><p><a href="https://www.alpha-sense.com/blog/product/alphasense-and-investment-banking/" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">AI Interviewer &amp; Channel Checks <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2025)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Hedge funds, asset managers, private equity, investment banks, sell-side research</p><p><strong>Primary Users:</strong> Investment analysts, portfolio managers, primary research teams</p><p><strong>Coverage:</strong> Validated industry experts across sectors; real-time insights on demand; public and private company coverage</p><p><strong>Use Cases:</strong></p><ul><li>Launching AI-led expert calls within hours on any research topic</li><li>Scaling primary research without expanding headcount</li><li>Obtaining real-time channel insights on pricing, demand, sentiment, and competitive shifts</li><li>Maintaining MNPI compliance while gathering expert perspectives</li><li>Automating question guide creation and call transcription</li></ul><p><strong>Deliverable Formats:</strong> Fully transcribed AI-led expert interview, AI-generated key takeaways, Channel Check grids (350+ tickers, 200+ grids as of Q1 2026)</p><p><a href="https://www.alpha-sense.com/press/alphasense-innovations-in-end-to-end-ai-workflows/" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Enterprise Intelligence <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2023)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Large enterprises across financial services and corporate sectors seeking to unify internal and external research</p><p><strong>Primary Users:</strong> Corporate strategy professionals, research and knowledge management teams, investment banking teams, M&amp;A teams</p><p><strong>Coverage:</strong> All internal proprietary content types (PDFs, Word docs, Excel, presentations, memos); combined with 500M+ external documents; internal content never leaves client network</p><p><strong>Use Cases:</strong></p><ul><li>Federated search across internal proprietary content and external premium sources simultaneously</li><li>Searching pitch decks, CIMs, management notes, and internal memos alongside public documents</li><li>Building a firm-wide knowledge base and institutional memory</li><li>Centralizing due diligence workspaces with VDR files and internal research</li><li>Leveraging internal content in AI-generated summaries and Generative Search results</li></ul><p><strong>Deliverable Formats:</strong> Web dashboard (unified federated search interface), AI-generated summaries with citations from internal and external sources, Due Diligence Workspace output</p><p><a href="https://www.alpha-sense.com/solutions/market-intelligence-platform/" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Financial Data (including Carousel/Excel modeling) <span style="color:var(--ca-text-muted);font-weight:400;">(launched Q4-2025 (Financial Data product launch Oct 2025; Carousel acquisition Oct 2025))</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Investment banks, hedge funds, private equity, asset managers, sell-side analysts</p><p><strong>Primary Users:</strong> Quant analysts, financial modelers, equity research analysts, investment bankers</p><p><strong>Coverage:</strong> Public and private equities globally; structured financials, M&amp;A data, funding rounds, valuation metrics, ESG data; Excel-native integration</p><p><strong>Use Cases:</strong></p><ul><li>Financial modeling with Canalyst-derived KPI-rich models for 8,000+ public companies</li><li>M&amp;A target identification using funding rounds, shareholder activity, and AI-generated transaction rationales</li><li>Benchmarking competitive financials and valuation metrics</li><li>Tracking private company headcount, hiring velocity, and funding activity</li><li>Updating valuation models with auditable financials directly in Excel</li></ul><p><strong>Deliverable Formats:</strong> Excel (native AlphaSense for Excel add-in), Pre-built financial models (Canalyst-powered), In-platform financial data tables and screening tools, API access for data extraction</p><p><a href="https://www.alpha-sense.com/platform/financial-data/" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Deep Research <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2025)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Enterprise research teams in finance and corporate strategy</p><p><strong>Primary Users:</strong> Investment analysts, strategy consultants, M&amp;A professionals</p><p><strong>Coverage:</strong> 500M+ documents across all content types; public and private markets; global geographies</p><p><strong>Use Cases:</strong></p><ul><li>Conducting comprehensive, multi-step research reports autonomously</li><li>Synthesizing insights across hundreds of documents with full citations</li><li>Generating analyst-grade research briefs on companies, sectors, or themes</li><li>Accelerating due diligence with AI-orchestrated deep-dive workflows</li></ul><p><strong>Deliverable Formats:</strong> Long-form cited research reports (web dashboard), Exportable written output, Source-attributed narrative summaries</p><p><a href="https://www.alpha-sense.com/press/alphasense-surpasses-500m-in-arr/" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">SuperAnalyst <span style="color:var(--ca-text-muted);font-weight:400;">(launched Q2-2026)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Financial services professionals and enterprise knowledge workers seeking always-on autonomous AI research execution</p><p><strong>Primary Users:</strong> Investment analysts, portfolio managers, investment bankers, corporate strategy teams</p><p><strong>Coverage:</strong> Full AlphaSense platform access including 500M+ document universe, financial data, financial models, expert call scheduling; global markets</p><p><strong>Use Cases:</strong></p><ul><li>Always-on monitoring of filings, earnings, expert transcripts, and market developments</li><li>Autonomous execution of multi-step research and analysis workflows 24/7</li><li>AI-led expert call identification, scheduling, execution, and synthesis</li><li>Automated deliverable creation (reports, slides, models) at scale</li><li>Persistent memory of project history and analytical logic across sessions</li></ul><p><strong>Deliverable Formats:</strong> Autonomous research reports with citations, Auto-generated PowerPoint slides, Auto-generated Excel model updates, Transcribed and synthesized expert call outputs, Real-time monitoring alerts and digests</p><p><a href="https://www.alpha-sense.com/press/alphasense-introduces-superanalyst-the-always-on-ai-execution-layer-for-decision-grade-intelligence/" target="_blank">Source &rarr;</a></p></div></details><div class="section-header"><p class="section-header__title">Recent News</p></div><ul><li>AlphaSense raises $350M at $7.5B valuation, surpassing $600M ARR — June 3, 2026</li><li>Accenture and AlphaSense announce strategic investment and channel partnership for agentic market intelligence workflows — June 3, 2026</li><li>AlphaSense introduces SuperAnalyst, an always-on AI execution layer for autonomous research and deliverable creation — June 3, 2026</li><li>AlphaSense launches Work Products with native AI assistants for PowerPoint and Excel — July 14, 2026</li><li>AlphaSense named a Leader in inaugural Gartner Magic Quadrant for Competitive and Market Intelligence Platforms, positioned highest on Ability to Execute and Completeness of Vision — April 2026</li><li>AlphaSense named one of Fast Company&#x27;s Most Innovative Companies for 2026 in the Enterprise category — 2026</li><li>AlphaSense opens new global headquarters at Hudson Yards (441 Ninth Avenue, NYC) — June 2, 2025</li><li>AlphaSense acquires Carousel Technologies to power AI-driven Excel financial modeling — October 7, 2025</li></ul></div><div id="p0s1" class="inner-pane hidden"><div class="section-header"><p class="section-header__title">Executive Summary</p></div><div class="ca-info-banner">Context Analytics and AlphaSense both serve institutional investors with unstructured data analytics, but they operate at fundamentally different points on the quant-to-fundamental spectrum. CA is purpose-built for quantitative and systematic investors who require model-ready, low-latency signals derived from novel sources — social media, podcasts, and parsed filings — with sub-1-minute delivery and 15+ qualifying factors. AlphaSense is a broad-based market intelligence platform built primarily for fundamental analysts, portfolio managers, corporate strategists, and investment bankers who need natural-language research synthesis, document search, and AI-generated deliverables across 500M+ documents. AlphaSense&#x27;s scale, ARR ($600M+), valuation ($7.5B), and breadth of AI workflow tooling (SuperAnalyst, Generative Search, Deep Research) give it a commanding position in the qualitative research automation market. CA&#x27;s structural advantages lie in source novelty — exclusive licensed signals from X/Twitter, StockTwits, Reddit, and podcasts — proprietary rules-based NLP, patented signal construction, and a machine-readable filings architecture that reaches the granularity quant desks demand, areas where AlphaSense does not compete as a structured signal provider.</div><div class="section-header"><p class="section-header__title">Product Comparison</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Social Media Analytics (S-Factor)</strong></div><div><strong style="font-size:0.9375rem;"><em>No equivalent</em></strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both companies monitor public discourse to inform investment decisions.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA is the only licensed provider of structured, model-ready sentiment signals from X (Twitter), StockTwits, and Reddit, delivered in under 300 milliseconds with 15+ qualifying S-Factors, Z-score normalization, and a 20-day baseline. AlphaSense has no equivalent structured social media signal feed; its platform aggregates premium documents (filings, research, transcripts) rather than real-time social data. CA&#x27;s social signals are designed for algorithmic models and HFT workflows; AlphaSense does not serve that use case.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Corporate Filings — MRF (U.S. Machine Readable Filings)</strong></div><div><strong style="font-size:0.9375rem;">AlphaSense Market Intelligence Platform (core platform) — SEC filing search</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both products ingest and make SEC EDGAR filings searchable and analyzable, covering forms such as 10-K, 10-Q, 8-K, 20-F, S-1, and DEF 14A, with history going back to at least 2006.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s MRF is the first product to parse SEC filings at the Item, Section, Sub-section, and Notes level into structured multi-level JSON, purpose-built for quantitative workflows — enabling word-count and sentiment change detection, Lazy Prices alpha strategies, and quintile return analysis. Produced in partnership with S&amp;P Global Market Intelligence, it covers ~2.8M documents from 2006 to 2025. AlphaSense treats filings as a searchable document corpus for qualitative research, with AI-generated summaries and natural-language search; it does not provide machine-readable, sentiment-scored, item-level JSON output for systematic models.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Corporate Filings — GMRF (Global Machine Readable Filings)</strong></div><div><strong style="font-size:0.9375rem;">AlphaSense Market Intelligence Platform (core platform) — global filings coverage</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both products provide access to international corporate disclosures across a broad set of countries, including annual reports and financial supplements.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s GMRF is the first product to parse international annual, quarterly, and semi-annual reports and financial supplements from 200+ countries (~3M documents) into multi-level JSON following each document&#x27;s native structure, enabling quantitative strategies such as global Lazy Prices and Europe Sentiment Quintiles. AlphaSense offers global filings in 37+ languages as searchable content for fundamental research; it does not deliver structured, sentiment-scored, item-level JSON output from international filings for systematic use.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Quantitative News Feed</strong></div><div><strong style="font-size:0.9375rem;">AlphaSense Market Intelligence Platform (core platform) — news aggregation and smart alerts</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both products ingest news from a wide array of global sources and surface relevant content to investment professionals, with tagging for topics such as earnings, M&amp;A, and analyst rating changes.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s Quantitative News Feed scores each article using the same proprietary rules-based NLP engine as the S-Factor Feed, producing structured machine-readable sentiment metrics (News Quintile Spreads, News Positivity Ratio) from 4,000+ sources at 150,000+ articles per month, optimized for systematic models. Coverage is currently U.S. equities only. AlphaSense&#x27;s news capability is oriented toward qualitative research — keyword search, smart alerts, and AI-generated summaries — rather than producing structured sentiment scores for quantitative model ingestion.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Podcast Data Feed</strong></div><div><strong style="font-size:0.9375rem;"><em>No equivalent</em></strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> No meaningful overlap. AlphaSense does not offer a podcast sentiment or transcript feed.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA is the only quantitative provider of structured sentiment signals from podcasts, covering 51,000+ unique podcasts, 462,000+ unique episodes, and 6,800+ unique securities, with history from January 2016 and ~250 episodes processed per day. The feed delivers both a quantitative sentiment output (for systematic trading) and a qualitative output with AI-generated company-mention summaries and relevance scores. AlphaSense has no podcast data product; the field guide notes CA&#x27;s only qualitative podcast competitor is RavenPack.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Unstructured Data Terminal (UDT)</strong></div><div><strong style="font-size:0.9375rem;">AlphaSense Market Intelligence Platform (core platform)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both are dashboard environments integrating multiple unstructured data sources — filings, news, and sentiment — into a single interface for investment professionals, with document search, alerting, and visualization capabilities.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s UDT is specifically designed to give fundamental investors access to quant-grade data — featuring word-count and sentiment change detection versus prior filings, document red-lining, ThemeX custom topic modeling, and integration of social media signals alongside filings and news. It bridges quant and fundamental workflows. AlphaSense&#x27;s platform is broader in scope (500M+ documents, 37+ languages, equity research, expert transcripts, enterprise content) and has significantly more AI workflow tooling (Generative Search, Deep Research, SuperAnalyst), but does not offer structured quantitative social sentiment or real-time social signal integration.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Private Company Data</strong></div><div><strong style="font-size:0.9375rem;">AlphaSense Financial Data / Tegus Expert Transcript Library</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both companies provide data on private companies to support pre-IPO research and due diligence. AlphaSense covers 10M+ private companies via its platform and 82,000+ private market expert call transcripts via Tegus.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s private company offering focuses on social media sentiment and mention data for the 500+ largest pre-IPO companies most likely to go public, with real-time social signal monitoring (including early warning capability — CA flagged FTX red flags hours before its collapse). AlphaSense offers broader private company coverage through expert call transcripts, structured financials, headcount tracking, and funding activity data, but does not provide real-time social sentiment signals on private companies.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Universal Document Processor (UDP)</strong></div><div><strong style="font-size:0.9375rem;">Enterprise Intelligence</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both products enable institutions to work with proprietary and unstructured internal documents — extracting, processing, and making them analyzable alongside other data sources.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s UDP parses any document type (VC pitch decks, PE data rooms, real estate memorandums, corporate reports) into machine-readable JSON, separately extracting text and tables, and delivers output into Excel, Snowflake, CSV, SQL Server, and Databricks — oriented toward data infrastructure and quantitative analytics. AlphaSense&#x27;s Enterprise Intelligence offers federated search across internal proprietary content and 500M+ external documents with AI-generated summaries, built for qualitative research workflows and institutional knowledge management rather than structured data extraction pipelines.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Generative AI Summaries</strong></div><div><strong style="font-size:0.9375rem;">Generative Search / Smart Summaries / Deep Research / SuperAnalyst</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both companies use large language models to generate security-level or company-level summaries from unstructured data, with alert delivery and real-time monitoring capabilities.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s Generative AI Summaries are built on top of its proprietary rules-based NLP signal layer — the AI writes the summary after the signal is computed, ensuring the underlying sentiment metric is never AI-generated (a critical trust distinction for institutional buyers). Summaries are published every 10 minutes via JSON API with hourly trend detection and email alerting, focused on social media discourse. AlphaSense&#x27;s generative AI suite (Generative Search, Deep Research, SuperAnalyst) is substantially more extensive — synthesizing across 500M+ documents including filings, broker research, and expert transcripts, producing full research reports, PowerPoint decks, Excel model updates, and autonomous multi-step research workflows. AlphaSense&#x27;s AI operates directly on the document corpus without a separate rules-based signal layer underneath.</p></div><div class="section-header"><p class="section-header__title">Audience Overlap</p></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;"><div><strong>Shared Segments</strong><ul><li>Hedge fund portfolio managers</li><li>Fundamental equity analysts</li><li>Long/short portfolio managers</li><li>Risk managers and compliance officers</li><li>Asset managers at institutional buy-side firms</li><li>Private equity and venture capital research teams</li></ul></div><div><strong>Our Exclusive Segments</strong><ul><li>Quantitative traders and systematic/algorithmic traders requiring model-ready, sub-1-minute sentiment signals</li><li>High-frequency traders (HFT) using the Activity Feed for granular ingest timestamps</li><li>Quant desks backtesting novel alternative data signals across social, podcast, and filing sources</li><li>Crypto and digital asset investors (CA covers ~800 crypto securities with social sentiment)</li></ul></div><div><strong>Their Exclusive Segments</strong><ul><li>Corporate strategy and competitive intelligence teams at Fortune 500 and S&amp;P 100 companies</li><li>Investment bankers and M&amp;A professionals conducting due diligence via document synthesis</li><li>Sell-side equity research teams consuming and distributing broker research (1,700+ sources via Wall Street Insights)</li><li>Life sciences and pharma sector research professionals</li><li>Investor relations teams</li><li>Enterprise knowledge management and institutional memory teams (Enterprise Intelligence)</li></ul></div></div><hr><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><div class="section-header"><p class="section-header__title">Our Strengths</p></div><ul><li>Exclusive licensed access to X (Twitter), StockTwits, and Reddit for structured quantitative signals — CA is the only licensed provider of model-ready social sentiment from these sources, giving quant desks a non-crowded, novel data edge.</li><li>Sub-300-millisecond signal delivery with 15+ qualifying S-Factors — purpose-built for high-frequency and algorithmic trading workflows where signal decay is measured in minutes.</li><li>Only quantitative podcast sentiment provider — 51,000+ podcasts, 462,000+ episodes, history from 2016, with both structured quantitative output and qualitative summaries; the Field Guide notes RavenPack as the sole qualitative competitor, and no quantitative competitor is identified.</li><li>Patented, transparent, rules-based NLP engine — 3 U.S. patents underpin CA&#x27;s core data process; signals are never blended (source, processing, and signal are fully visible), addressing the hallucination concern systematic desks have with generative AI-driven signals.</li><li>Item-level parsed machine-readable filings (MRF/GMRF) — first-to-market with sub-section and Notes-level JSON parsing of SEC filings (2006–present) and international filings across 200+ countries, enabling quantitative strategies like Lazy Prices that require granular change detection.</li><li>Multi-asset class social coverage beyond equities — including ~800 crypto, 113 commodities, 49 currency pairs, ~2,200 ETFs, and international equity markets (Canada, Australia, India, Europe), which AlphaSense does not address with structured signals.</li><li>Real-time private company social monitoring with early warning track record — CA flagged FTX red flags hours before collapse, demonstrating actionable pre-IPO risk intelligence from social signals.</li></ul></div><div><div class="section-header"><p class="section-header__title">Their Strengths</p></div><ul><li>Massive document corpus and enterprise scale — 500M+ premium documents across filings, broker research, expert transcripts, news, and enterprise content in 37+ languages, serving 7,000+ enterprises including 88% of the S&amp;P 100.</li><li>Expert call transcript library via Tegus acquisition — 240,000–300,000+ investor-led expert call transcripts covering 24,000+ companies including 82,000+ private market transcripts, providing primary research access CA has no equivalent for.</li><li>Generative AI depth and breadth — Generative Search, Generative Grid, Deep Research, and SuperAnalyst form a comprehensive autonomous research workflow suite capable of producing cited reports, PowerPoint decks, Excel model updates, and multi-step research synthesis at scale.</li><li>Sell-side broker research aggregation — Wall Street Insights covers 1,700+ broker sources (Goldman Sachs, Morgan Stanley, BofA, Citi), enabling consensus benchmarking and analyst estimate tracking that CA does not provide.</li><li>Financial modeling integration via Carousel/Canalyst — KPI-rich financial models for 8,000+ public companies with Excel-native integration, a structured financial data capability CA does not offer.</li><li>Enterprise content integration (Enterprise Intelligence) — federated search across internal proprietary documents (CIMs, pitch decks, memos) combined with external sources for firm-wide knowledge management, with content never leaving the client network.</li><li>Revenue scale and institutional validation — $600M+ ARR, $7.5B valuation, Gartner Magic Quadrant Leader (highest on Ability to Execute and Completeness of Vision), and Accenture strategic partnership signal deep enterprise adoption and distribution reach far exceeding CA&#x27;s current footprint.</li><li>Corporate and non-financial sector penetration — serving Fortune 500 corporate strategy and competitive intelligence teams, life sciences firms, and go-to-market planning functions that CA does not currently address.</li></ul></div></div><hr><div class="section-header"><p class="section-header__title">Coverage Gaps</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><strong>We cover, they don't</strong><ul><li>Structured, model-ready social media sentiment signals from X (Twitter), StockTwits, and Reddit with sub-300ms latency — AlphaSense has no real-time social data feed for quantitative models.</li><li>Quantitative podcast sentiment feed — structured and qualitative sentiment signals from 51,000+ podcasts with history to 2016; AlphaSense has no podcast data product.</li><li>Item-level and sub-section-level parsed machine-readable filings in JSON (MRF/GMRF) — AlphaSense treats filings as searchable documents, not as structured sentiment-scored JSON for systematic model ingestion.</li><li>Crypto asset class social sentiment coverage (~800 crypto securities) — AlphaSense does not provide social sentiment signals for digital assets.</li><li>Commodities, forex, and futures social sentiment signals (113 commodities, 49 currency pairs) — AlphaSense&#x27;s coverage is oriented to equities and does not include structured alternative data signals for these asset classes.</li><li>High-frequency / algorithmic trading-grade signal delivery (sub-1-minute, structured feeds with 15+ qualifying factors and full methodology transparency) — AlphaSense is not designed for HFT or systematic quant workflows.</li><li>Real-time social sentiment monitoring for top 500 pre-IPO private companies — CA&#x27;s private company social signal includes early-warning capability demonstrated by the FTX example.</li><li>Universal Document Processor (UDP) for extracting structured text and table data from arbitrary document types into data infrastructure (Snowflake, Databricks, SQL Server) — AlphaSense Enterprise Intelligence is search/QA-oriented, not a structured data extraction pipeline.</li></ul></div><div><strong>They cover, we don't</strong><ul><li>Expert call transcript library — 240,000–300,000+ investor-led transcripts on 24,000+ companies (including 82,000+ private market transcripts) via Tegus; CA has no primary research or expert network product.</li><li>Sell-side broker research aggregation — 1,700+ broker sources including bulge-bracket equity research; CA has no equivalent.</li><li>Autonomous multi-step AI research workflows (SuperAnalyst, Deep Research) — capable of producing full cited research reports, PowerPoint decks, and Excel model updates without human orchestration; CA&#x27;s generative AI is limited to security-level summaries and trend detection.</li><li>KPI-rich financial modeling (Canalyst-powered models for 8,000+ public companies via Carousel acquisition) with Excel-native integration — CA does not offer structured financial models or valuation data.</li><li>AI Interviewer and Channel Checks — AI-led expert calls on demand, with 350+ tickers covered by Channel Check grids; CA has no equivalent primary research tooling.</li><li>Corporate strategy and competitive intelligence platform use cases — go-to-market planning, market entry research, sector landscape analysis for non-financial enterprises; CA does not serve this segment.</li><li>Natural language generative search across 500M+ documents in 37+ languages with cited narrative answers — AlphaSense&#x27;s breadth of document corpus and multilingual coverage significantly exceeds CA&#x27;s UDT.</li><li>Enterprise federated search over internal proprietary content (CIMs, memos, pitch decks) integrated with external sources for institutional knowledge management — CA&#x27;s UDP extracts data but does not provide a unified search and AI synthesis environment over both internal and external content.</li><li>M&amp;A target identification tooling using funding rounds, shareholder activity, and AI-generated transaction rationales — CA has no M&amp;A-specific data product.</li><li>Life sciences and pharma sector-specific research content and workflows — AlphaSense serves this vertical; CA does not.</li></ul></div></div></div><div id="p0s2" class="inner-pane hidden"><div class="ca-info-banner" style="font-size:1.05rem;font-weight:600;">Context Analytics is the only provider of patented, model-ready quantitative signals from social media, podcasts, and parsed filings — built for systematic investors who need sub-300ms data feeds, not document search.</div><div class="section-header"><p class="section-header__title">Top Differentiators</p></div><div style="display:flex;gap:0.75rem;flex-wrap:wrap;"><div class="ca-card" style="flex:1;min-width:180px;"><p class="ca-card__label" style="font-size:1.5rem;font-weight:700;color:var(--ca-accent);margin-bottom:0.5rem;">01</p><p class="ca-card__body">Only licensed provider of structured sentiment signals from X/Twitter, StockTwits, and Reddit — delivered in under 300ms with 15+ qualifying factors — AlphaSense has no social signal feed.</p></div><div class="ca-card" style="flex:1;min-width:180px;"><p class="ca-card__label" style="font-size:1.5rem;font-weight:700;color:var(--ca-accent);margin-bottom:0.5rem;">02</p><p class="ca-card__body">First-to-market with item-level, sub-section, and Notes-level JSON parsing of SEC and global filings across 200+ countries — AlphaSense treats filings as searchable documents, CA turns them into quant-ready signals.</p></div><div class="ca-card" style="flex:1;min-width:180px;"><p class="ca-card__label" style="font-size:1.5rem;font-weight:700;color:var(--ca-accent);margin-bottom:0.5rem;">03</p><p class="ca-card__body">Only quantitative podcast sentiment provider on the market — 51,000+ podcasts, 462,000+ episodes, history back to 2016 — AlphaSense offers nothing here.</p></div><div class="ca-card" style="flex:1;min-width:180px;"><p class="ca-card__label" style="font-size:1.5rem;font-weight:700;color:var(--ca-accent);margin-bottom:0.5rem;">04</p><p class="ca-card__body">3 U.S. patents back a fully transparent, rules-based NLP engine where signals are never AI-generated — critical for systematic desks that can&#x27;t use hallucination-prone black-box outputs in live models.</p></div><div class="ca-card" style="flex:1;min-width:180px;"><p class="ca-card__label" style="font-size:1.5rem;font-weight:700;color:var(--ca-accent);margin-bottom:0.5rem;">05</p><p class="ca-card__body">CA flagged FTX red flags hours before collapse — real-time social monitoring on 500+ top pre-IPO names delivers early warning signals AlphaSense simply cannot produce.</p></div></div><div class="section-header"><p class="section-header__title">Objection Handlers</p></div><details class="expander"><summary class="expander__summary">&ldquo;We already use AlphaSense for research and it covers everything we need.&rdquo;</summary><div class="expander__body"><p>AlphaSense is excellent for qualitative research — but if your quant or systematic desk is still building models without structured social sentiment, parsed filing signals, or podcast data, that&#x27;s a gap CA fills directly. We&#x27;re additive, not a replacement.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;AlphaSense has way more documents and AI capabilities.&rdquo;</summary><div class="expander__body"><p>500M documents is impressive for research analysts — but quant desks don&#x27;t need documents, they need structured signals. CA delivers model-ready JSON with latency measured in milliseconds, not reading-time. Different tool, different job.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;AlphaSense just acquired Tegus and now has expert transcripts — that covers our research needs.&rdquo;</summary><div class="expander__body"><p>Tegus is great for primary research. CA covers what neither Tegus nor AlphaSense touches — real-time social discourse from X, Reddit, StockTwits, and podcasts, structured for algorithmic ingestion. Ask your quant team if they can plug a Tegus transcript into a live trading model.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;AlphaSense&#x27;s AI generates research reports automatically — that&#x27;s more value than sentiment scores.&rdquo;</summary><div class="expander__body"><p>If your workflow is producing research memos, AlphaSense wins that battle. If your workflow is feeding signals into a model that trades, CA wins — because our NLP runs before any AI touches the data, and every signal is fully auditable and patent-protected.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;AlphaSense is a Gartner Magic Quadrant Leader — it&#x27;s the safe enterprise choice.&rdquo;</summary><div class="expander__body"><p>Gartner measures market intelligence platforms — CA competes in a completely different category: quantitative alternative data. The &#x27;safe enterprise choice&#x27; for a fundamental analyst is AlphaSense; the right choice for a quant desk running systematic signals is CA.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;We don&#x27;t want to manage another vendor relationship.&rdquo;</summary><div class="expander__body"><p>CA integrates directly into your existing data infrastructure — Snowflake, Databricks, SQL Server, Bloomberg — so your quant team gets the signals without rebuilding workflows. One API call, no new interface to learn.</p></div></details><div class="section-header"><p class="section-header__title">When CA Wins / When They Win</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><strong>When CA Wins</strong><ul><li>Quant or systematic desk that needs model-ready social sentiment signals with sub-1-minute latency and full methodology transparency.</li><li>HFT or algorithmic trading team that cannot use AI-generated, unauditable signals in live trading models.</li><li>Portfolio manager running a Lazy Prices or filing-change strategy who needs item-level, sentiment-scored JSON — not a PDF search tool.</li><li>Multi-asset investor covering crypto, commodities, or FX who needs structured social signals beyond equities.</li><li>Risk team that wants real-time social monitoring on top pre-IPO names for early warning signals before a collapse like FTX.</li><li>Quant desk that needs to backtest novel alternative data across social, podcast, and filing signals with history going back to 2006 or 2016.</li></ul></div><div><strong>When They Win</strong><ul><li>Fundamental analyst team that needs natural-language research synthesis across filings, broker research, and expert transcripts — AlphaSense&#x27;s document corpus and AI tooling are unmatched.</li><li>Investment bank or M&amp;A team conducting due diligence across hundreds of documents who needs cited AI-generated reports and PowerPoint outputs.</li><li>Firm that needs access to 240,000+ expert call transcripts via Tegus for primary research on 24,000+ companies.</li><li>Life sciences or pharma investor who needs sector-specific research content and workflows.</li><li>Corporate strategy or competitive intelligence team at a Fortune 500 company — CA doesn&#x27;t serve this use case at all.</li><li>Sell-side or buy-side team that needs broker research aggregation from 1,700+ sources including bulge-bracket equity research.</li></ul></div></div><div class="section-header"><p class="section-header__title">Discovery Questions</p></div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">1.</strong> Does your quant or systematic team currently ingest any structured social sentiment signals into live models — and if so, what&#x27;s the latency on those feeds?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">2.</strong> When your portfolio managers look at SEC filings, are they reading documents or are they running quantitative change-detection strategies on the text and sentiment at the item level?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">3.</strong> Has your team explored podcast data as a signal source — and do you have any structured, backtestable output from it today?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">4.</strong> For your algorithmic strategies, can you tell me how you handle signal auditability — do your compliance and risk teams require full transparency into how a sentiment score was computed?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">5.</strong> Beyond equities, are you running any systematic strategies in crypto, commodities, or FX that need alternative data signals?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">6.</strong> How are you currently monitoring social media sentiment on pre-IPO companies in your pipeline — and how early would you want to know if something like FTX was showing red flags?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">7.</strong> If your quant team wanted to backtest a Lazy Prices strategy globally across 200+ countries, what data would they use today?</div></div><div id="p0s3" class="inner-pane hidden"><div class="section-header"><p class="section-header__title">Sources Cited</p></div><ul><li><a href="https://www.alpha-sense.com/" target="_blank">https://www.alpha-sense.com/</a></li><li><a href="https://www.alpha-sense.com/platform/" target="_blank">https://www.alpha-sense.com/platform/</a></li><li><a href="https://www.alpha-sense.com/platform/financial-data/" target="_blank">https://www.alpha-sense.com/platform/financial-data/</a></li><li><a href="https://www.alpha-sense.com/solutions/ai-in-financial-services/" target="_blank">https://www.alpha-sense.com/solutions/ai-in-financial-services/</a></li><li><a href="https://www.alpha-sense.com/solutions/market-intelligence-platform/" target="_blank">https://www.alpha-sense.com/solutions/market-intelligence-platform/</a></li><li><a href="https://www.alpha-sense.com/blog/product/alphasense-and-investment-banking/" target="_blank">https://www.alpha-sense.com/blog/product/alphasense-and-investment-banking/</a></li><li><a href="https://www.alpha-sense.com/press/alphasense-raises-350m-at-7-5b-valuation-and-surpasses-600m-in-annual-recurring-revenue/" target="_blank">https://www.alpha-sense.com/press/alphasense-raises-350m-at-7-5b-valuation-and-surpasses-600m-in-annual-recurring-revenue/</a></li><li><a href="https://www.alpha-sense.com/press/alphasense-surpasses-500m-in-arr/" target="_blank">https://www.alpha-sense.com/press/alphasense-surpasses-500m-in-arr/</a></li><li><a href="https://www.alpha-sense.com/press/alphasense-introduces-superanalyst-the-always-on-ai-execution-layer-for-decision-grade-intelligence/" target="_blank">https://www.alpha-sense.com/press/alphasense-introduces-superanalyst-the-always-on-ai-execution-layer-for-decision-grade-intelligence/</a></li><li><a href="https://www.alpha-sense.com/press/alphasense-launches-work-products/" target="_blank">https://www.alpha-sense.com/press/alphasense-launches-work-products/</a></li><li><a href="https://www.alpha-sense.com/press/alphasense-innovations-in-end-to-end-ai-workflows/" target="_blank">https://www.alpha-sense.com/press/alphasense-innovations-in-end-to-end-ai-workflows/</a></li><li><a href="https://www.alpha-sense.com/press/alphasense-expands-global-footprint-with-new-flagship-headquarters-in-new-york-city" target="_blank">https://www.alpha-sense.com/press/alphasense-expands-global-footprint-with-new-flagship-headquarters-in-new-york-city</a></li><li><a href="https://www.alpha-sense.com/press/alphasense-reflects-on-record-award-wins-for-ai-innovation-in-2024" target="_blank">https://www.alpha-sense.com/press/alphasense-reflects-on-record-award-wins-for-ai-innovation-in-2024</a></li><li><a href="https://www.alpha-sense.com/press/accenture-and-alphasense-announce-strategic-investment-and-partnership/" target="_blank">https://www.alpha-sense.com/press/accenture-and-alphasense-announce-strategic-investment-and-partnership/</a></li><li><a href="https://www.alpha-sense.com/press/alphasense-on-incs-2025-best-in-business-list/" target="_blank">https://www.alpha-sense.com/press/alphasense-on-incs-2025-best-in-business-list/</a></li><li><a href="https://www.alpha-sense.com/contact/" target="_blank">https://www.alpha-sense.com/contact/</a></li><li><a href="https://www.alpha-sense.com/careers/" target="_blank">https://www.alpha-sense.com/careers/</a></li><li><a href="https://www.alpha-sense.com/resources/product-articles/product-releases-2025" target="_blank">https://www.alpha-sense.com/resources/product-articles/product-releases-2025</a></li><li><a href="https://www.alpha-sense.com/resources/product-articles/what-is-alphasense/" target="_blank">https://www.alpha-sense.com/resources/product-articles/what-is-alphasense/</a></li><li><a href="https://www.alpha-sense.com/resources/product-articles/market-intelligence-tools/" target="_blank">https://www.alpha-sense.com/resources/product-articles/market-intelligence-tools/</a></li><li><a href="https://www.alpha-sense.com/compare/alphasense-vs-factiva" target="_blank">https://www.alpha-sense.com/compare/alphasense-vs-factiva</a></li><li><a href="https://www.cnbc.com/2025/06/10/alphasense-cnbc-disruptor-50.html" target="_blank">https://www.cnbc.com/2025/06/10/alphasense-cnbc-disruptor-50.html</a></li><li><a href="https://pitchbook.com/profiles/company/81979-84" target="_blank">https://pitchbook.com/profiles/company/81979-84</a></li><li><a href="https://sacra.com/c/alphasense/" target="_blank">https://sacra.com/c/alphasense/</a></li><li><a href="https://tracxn.com/d/companies/alphasense/__S_AoDv_cGJCcAbin7ukuADCzx32QzAkJndWZYjTqobc" target="_blank">https://tracxn.com/d/companies/alphasense/__S_AoDv_cGJCcAbin7ukuADCzx32QzAkJndWZYjTqobc</a></li><li><a href="https://newsroom.accenture.com/news/2026/accenture-and-alphasense-announce-strategic-investment-and-partnership-to-bring-agentic-workflows-for-market-intelligence-to-enterprises" target="_blank">https://newsroom.accenture.com/news/2026/accenture-and-alphasense-announce-strategic-investment-and-partnership-to-bring-agentic-workflows-for-market-intelligence-to-enterprises</a></li><li><a href="https://fintech.global/2026/06/04/alphasense-raises-350m-at-7-5bn-valuation/" target="_blank">https://fintech.global/2026/06/04/alphasense-raises-350m-at-7-5bn-valuation/</a></li><li><a href="https://pulse2.com/alphasense-raises-350-million-at-7-5-billion-valuation-while-surpassing-600-million-in-annual-recurring-revenue/" target="_blank">https://pulse2.com/alphasense-raises-350-million-at-7-5-billion-valuation-while-surpassing-600-million-in-annual-recurring-revenue/</a></li><li><a href="https://getlatka.com/companies/alphasense" target="_blank">https://getlatka.com/companies/alphasense</a></li><li><a href="https://www.crunchbase.com/organization/alphasense" target="_blank">https://www.crunchbase.com/organization/alphasense</a></li><li><a href="https://www.prnewswire.com/news-releases/alphasense-expands-global-footprint-with-new-flagship-headquarters-in-new-york-city-302468973.html" target="_blank">https://www.prnewswire.com/news-releases/alphasense-expands-global-footprint-with-new-flagship-headquarters-in-new-york-city-302468973.html</a></li><li><a href="https://www.prnewswire.com/news-releases/alphasense-innovations-in-end-to-end-ai-workflows-for-structured-financial-data-expert-content-and-enterprise-intelligence-fuel-rapid-growth-302577532.html" target="_blank">https://www.prnewswire.com/news-releases/alphasense-innovations-in-end-to-end-ai-workflows-for-structured-financial-data-expert-content-and-enterprise-intelligence-fuel-rapid-growth-302577532.html</a></li><li><a href="https://www.prnewswire.com/news-releases/alphasense-supercharges-its-generative-ai-suite-with-groundbreaking-new-features-302392420.html" target="_blank">https://www.prnewswire.com/news-releases/alphasense-supercharges-its-generative-ai-suite-with-groundbreaking-new-features-302392420.html</a></li><li><a href="https://intuitionlabs.ai/articles/alphasense-platform-review" target="_blank">https://intuitionlabs.ai/articles/alphasense-platform-review</a></li><li><a href="https://intuitionlabs.ai/software/marketing-commercial-operations/market-research-and-competitive-intelligence/alphasense" target="_blank">https://intuitionlabs.ai/software/marketing-commercial-operations/market-research-and-competitive-intelligence/alphasense</a></li><li><a href="https://help.alpha-sense.com/hc/en-us/articles/48824062007187-AlphaSense-Product-Updates-January-2026" target="_blank">https://help.alpha-sense.com/hc/en-us/articles/48824062007187-AlphaSense-Product-Updates-January-2026</a></li><li><a href="https://www.gartner.com/reviews/product/alphasense" target="_blank">https://www.gartner.com/reviews/product/alphasense</a></li><li><a href="https://www.capterra.com/p/156911/AlphaSense/" target="_blank">https://www.capterra.com/p/156911/AlphaSense/</a></li><li><a href="https://uk.linkedin.com/company/alphasense" target="_blank">https://uk.linkedin.com/company/alphasense</a></li><li><a href="https://techintelpro.com/news/data-and-analytics/business-intelligence/alphasense-opens-new-global-hq-in-nycs-hudson-yards" target="_blank">https://techintelpro.com/news/data-and-analytics/business-intelligence/alphasense-opens-new-global-hq-in-nycs-hudson-yards</a></li></ul><div class="section-header"><p class="section-header__title">Our Profile Files Loaded</p></div><ul><li><code>context_analytics_products.yaml</code></li><li><code>Context Analytics Field Guide.pdf</code></li><li><code>Context Analytics, Inc. (CA) - AI Summary Data Feed.pdf</code></li><li><code>Context Analytics, Inc. (CA) - Podcast Data Feed.pdf</code></li><li><code>Context Analytics, Inc. (CA) - U.S. Equity S-Factors Feed (1).pdf</code></li></ul><hr><p style="font-size:0.8125rem;color:var(--ca-text-muted);">Generated: 2026-09-21T16:00:34.254914Z</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);">Model: <code>claude-sonnet-4-6</code></p></div></div><div id="panel-1" class="tab-panel hidden"><div class="inner-tabs"><button class="inner-tab" onclick="switchInner(this,'p1s0')" data-active>Profile</button><button class="inner-tab" onclick="switchInner(this,'p1s1')">Comparative Analysis</button><button class="inner-tab" onclick="switchInner(this,'p1s2')">Battle Card</button><button class="inner-tab" onclick="switchInner(this,'p1s3')">Sources</button></div><div id="p1s0" class="inner-pane"><div class="metric-grid"><div class="metric-box"><p class="metric-label">Company Size</p><p class="metric-value">~200 employees (as of 2026); private company; ~$35M total raised</p></div><div class="metric-box"><p class="metric-label">Founded</p><p class="metric-value">2003</p></div><div class="metric-box"><p class="metric-label">Headquarters</p><p class="metric-value">Marbella, Spain</p></div><div class="metric-box"><p class="metric-label">Market Cap</p><p class="metric-value">private</p></div></div><hr><div class="section-header"><p class="section-header__title">About</p></div><p>RavenPack is a leading AI and big data analytics provider for financial services, founded in 2003 and headquartered in Marbella, Spain. The company transforms unstructured content — including news, social media, regulatory filings, earnings call transcripts, and job postings — into structured, machine-readable analytics such as sentiment scores, event classifications, and entity-linked signals. Its platform aggregates over 40,000 sources across 13 languages and maps more than 12 million named entities to generate sentiment, relevance, and impact scores. RavenPack serves the world&#x27;s top hedge funds, banks, and asset managers with tools designed for alpha generation, risk management, ESG analytics, and portfolio optimization.</p><div class="section-header"><p class="section-header__title">Mission Statement</p></div><blockquote>Turning the world&#x27;s content into decision-ready data — providing technology and insights for data-driven companies to enhance returns, reduce risk, and increase efficiency.</blockquote><div class="section-header"><p class="section-header__title">Additional Locations</p></div><ul><li>New York, USA</li><li>London, UK</li><li>Thane, India</li></ul><div class="section-header"><p class="section-header__title">Products</p></div><details class="expander"><summary class="expander__summary">RavenPack Edge <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2019)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Hedge funds, quantitative asset managers, banks, asset managers, academic institutions</p><p><strong>Primary Users:</strong> Quantitative analysts, data scientists, portfolio managers, risk managers, compliance officers</p><p><strong>Coverage:</strong> Global equities, fixed income, commodities, currencies, macroeconomics; 40,000+ sources in 13 languages; 12M+ named entities including public/private companies, executives, geographies, products</p><p><strong>Use Cases:</strong></p><ul><li>Alpha generation via news sentiment and event signals</li><li>Risk monitoring and management</li><li>ESG analytics and controversy tracking</li><li>Systematic and quantamental trading strategy development</li><li>Market surveillance and compliance</li><li>Earnings and macro research</li><li>Insider transaction signal analysis</li><li>Job market trend analysis</li></ul><p><strong>Deliverable Formats:</strong> REST API (JSON), CSV (via async datafile endpoint), Real-time streaming API, Snowflake data share, Python API client, R API client, Web dashboard / Dataset Builder UI</p><p><a href="https://www.ravenpack.com/products/edge" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Bigdata.com <span style="color:var(--ca-text-muted);font-weight:400;">(launched Q3-2024 (beta July 2024; full launch October 2024))</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Hedge funds, investment banks, asset managers, financial research teams</p><p><strong>Primary Users:</strong> Financial analysts, portfolio managers, quant researchers, data scientists</p><p><strong>Coverage:</strong> Global financial markets; premium real-time and historical content including FT archive (back to 2012), podcasts (20,000+ U.S. business/finance/tech podcasts), RavenPack news and sentiment datasets, job analytics, earnings transcripts, filings, insider transactions</p><p><strong>Use Cases:</strong></p><ul><li>AI-driven financial research and document Q&amp;A</li><li>Deploying and customizing AI agents for investment workflows</li><li>Automated research and report generation</li><li>Watchlist monitoring and trending topic search</li><li>Alpha generation using real-time curated financial data</li><li>Accessing and querying decades of premium financial journalism (FT content)</li><li>Podcast intelligence for market narrative analysis</li><li>Thematic screening and KPI extraction</li><li>Content tokenization for AI agent licensing</li></ul><p><strong>Deliverable Formats:</strong> Web platform (desktop and mobile app), REST API, AI agent interface (agentic workflow builder), Real-time research assistant / chat interface, Snowflake (underlying data layer)</p><p><a href="https://www.ravenpack.com/blog/ravenpack-unveils-bigdata-ai-platform" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">RavenPack Annotations <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2023)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Financial institutions and technology firms building or fine-tuning large language models</p><p><strong>Primary Users:</strong> Data scientists, ML engineers, NLP researchers</p><p><strong>Coverage:</strong> Global financial entities and events; human-reviewed labels across news and content datasets</p><p><strong>Use Cases:</strong></p><ul><li>Training datasets for large language models (LLMs)</li><li>Human-reviewed entity and event labeling</li><li>Fine-tuning domain-specific AI/NLP models for finance</li></ul><p><strong>Deliverable Formats:</strong> Snowflake data share, CSV</p><p><a href="https://www.snowflake.com/en/customers/all-customers/case-study/ravenpack/" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">RavenPack Analytics (RPA) — Legacy Platform <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2003)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Quantitative hedge funds, systematic asset managers, academic researchers</p><p><strong>Primary Users:</strong> Quantitative analysts, data scientists, academic researchers</p><p><strong>Coverage:</strong> Global equities (RPA Equities), global macro (RPA Global Macro); available via WRDS for academic access</p><p><strong>Use Cases:</strong></p><ul><li>Equity sentiment analytics</li><li>Global macro analytics</li><li>Historical backtesting of news-driven signals</li><li>Academic financial research</li></ul><p><strong>Deliverable Formats:</strong> REST API (JSON), CSV (async datafile), Real-time streaming API, Python API client, R API client, WRDS platform (academic access)</p><p><a href="https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/ravenpack/" target="_blank">Source &rarr;</a></p></div></details><div class="section-header"><p class="section-header__title">Recent News</p></div><ul><li>RavenPack launches Tokenization of Content on Bigdata.com, enabling AI agents to retrieve and license premium content using tokens — July 20, 2026</li><li>RavenPack and WorldQuant announce AI-Powered &#x27;Data Creation Challenge&#x27; — February 23, 2026</li><li>RavenPack secures strategic investment from FT Ventures (Financial Times) and integrates premium FT content archive into Bigdata.com — December 1, 2025</li><li>RavenPack and Podchaser partner to deliver podcast intelligence for financial professionals — October 14, 2025</li><li>RavenPack raises additional $20M funding round (unattributed VC) — December 1, 2025</li><li>RavenPack launches Bigdata.com with Vespa.ai for billion-scale vector search for financial research — November 19, 2024</li><li>RavenPack officially unveils Bigdata.com AI platform, citing tenfold increase in research efficiency — October 22, 2024</li><li>RavenPack raises $20M led by GP Bullhound with participation from European Investment Bank to build Bigdata.com — July 2024</li></ul></div><div id="p1s1" class="inner-pane hidden"><div class="section-header"><p class="section-header__title">Executive Summary</p></div><div class="ca-info-banner">Context Analytics and RavenPack are the two most directly comparable providers of structured, machine-readable unstructured data for institutional finance, overlapping most heavily in news sentiment, social sentiment, filings analytics, and AI-generated summaries. RavenPack holds scale and breadth advantages — 40,000+ sources, 13 languages, 12M+ named entities, a legacy platform dating to 2003, and a growing AI research environment in Bigdata.com backed by FT Ventures — making it a dominant incumbent particularly for global macro and multi-language mandates. Context Analytics differentiates on source novelty and licensing exclusivity, holding the only licensed structured signals from X (Twitter), StockTwits, and podcasts, protected by three U.S. patents, which creates a genuine data-novelty edge for quant desks seeking uncrowded factors. CA&#x27;s product stack is more granular at the signal level — 15 qualifying S-Factors, sub-300ms delivery, minute-level Activity Feeds — while RavenPack&#x27;s newer Bigdata.com platform is pushing further into agentic AI workflows and content licensing, a direction CA has not yet matched. The competitive battleground for both companies is the quantitative trader and portfolio manager at hedge funds and systematic asset managers, with CA&#x27;s clearest white space in social media signal purity and podcast data, and RavenPack&#x27;s clearest advantage in global multi-language coverage, FT-premium content, and its established institutional brand.</div><div class="section-header"><p class="section-header__title">Product Comparison</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Social Media Analytics (S-Factor)</strong></div><div><strong style="font-size:0.9375rem;">RavenPack Edge (social/news analytics layer)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both provide structured, machine-readable sentiment signals derived from social and online content, mapped to financial securities and delivered via REST API for quantitative use.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA holds exclusive licenses to structured signals from X (Twitter) and StockTwits, and tracks 40+ Reddit subreddits — sources RavenPack does not offer as licensed, structured feeds. CA&#x27;s S-Factor methodology applies 15 qualifying factors with a 20-day baseline and delivers signals in under 300ms with a statistically validated S-Score threshold (|S-Score| &gt; 2 = 98.6% confidence). RavenPack Edge is primarily a news analytics platform with social as a secondary layer; its social coverage breadth and per-source transparency are not documented at the same granularity as CA&#x27;s feed architecture.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Corporate Filings — MRF (U.S. Machine Readable Filings)</strong></div><div><strong style="font-size:0.9375rem;">RavenPack Edge (regulatory filings analytics)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both parse SEC EDGAR filings into machine-readable, structured output with sentiment scoring, covering form types including 10-K, 10-Q, 8-K, and others, for risk monitoring and alpha generation.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s MRF was the first product to parse SEC EDGAR filings at the Item, Section, Sub-section, and Notes level (launched April 2020, history to 2006, ~2.8M documents), produced in partnership with S&amp;P Global Market Intelligence. CA publishes documented alpha use cases including Lazy Prices / Alpha Return quintile strategies. RavenPack Edge includes earnings transcripts and filings as part of its broader 40,000+ source intake, but its filings parsing depth at the sub-section and notes level is not documented; RavenPack&#x27;s primary differentiation in this space is multi-language and global regulatory coverage rather than structural parsing depth.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Corporate Filings — GMRF (Global Machine Readable Filings)</strong></div><div><strong style="font-size:0.9375rem;">RavenPack Edge (global regulatory filings layer)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both offer analytics on international corporate filings across multiple countries, with structured outputs for use in systematic investment and risk workflows.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s GMRF was the first product to parse international Annual, Quarterly, Semi-Annual reports and Financial Supplements (~3M documents, 200+ countries) into multi-level JSON following each document&#x27;s native structure, in partnership with S&amp;P Global Market Intelligence. RavenPack processes regulatory filings across global sources as part of its 40,000+ source aggregation in 13 languages, giving it a language and geographic breadth advantage — particularly for non-English markets — but its sub-document parsing depth and native document structure fidelity are not documented to the same level as CA&#x27;s GMRF.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Quantitative News Feed</strong></div><div><strong style="font-size:0.9375rem;">RavenPack Edge (News Analytics)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both deliver structured, machine-readable news sentiment scores mapped to financial securities via JSON API, with topic tagging, entity mapping, and model-ready output for quantitative trading strategies.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> RavenPack Edge is its flagship and most mature product in news analytics — aggregating 40,000+ sources across 13 languages with 12M+ named entity mappings, offering event classification, relevance and novelty scores, and a legacy dating to 2003. CA&#x27;s Quantitative News Feed runs on the same proprietary rules-based NLP engine as the S-Factor Feed (ensuring cross-feed signal comparability), covers 4,000+ news sources with 150,000+ articles per month, but is currently scoped to U.S. Equities only. RavenPack holds a clear breadth and language advantage in news; CA&#x27;s advantage is engine consistency across social, news, and filings signals under one methodology.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Podcast Data Feed</strong></div><div><strong style="font-size:0.9375rem;">Bigdata.com (Podcast Intelligence via Podchaser partnership)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both ingest, transcribe, and extract financial entity mentions from podcasts across business, finance, and technology genres, providing structured sentiment signals and qualitative summaries for investment use.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA is the only quantitative provider of structured, model-ready podcast sentiment signals — delivering both a Quantitative Feed (sentiment scores per security per episode) and a Qualitative Feed (AI-generated company-mention summaries), with history from January 2016, 462,000+ unique episodes, 51,000+ podcasts tracked, and ~250 episodes processed per day. RavenPack partnered with Podchaser in October 2025 to offer podcast intelligence on Bigdata.com across 20,000+ U.S. business/finance/tech podcasts, but this is positioned as a qualitative research and narrative analysis tool within an AI agent interface, not a structured quantitative signal feed. CA has a multi-year head start in quantitative podcast signal construction and backtested alpha evidence.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Unstructured Data Terminal (UDT)</strong></div><div><strong style="font-size:0.9375rem;">Bigdata.com (web platform / research dashboard)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both offer browser-based dashboard environments that consolidate multiple unstructured data sources — filings, news, social/sentiment — into a single interface for non-quant or hybrid users without a data engineering lift.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s UDT integrates MRF/GMRF filings, social sentiment, and news with document red-lining, word-count and sentiment change detection, earnings call schedules, and ThemeX custom topic modeling targeted at fundamental investors. RavenPack&#x27;s Bigdata.com is a more expansive AI-native platform with an agentic workflow builder, AI research assistant chat interface, content tokenization for AI agent licensing, FT archive access (back to 2012), and billion-scale vector search via Vespa.ai — representing a more ambitious and better-funded AI platform play. CA&#x27;s UDT is more tightly scoped to institutional signal validation; Bigdata.com is positioning as a broader financial intelligence operating environment.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Generative AI Summaries</strong></div><div><strong style="font-size:0.9375rem;">Bigdata.com (AI research assistant / automated report generation)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both use large language models to generate natural-language summaries of financial content at the security level, delivered via API and/or platform interface, with the intent of reducing manual research labor.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s Generative AI Summaries are explicitly architected to keep the rules-based NLP signal separate from the AI layer — AI writes the summary after the S-Factor signal is calculated, ensuring no hallucination risk in the underlying score. Summaries update every 10-15 minutes, include hourly trend detection, and are delivered via JSON API and email alerts. RavenPack&#x27;s Bigdata.com AI assistant supports document Q&amp;A, automated report generation, agentic workflows, and real-time content search across a much broader corpus including FT content, filings, earnings transcripts, and job data — a more feature-complete AI research environment, but one that blends LLM outputs more broadly with the underlying data rather than maintaining CA&#x27;s strict signal-versus-summary separation.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Private Company Data</strong></div><div><strong style="font-size:0.9375rem;"><em>No equivalent</em></strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> No equivalent RavenPack product focused specifically on structured sentiment and mention data for large pre-IPO private companies as a dedicated coverage universe.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA covers 500+ of the largest private companies likely to go public, with social sentiment and mention data from January 2021, including documented early-warning capability (e.g., FTX red flags surfaced hours before collapse). RavenPack&#x27;s 12M+ named entity coverage technically includes private companies as entities within its broader news and content analytics, but there is no dedicated private company sentiment product or pre-IPO monitoring feed documented in its product lineup.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Universal Document Processor (UDP)</strong></div><div><strong style="font-size:0.9375rem;">RavenPack Annotations</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both offer structured extraction from unstructured document types to support downstream analytics, AI model development, or data integration workflows.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> CA&#x27;s UDP parses any document type (VC pitch decks, PE data rooms, real estate memorandums, corporate reports) into machine-readable JSON with separate text and table extraction, delivered to Excel, Snowflake, CSV, SQL Server, and Databricks — targeting institutional clients seeking to process proprietary document repositories at scale. RavenPack Annotations is a labeled training dataset product for LLM fine-tuning, providing human-reviewed entity and event labels for ML engineers building domain-specific finance NLP models — a fundamentally different use case (AI model training rather than document intelligence for investment workflows).</p></div><div class="section-header"><p class="section-header__title">Audience Overlap</p></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;"><div><strong>Shared Segments</strong><ul><li>Quantitative / systematic / algorithmic traders at hedge funds</li><li>Portfolio managers at hedge funds and asset managers</li><li>Risk managers and portfolio risk analysts at capital firms</li><li>Data scientists and quantitative analysts building factor models</li><li>Fundamental analysts seeking machine-readable filings data</li><li>Compliance and market surveillance officers</li></ul></div><div><strong>Our Exclusive Segments</strong><ul><li>High-frequency and algo execution desks requiring sub-300ms social signal delivery with minute-level Activity Feed granularity</li><li>Fundamental investors using the UDT dashboard for filings red-lining and ThemeX topic modeling without a data engineering capability</li><li>Pre-IPO / private equity monitors tracking large private company sentiment for IPO pipeline intelligence</li><li>Institutional clients seeking to process proprietary document repositories (PE data rooms, VC decks, real estate) via the UDP</li></ul></div><div><strong>Their Exclusive Segments</strong><ul><li>Academic researchers and institutions accessing historical data via WRDS platform</li><li>ML engineers and NLP researchers seeking labeled financial training datasets for LLM fine-tuning (via RavenPack Annotations)</li><li>Financial institutions requiring multi-language (13 languages) global news analytics across non-English markets</li><li>Investment teams seeking agentic AI workflow automation and content tokenization via Bigdata.com</li><li>Clients requiring access to premium FT journalism archive (back to 2012) integrated into research workflows</li></ul></div></div><hr><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><div class="section-header"><p class="section-header__title">Our Strengths</p></div><ul><li>Exclusive licensed access to structured signals from X (Twitter) and StockTwits — no other provider offers these as licensed, model-ready quantitative feeds, directly supporting data novelty for quant desks seeking uncrowded factors</li><li>Three U.S. patents protecting CA&#x27;s core data processing methodology, creating a defensible IP moat around the S-Factor signal construction</li><li>15-factor S-Factor qualification framework with statistically validated S-Score threshold (|S-Score| &gt; 2 = 98.6% confidence interval vs. 20-day baseline), providing rigorous, documented signal transparency that rules-based NLP buyers demand</li><li>Sub-300ms signal delivery with minute-level Activity Feed — the most granular latency profile documented in this competitive set, critical for HFT and algo execution desks</li><li>Pioneer in quantitative podcast sentiment analytics: 462,000+ unique episodes, history from January 2016, ~250 episodes/day processed — multi-year head start over RavenPack&#x27;s October 2025 Podchaser partnership</li><li>First to parse SEC EDGAR filings at Item, Section, Sub-section, and Notes level (MRF, April 2020) and first to parse international filings into native magazine-style JSON structure (GMRF, April 2021), in partnership with S&amp;P Global Market Intelligence</li><li>Single unified NLP engine across social, news, podcast, and filings — signals are directly comparable across sources without reconciliation, a documented positioning advantage over multi-vendor stacks</li><li>Strict architectural separation between rules-based NLP signal and AI summary layer eliminates hallucination risk in the underlying score — a directly articulated sales advantage over platforms that blend LLM and signal generation</li></ul></div><div><div class="section-header"><p class="section-header__title">Their Strengths</p></div><ul><li>Scale of source aggregation: 40,000+ sources across 13 languages and 12M+ named entities — significantly broader global and multilingual coverage than CA&#x27;s documented source universe</li><li>22-year track record and institutional brand: founded in 2003, RavenPack is an established incumbent with deep penetration across top-tier hedge funds, banks, and asset managers globally, giving it procurement credibility CA must work to match</li><li>Bigdata.com AI platform represents a well-funded, strategically differentiated product — $40M+ raised, FT Ventures strategic investment, FT content archive integration, agentic workflow builder, and billion-scale vector search position it as a next-generation financial intelligence environment beyond traditional data feeds</li><li>Multi-language global news analytics in 13 languages provides meaningful coverage advantage for firms with non-English or emerging market mandates — a gap CA has not documented filling</li><li>RavenPack Annotations product serves the LLM training dataset market, an adjacent revenue stream and strategic positioning play (AI infrastructure layer) that CA has no equivalent for</li><li>Academic access via WRDS platform establishes RavenPack in the research-to-practitioner pipeline, building brand awareness and future client relationships at the graduate and academic research level</li><li>Podchaser partnership (20,000+ podcasts) integrated into an AI-native research platform signals a credible move into CA&#x27;s podcast intelligence territory, backed by a broader platform distribution advantage</li></ul></div></div><hr><div class="section-header"><p class="section-header__title">Coverage Gaps</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><strong>We cover, they don't</strong><ul><li>Licensed, structured quantitative signals from X (Twitter) and StockTwits as dedicated model-ready feeds — RavenPack has no documented licensed equivalent</li><li>Reddit social sentiment tracking across 40+ subreddits (e.g., r/WallStreetBets) as a structured quantitative feed</li><li>Dedicated private company sentiment and mention data for 500+ large pre-IPO companies as a standalone product with documented early-warning capability</li><li>Universal Document Processor (UDP) for parsing proprietary client document repositories (VC decks, PE data rooms, real estate memorandums) into machine-readable JSON with table extraction</li><li>Sub-300ms latency social signal delivery with minute-level Activity Feed specifically engineered for HFT and algo execution workflows</li><li>15-factor S-Factor signal qualification framework with documented statistical significance thresholds and full source/processing/signal transparency</li><li>Quantitative podcast sentiment feed with structured per-security sentiment scores, relevance scores, and backtested alpha evidence dating to January 2016</li><li>S&amp;P Global Market Intelligence partnership for MRF/GMRF delivery — providing an additional institutional distribution and data quality credentialing layer</li><li>Coverage of ASX (~800 equities), NSE India (500+ equities), TSX (~450 equities), and Korean/Israeli equities within social sentiment feeds</li></ul></div><div><strong>They cover, we don't</strong><ul><li>Multi-language news analytics in 13 languages across 40,000+ global sources — CA&#x27;s documented source coverage and language support do not match this scale</li><li>12M+ named entity coverage including geographies, executives, products, and macro entities beyond financial securities — CA&#x27;s entity universe is security-centric</li><li>FT Financial Times premium content archive (back to 2012) integrated into a research platform via strategic FT Ventures investment</li><li>Agentic AI workflow builder and content tokenization framework for AI agent licensing — a next-generation AI infrastructure capability CA has not launched</li><li>Billion-scale vector search (via Vespa.ai integration on Bigdata.com) for semantic financial research at scale</li><li>RavenPack Annotations: labeled training datasets for LLM fine-tuning and domain-specific financial NLP model development</li><li>Academic / WRDS platform access enabling institutional adoption through the research-to-practitioner pipeline</li><li>Event classification and novelty scoring on news items (documented RavenPack Edge capability) beyond sentiment — flagging whether a news item represents a genuinely new event vs. repetition</li><li>Insider transaction signal analysis and job market trend analytics as documented structured data products</li><li>ESG analytics and controversy tracking as an explicitly marketed product capability with dedicated use-case documentation</li></ul></div></div></div><div id="p1s2" class="inner-pane hidden"><p style="color:var(--ca-text-muted);">No battle card generated.</p></div><div id="p1s3" class="inner-pane hidden"><div class="section-header"><p class="section-header__title">Sources Cited</p></div><ul><li><a href="https://www.ravenpack.com/" target="_blank">https://www.ravenpack.com/</a></li><li><a href="https://www.ravenpack.com/products/edge" target="_blank">https://www.ravenpack.com/products/edge</a></li><li><a href="https://www.ravenpack.com/products/edge/data" target="_blank">https://www.ravenpack.com/products/edge/data</a></li><li><a href="https://www.ravenpack.com/products/edge/data/news-analytics" target="_blank">https://www.ravenpack.com/products/edge/data/news-analytics</a></li><li><a href="https://www.ravenpack.com/products/edge/delivery" target="_blank">https://www.ravenpack.com/products/edge/delivery</a></li><li><a href="https://www.ravenpack.com/technology" target="_blank">https://www.ravenpack.com/technology</a></li><li><a href="https://www.ravenpack.com/blog/ravenpack-unveils-bigdata-ai-platform" target="_blank">https://www.ravenpack.com/blog/ravenpack-unveils-bigdata-ai-platform</a></li><li><a href="https://www.ravenpack.com/blog/gp-bullhound-leads-20m-investment-in-ravenpack-to-launch-next-gen-ai-platform" target="_blank">https://www.ravenpack.com/blog/gp-bullhound-leads-20m-investment-in-ravenpack-to-launch-next-gen-ai-platform</a></li><li><a href="https://www.ravenpack.com/blog/ravenpack-2024-data-science-journey" target="_blank">https://www.ravenpack.com/blog/ravenpack-2024-data-science-journey</a></li><li><a href="https://www.ravenpack.com/company/media/press" target="_blank">https://www.ravenpack.com/company/media/press</a></li><li><a href="https://bigdata.com/about" target="_blank">https://bigdata.com/about</a></li><li><a href="https://www.prnewswire.com/news-releases/ravenpack-unveils-bigdatacom-ai-platform-boosts-financial-research-efficiency-tenfold-302281963.html" target="_blank">https://www.prnewswire.com/news-releases/ravenpack-unveils-bigdatacom-ai-platform-boosts-financial-research-efficiency-tenfold-302281963.html</a></li><li><a href="https://www.prnewswire.com/news-releases/ravenpack-secures-strategic-investment-from-financial-times-and-integrates-premium-ft-content-into-ai-platform-302629179.html" target="_blank">https://www.prnewswire.com/news-releases/ravenpack-secures-strategic-investment-from-financial-times-and-integrates-premium-ft-content-into-ai-platform-302629179.html</a></li><li><a href="https://www.prnewswire.com/news-releases/ravenpack-and-podchaser-partner-to-deliver-podcast-intelligence-for-financial-professionals-302583190.html" target="_blank">https://www.prnewswire.com/news-releases/ravenpack-and-podchaser-partner-to-deliver-podcast-intelligence-for-financial-professionals-302583190.html</a></li><li><a href="https://www.snowflake.com/en/customers/all-customers/case-study/ravenpack/" target="_blank">https://www.snowflake.com/en/customers/all-customers/case-study/ravenpack/</a></li><li><a href="https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/ravenpack/" target="_blank">https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/ravenpack/</a></li><li><a href="https://londonstrategicedge.com/directory/data-providers/ravenpack/" target="_blank">https://londonstrategicedge.com/directory/data-providers/ravenpack/</a></li><li><a href="https://leadiq.com/c/ravenpack/5a1d98fd23000054008795ac" target="_blank">https://leadiq.com/c/ravenpack/5a1d98fd23000054008795ac</a></li><li><a href="https://pitchbook.com/profiles/company/88772-59" target="_blank">https://pitchbook.com/profiles/company/88772-59</a></li><li><a href="https://www.preqin.com/data/profile/asset/ravenpack-international-s-l-u-/228326" target="_blank">https://www.preqin.com/data/profile/asset/ravenpack-international-s-l-u-/228326</a></li><li><a href="https://www.cbinsights.com/company/ravenpack" target="_blank">https://www.cbinsights.com/company/ravenpack</a></li><li><a href="https://tracxn.com/d/companies/ravenpack-international/__Q160R7_AalPBGqh13q_n7K9Ebh2Fdt62NrEIrxeOQbM" target="_blank">https://tracxn.com/d/companies/ravenpack-international/__Q160R7_AalPBGqh13q_n7K9Ebh2Fdt62NrEIrxeOQbM</a></li><li><a href="https://www.tradersmagazine.com/featured_articles/ravenpack-unveils-bigdata-ai-platform/" target="_blank">https://www.tradersmagazine.com/featured_articles/ravenpack-unveils-bigdata-ai-platform/</a></li><li><a href="https://github.com/RavenPack/python-api" target="_blank">https://github.com/RavenPack/python-api</a></li><li><a href="https://github.com/RavenPack/r-api" target="_blank">https://github.com/RavenPack/r-api</a></li></ul><div class="section-header"><p class="section-header__title">Our Profile Files Loaded</p></div><ul><li><code>context_analytics_products.yaml</code></li><li><code>Context Analytics Field Guide.pdf</code></li><li><code>Context Analytics, Inc. (CA) - AI Summary Data Feed.pdf</code></li><li><code>Context Analytics, Inc. (CA) - Podcast Data Feed.pdf</code></li><li><code>Context Analytics, Inc. (CA) - U.S. Equity S-Factors Feed (1).pdf</code></li></ul><hr><p style="font-size:0.8125rem;color:var(--ca-text-muted);">Generated: 2026-09-21T15:45:37.774279Z</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);">Model: <code>claude-sonnet-4-6</code></p></div></div><div id="panel-2" class="tab-panel hidden"><p style="color:var(--ca-text-secondary);margin-bottom:1.5rem;">Product landscape scan for <strong>Social Media Analytics (S-Factor)</strong>. 25 entries found.</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;"><div class="ca-card"><p class="ca-card__title">Social Market Analytics (SMA)</p><p class="ca-card__label" style="margin-bottom:0.25rem;">SMA S-Score</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Converts Twitter/X and StockTwits social media data into quantitative sentiment signals (S-Score, S-Volume, S-Buzz) for US equities, updating approximately every 60 seconds and offering backtested history back to 2011. Delivers structured, model-ready data feeds for systematic strategies.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Quantitative hedge funds, systematic trading desks, institutional asset managers</p><a href="https://www.socialmarketanalytics.com" target="_blank" style="font-size:0.8125rem;">https://www.socialmarketanalytics.com</a></div><div class="ca-card"><p class="ca-card__title">RavenPack</p><p class="ca-card__label" style="margin-bottom:0.25rem;">RavenPack Analytics / Bigdata.com</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Ingests news, social media (including Reddit and X/Twitter), and alternative text sources to produce real-time structured sentiment scores, event tags, and novelty ratings mapped to equities, forex, and macro instruments across a 20+ year archive.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Quantitative hedge funds, HFT firms, risk management teams, asset managers</p><a href="https://www.ravenpack.com" target="_blank" style="font-size:0.8125rem;">https://www.ravenpack.com</a></div><div class="ca-card"><p class="ca-card__title">MarketPsych (LSEG/Refinitiv)</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Refinitiv MarketPsych Analytics (TRMI)</p><p class="ca-card__body" style="margin-bottom:0.5rem;">An NLP-driven sentiment dataset powered by machine learning that transforms unstructured text from thousands of news and social media sources into structured behavioral scores covering equities, forex, commodities, and macro themes in real time.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Banks, hedge funds, government institutions, asset managers globally</p><a href="https://www.marketpsych.com" target="_blank" style="font-size:0.8125rem;">https://www.marketpsych.com</a></div><div class="ca-card"><p class="ca-card__title">LunarCrush</p><p class="ca-card__label" style="margin-bottom:0.25rem;">LunarCrush Social Intelligence Platform</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Converts public activity on X (Twitter), Reddit, YouTube, and TikTok into quantitative social metrics — including proprietary Galaxy Score and AltRank — for crypto assets and equities, tracking social volume and sentiment in real time.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail crypto and stock traders, quantitative researchers, developers building trading bots, AI trading agent builders</p><a href="https://lunarcrush.com" target="_blank" style="font-size:0.8125rem;">https://lunarcrush.com</a></div><div class="ca-card"><p class="ca-card__title">Accern</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Accern NLP Platform</p><p class="ca-card__body" style="margin-bottom:0.5rem;">A no-code AI platform that extracts structured sentiment signals and event tags from financial news, social media, SEC filings, and alternative text sources using NLP models, enabling research teams to build custom data pipelines without deep engineering resources.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Asset managers, banks, insurance firms, quantitative research teams</p><a href="https://accern.com" target="_blank" style="font-size:0.8125rem;">https://accern.com</a></div><div class="ca-card"><p class="ca-card__title">Sentifi (now part of Inpublishing/Veritone ecosystem)</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Sentifi Crowd Intelligence</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Provides real-time alternative data and sentiment analytics derived from social media, news, and financial forums using AI and NLP, specializing in delivering actionable sentiment insights for asset managers and hedge funds globally.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Asset managers, hedge funds, institutional investors</p><a href="https://www.sentifi.com" target="_blank" style="font-size:0.8125rem;">https://www.sentifi.com</a></div><div class="ca-card"><p class="ca-card__title">SESAMm</p><p class="ca-card__label" style="margin-bottom:0.25rem;">SESAMm TextReveal</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Analyzes billions of online text sources including social media, news, and financial forums using NLP to generate ESG scores, sentiment signals, and alternative data feeds for equity investment decisions.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional asset managers, hedge funds, ESG-focused investors</p><a href="https://www.sesamm.com" target="_blank" style="font-size:0.8125rem;">https://www.sesamm.com</a></div><div class="ca-card"><p class="ca-card__title">Santiment</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Santiment Social Intelligence</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Fuses social media sentiment data (from X, Reddit, Telegram, and Bitcointalk) with on-chain metrics and developer activity into a quant-native API, primarily focused on crypto assets with sentiment scoring and crowd behavior signals.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Crypto traders, quantitative researchers, DeFi investors</p><a href="https://santiment.net" target="_blank" style="font-size:0.8125rem;">https://santiment.net</a></div><div class="ca-card"><p class="ca-card__title">Quiver Quantitative</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Quiver Quantitative Alternative Data Platform</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Aggregates Reddit WallStreetBets mention and sentiment data, congressional trading, and other alternative datasets into dashboards and APIs, including a WallStreetBets Fear and Greed Index tracking retail investor sentiment in real time.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail traders, independent quants, individual investors seeking institutional-grade alternative data</p><a href="https://www.quiverquant.com" target="_blank" style="font-size:0.8125rem;">https://www.quiverquant.com</a></div><div class="ca-card"><p class="ca-card__title">SwaggyStocks</p><p class="ca-card__label" style="margin-bottom:0.25rem;">SwaggyStocks Social Sentiment Dashboard</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Tracks over 10 million mentions and 200,000+ daily market comments from WallStreetBets and other social media sources, providing real-time bullish/bearish sentiment scores for 1,000+ US stocks alongside options max pain calculations.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail traders, meme-stock investors, options traders</p><a href="https://swaggystocks.com" target="_blank" style="font-size:0.8125rem;">https://swaggystocks.com</a></div><div class="ca-card"><p class="ca-card__title">ApeWisdom</p><p class="ca-card__label" style="margin-bottom:0.25rem;">ApeWisdom Reddit Mention Tracker</p><p class="ca-card__body" style="margin-bottom:0.5rem;">A free, keyless API and dashboard that scans approximately 15 investing subreddits (including r/wallstreetbets) twice per hour, returning ranked ticker mention volumes and basic bullish/bearish ratios to identify trending stocks among retail communities.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail traders, independent developers, hobbyist quants</p><a href="https://apewisdom.io" target="_blank" style="font-size:0.8125rem;">https://apewisdom.io</a></div><div class="ca-card"><p class="ca-card__title">StockGeist</p><p class="ca-card__label" style="margin-bottom:0.25rem;">StockGeist AI Sentiment Platform</p><p class="ca-card__body" style="margin-bottom:0.5rem;">An AI-driven platform that analyzes live social media comments and news articles for 2,200+ listed companies and 350+ cryptocurrencies, providing real-time sentiment broken down into positive, neutral, negative, and emotional sub-scores via a dashboard and streaming API.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail traders, independent investors, developers building sentiment-driven trading systems</p><a href="https://www.stockgeist.ai" target="_blank" style="font-size:0.8125rem;">https://www.stockgeist.ai</a></div><div class="ca-card"><p class="ca-card__title">Adanos</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Adanos BuzzScore Sentiment API</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Combines Reddit, X/Twitter (via Grok), news, and Polymarket market-implied signals under a single API key, delivering a transparent, documented BuzzScore (0–100) with bullish and bearish percentages for both equities and crypto assets.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Developers, self-serve quants, retail and semi-professional traders seeking multi-source sentiment APIs</p><a href="https://adanos.org" target="_blank" style="font-size:0.8125rem;">https://adanos.org</a></div><div class="ca-card"><p class="ca-card__title">Dataminr</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Dataminr for Finance</p><p class="ca-card__body" style="margin-bottom:0.5rem;">An enterprise real-time event and risk intelligence platform that monitors social media (including X/Twitter), news, and public data sources to deliver breaking signals and sentiment alerts relevant to financial markets and portfolio risk.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional hedge funds, banks, corporate risk teams, trading desks</p><a href="https://www.dataminr.com" target="_blank" style="font-size:0.8125rem;">https://www.dataminr.com</a></div><div class="ca-card"><p class="ca-card__title">The Tie</p><p class="ca-card__label" style="margin-bottom:0.25rem;">The Tie Terminal / SigDev</p><p class="ca-card__body" style="margin-bottom:0.5rem;">An institutional-grade crypto data platform that provides real-time Twitter-based sentiment scores, social volume analytics, and news signals specifically for digital assets, offering one of the most comprehensive institutional Twitter feeds in crypto.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional crypto funds, digital asset hedge funds, crypto trading desks</p><a href="https://www.thetie.io" target="_blank" style="font-size:0.8125rem;">https://www.thetie.io</a></div><div class="ca-card"><p class="ca-card__title">Bloomberg LP</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Bloomberg Social Sentiment / Bloomberg Terminal</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Integrates social media sentiment analytics and news sentiment signals into the Bloomberg Terminal ecosystem, allowing subscribers to screen equities and track crowd sentiment derived from social platforms alongside traditional financial data.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, asset managers, sell-side analysts, hedge funds</p><a href="https://www.bloomberg.com/professional" target="_blank" style="font-size:0.8125rem;">https://www.bloomberg.com/professional</a></div><div class="ca-card"><p class="ca-card__title">TD Ameritrade / Charles Schwab</p><p class="ca-card__label" style="margin-bottom:0.25rem;">thinkorswim Social Sentiment</p><p class="ca-card__body" style="margin-bottom:0.5rem;">A built-in feature of the thinkorswim trading platform that provides an outline of social media mentions for companies, takes into account mood/sentiment of posts, and can be used to generate trading signals based on social media discourse.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail traders and active investors using the thinkorswim platform</p><a href="https://www.thinkorswim.com" target="_blank" style="font-size:0.8125rem;">https://www.thinkorswim.com</a></div><div class="ca-card"><p class="ca-card__title">AlphaSense</p><p class="ca-card__label" style="margin-bottom:0.25rem;">AlphaSense Market Intelligence (with sentiment)</p><p class="ca-card__body" style="margin-bottom:0.5rem;">An AI-powered market intelligence platform that processes news, social media, filings, and broker research using NLP to surface sentiment trends and emerging narratives relevant to equities and macro investing.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, equity research analysts, corporate strategy teams</p><a href="https://www.alpha-sense.com" target="_blank" style="font-size:0.8125rem;">https://www.alpha-sense.com</a></div><div class="ca-card"><p class="ca-card__title">SentiSense</p><p class="ca-card__label" style="margin-bottom:0.25rem;">SentiSense Stock Sentiment API</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Provides scored stock sentiment (bullish/bearish) for US equities derived from social media and market psychology signals, offering a low-cost self-serve API targeted at agents and individual developers.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Individual investors, AI agent developers, retail traders, small quant teams</p><a href="https://sentisense.ai" target="_blank" style="font-size:0.8125rem;">https://sentisense.ai</a></div><div class="ca-card"><p class="ca-card__title">AltIndex</p><p class="ca-card__label" style="margin-bottom:0.25rem;">AltIndex Reddit Sentiment Series</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Offers a dated Reddit sentiment time series for US equities (float 0.0–1.0, history from February 2021) alongside other alternative datasets, accessible via a REST API on paid subscription tiers.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail investors, independent researchers, developers backtesting Reddit-driven strategies</p><a href="https://altindex.com" target="_blank" style="font-size:0.8125rem;">https://altindex.com</a></div><div class="ca-card"><p class="ca-card__title">Tradestie</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Tradestie WSB Sentiment API</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Provides a free, no-key top-50 WallStreetBets stock JSON API with mention volume and rules-based bullish/bearish labels, allowing developers to track trending Reddit tickers without authentication.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Independent developers, retail traders, hobbyist quant builders</p><a href="https://tradestie.com" target="_blank" style="font-size:0.8125rem;">https://tradestie.com</a></div><div class="ca-card"><p class="ca-card__title">Finnhub</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Finnhub Social Sentiment API</p><p class="ca-card__body" style="margin-bottom:0.5rem;">A financial data API platform that includes a social sentiment endpoint measuring social media buzz and sentiment for stocks, complementing its broader suite of fundamentals, earnings, and market data feeds.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Developers, fintech startups, independent quants, retail traders building trading apps</p><a href="https://finnhub.io" target="_blank" style="font-size:0.8125rem;">https://finnhub.io</a></div><div class="ca-card"><p class="ca-card__title">Alpha Vantage</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Alpha Vantage News &amp; Social Sentiment API</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Offers a news and social sentiment endpoint as part of its broader financial data API, providing sentiment scores derived from news articles and social media sources tagged by ticker symbol.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Individual developers, retail investors, fintech builders seeking affordable market data APIs</p><a href="https://www.alphavantage.co" target="_blank" style="font-size:0.8125rem;">https://www.alphavantage.co</a></div><div class="ca-card"><p class="ca-card__title">StockTwits</p><p class="ca-card__label" style="margin-bottom:0.25rem;">StockTwits Data Feed / API</p><p class="ca-card__body" style="margin-bottom:0.5rem;">A financial social network where traders self-label posts as Bullish or Bearish; StockTwits also operates as a data provider, supplying crowd-sourced sentiment signals derived directly from its 10M+ user community of retail and professional traders.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail traders, fintech developers, sentiment data consumers, financial platforms seeking crowd-sourced signals</p><a href="https://stocktwits.com" target="_blank" style="font-size:0.8125rem;">https://stocktwits.com</a></div><div class="ca-card"><p class="ca-card__title">Rolli</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Rolli IQ Social Data API</p><p class="ca-card__body" style="margin-bottom:0.5rem;">A social data API for quantitative trading that provides social media signals including authenticity scoring to filter bots/noise, delivered via an MCP server for AI agent integration and standard REST access.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Quantitative developers, trading bot builders, small quant funds</p><a href="https://rolli.ai" target="_blank" style="font-size:0.8125rem;">https://rolli.ai</a></div></div></div><div id="panel-3" class="tab-panel hidden"><div class="inner-tabs"><button class="inner-tab" onclick="switchInner(this,'p3s0')" data-active>Profile</button><button class="inner-tab" onclick="switchInner(this,'p3s1')">Comparative Analysis</button><button class="inner-tab" onclick="switchInner(this,'p3s2')">Battle Card</button><button class="inner-tab" onclick="switchInner(this,'p3s3')">Sources</button></div><div id="p3s0" class="inner-pane"><div class="metric-grid"><div class="metric-box"><p class="metric-label">Company Size</p><p class="metric-value">~14 employees; Series A stage (total funding ~$2.38M led by Nauta Capital)</p></div><div class="metric-box"><p class="metric-label">Founded</p><p class="metric-value">2016</p></div><div class="metric-box"><p class="metric-label">Headquarters</p><p class="metric-value">Barcelona, Spain</p></div><div class="metric-box"><p class="metric-label">Market Cap</p><p class="metric-value">private</p></div></div><hr><div class="section-header"><p class="section-header__title">About</p></div><p>Danelfin is an AI-powered stock analytics platform founded in Barcelona, Spain, that helps retail investors make smarter, data-driven investment decisions. The platform uses Explainable Artificial Intelligence to analyze over 10,000 features per stock daily — spanning technical, fundamental, sentiment, and risk indicators — and distills them into a simple AI Score (1–10) rating each stock&#x27;s probability of outperforming the market over the next three months. Named Best Financial Research Company at the 2023 Benzinga Global Fintech Awards and a Top 10 Startup in Sifted&#x27;s 2025 Leaderboard, Danelfin covers all US-listed stocks and ETFs as well as over 5,500 European stocks.</p><div class="section-header"><p class="section-header__title">Mission Statement</p></div><blockquote>To democratise the use of artificial intelligence to help every investor in the world make better investment decisions in financial markets.</blockquote><div class="section-header"><p class="section-header__title">Products</p></div><details class="expander"><summary class="expander__summary">Danelfin AI Stock Analytics Platform (Web) <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2021)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Retail investors, self-directed individual investors, prosumer investors globally</p><p><strong>Primary Users:</strong> Individual retail investors, self-directed traders, active stock pickers</p><p><strong>Coverage:</strong> All US-listed stocks and ETFs; 5,500+ European stocks across main European exchanges (large, mid, small caps); historical data from 2017</p><p><strong>Use Cases:</strong></p><ul><li>AI-powered stock and ETF picking using 1–10 AI Score</li><li>Screening and ranking US and European stocks by probability of beating the market over 3 months</li><li>Identifying Trade Ideas with historically high win rates (long and short signals)</li><li>Portfolio monitoring with AI Score tracking and daily change alerts</li><li>AI price forecasting over 1, 3, 6, and 12-month horizons</li><li>Risk assessment using Low Risk Score sub-indicator</li><li>Thematic investing across 1,600+ investment themes (e.g. AI, EVs, sustainability)</li><li>Historical backtesting of AI Score-based strategies back to 2017</li><li>Trading parameters (entry price, stop-loss, take-profit) for risk management</li></ul><p><strong>Deliverable Formats:</strong> Web dashboard, Mobile app (iOS and Android), Email/push alerts (portfolio score change notifications), CSV export (Pro/Elite plans)</p><p><a href="https://danelfin.com/how-it-works" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Danelfin API (REST API) <span style="color:var(--ca-text-muted);font-weight:400;">(launched Q4 2024)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Quantitative investors, algorithmic traders, fintech developers, financial app builders, independent researchers</p><p><strong>Primary Users:</strong> Quant analysts, developers, algorithmic traders, fintech product teams</p><p><strong>Coverage:</strong> All US-listed stocks and ETFs; main European stocks; historical scores since 2017; Fundamental, Technical, Sentiment, and Low Risk sub-scores</p><p><strong>Use Cases:</strong></p><ul><li>Programmatic retrieval of daily and historical AI Scores for US and European stocks/ETFs</li><li>Integration of AI Score signals into proprietary trading systems or screeners</li><li>Pulling Trade Ideas with active long/short signals and historical win rates</li><li>Fetching Best Stocks Strategy picks for automated portfolio construction</li><li>Accessing Trading Parameters (entry price, stop-loss, take-profit) for order management logic</li><li>Retrieving AI Price Forecasts for 1, 3, 6, and 12-month horizons</li><li>Backtesting using historical AI Scores since 2017</li><li>Connecting Danelfin signals to Claude AI via MCP Server</li></ul><p><strong>Deliverable Formats:</strong> JSON API (REST), MCP Server integration (e.g. Claude AI)</p><p><a href="https://danelfin.com/docs/api" target="_blank">Source &rarr;</a></p></div></details><details class="expander"><summary class="expander__summary">Danelfin Best Stocks Strategy <span style="color:var(--ca-text-muted);font-weight:400;">(launched 2021)</span></summary><div class="expander__body"><p><strong>Target Audience:</strong> Long-term retail investors seeking a rules-based, AI-driven portfolio strategy</p><p><strong>Primary Users:</strong> Self-directed retail investors, buy-and-hold investors</p><p><strong>Coverage:</strong> US-listed stocks; equal-weighted portfolio rebalanced quarterly; historical performance tracked from January 2017</p><p><strong>Use Cases:</strong></p><ul><li>Systematic stock selection based on highest AI Scores (10/10)</li><li>Building a diversified US-stock portfolio powered by AI insights</li><li>Benchmarking AI-driven returns against the S&amp;P 500</li><li>Quarterly portfolio review and rebalancing using AI Score criteria</li></ul><p><strong>Deliverable Formats:</strong> Web dashboard, JSON API (via API plans)</p><p><a href="https://danelfin.com/pricing/api/annual" target="_blank">Source &rarr;</a></p></div></details><div class="section-header"><p class="section-header__title">Recent News</p></div><ul><li>Danelfin API v3 Released — adds Trade Ideas, Trading Parameters, Price Forecasts, and Best Stocks Strategy endpoints (June 2026)</li><li>Danelfin expands European stock coverage to 5,500+ stocks and launches European AI Model V3.0 (February 2026)</li><li>Danelfin launches MCP Server integration enabling connection of its API to Claude AI (December 2025)</li><li>Danelfin named a Top 10 Startup in Sifted&#x27;s 2025 Leaderboard (June 2025)</li><li>New AI Model for US Stocks launched, delivering +21% alpha vs. S&amp;P 500 (July 2025)</li><li>Danelfin raises €2M Series A funding round led by Nauta Capital to accelerate growth for retail investors (June 12, 2024)</li><li>Danelfin launches new API Access Plans (Basic, Expert, Elite) for programmatic AI Score access (October 2024)</li><li>Danelfin launches new features: Company Pros &amp; Cons and FAQs for stock pages (August 2024)</li></ul></div><div id="p3s1" class="inner-pane hidden"><div class="section-header"><p class="section-header__title">Executive Summary</p></div><div class="ca-info-banner">Bridgewise and Danelfin both deploy AI-driven equity ratings, but they target fundamentally different customers and serve distinct market tiers. Danelfin is a retail-first, consumer-facing analytics platform with a simple 1–10 AI Score aimed at self-directed individual investors, backed by modest Series A funding (~$2.38M) and a ~14-person team. Bridgewise is an institutional and B2B-focused intelligence layer serving RIAs, asset managers, brokerage platforms, and wealth managers through white-label embeds, APIs, and compliance-ready research tools. The two companies overlap most directly in AI equity ratings and API signal delivery, but Bridgewise&#x27;s white-label infrastructure, conversational AI (Bridget), and financial research augmentation products have no Danelfin equivalent, reflecting a fundamentally broader institutional mandate. Danelfin&#x27;s strength lies in its direct retail consumer traction, mobile-first experience, and granular technical/sentiment feature engineering; Bridgewise&#x27;s advantage is its enterprise distribution architecture, compliance-ready outputs, and embedded B2B2C model.</div><div class="section-header"><p class="section-header__title">Product Comparison</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Bridgewise Equity Ratings</strong></div><div><strong style="font-size:0.9375rem;">Danelfin AI Stock Analytics Platform (Web)</strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> Both products generate AI-powered buy/hold/sell-equivalent ratings for equities, cover US and European stocks, provide explainability around rating drivers, and update ratings on a regular cadence. Both also cover 10,000+ equities and offer screening capabilities.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> Bridgewise delivers ratings in API, dashboard, and white-label embed formats targeting institutional clients (RIAs, asset managers, family offices, brokerage platforms) with compliance-ready outputs and weekly updates grounded in fundamental financial data. Danelfin&#x27;s platform is consumer-facing (web + mobile app), uses a simple 1–10 score derived from 10,000+ technical, fundamental, sentiment, and risk features updated daily, and is optimised for retail self-directed investors with features like trade parameters (stop-loss, take-profit), thematic investing across 1,600+ themes, and a mobile app — none of which Bridgewise offers in its current product set.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">AI-Powered Research Assistant</strong></div><div><strong style="font-size:0.9375rem;"><em>No equivalent</em></strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> No meaningful overlap. Danelfin has no product targeting investment research generation, client-facing commentary, or compliance-ready research report automation.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> Bridgewise&#x27;s Research Assistant is purpose-built for wealth managers, RIAs, and brokerage platforms to automate research report generation and produce compliance-ready investment commentary at scale. Danelfin offers static stock-page &#x27;Pros &amp; Cons&#x27; and FAQs as informational aids for retail users, but has no automated research or institutional report generation capability.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Bridgewise Embedded Intelligence</strong></div><div><strong style="font-size:0.9375rem;"><em>No equivalent</em></strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> No meaningful overlap. Danelfin does not offer a white-label or embeddable product for financial institutions to deploy under their own brand.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> Bridgewise&#x27;s Embedded Intelligence is specifically designed for retail brokerage platforms, digital wealth apps, and neobrokers to embed AI investment intelligence under their own brand via widgets, UI components, and APIs — enabling B2B2C distribution at scale. Danelfin operates exclusively as a branded consumer product; there is no white-label or OEM offering in their product lineup.</p></div><div class="ca-card"><p class="ca-card__label">Our Product vs. Theirs</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0.75rem;"><div><strong style="font-size:0.9375rem;">Bridget™ (Conversational AI)</strong></div><div><strong style="font-size:0.9375rem;"><em>No equivalent</em></strong></div></div><p class="ca-card__body"><strong>Overlap:</strong> No overlap. Danelfin has no conversational AI product.</p><p class="ca-card__body" style="margin-top:0.375rem;"><strong>Differentiator:</strong> Bridget is a finance-native conversational AI built for financial institution platforms, designed to detect user intent (discovering, trading, learning), drive conversion (1-in-8 interactions to trades), and operate within strict regulatory guardrails with full auditability and session-level traceability. Danelfin has no conversational AI layer; its user interaction is limited to dashboard navigation, alerts, and static stock page content.</p></div><div class="section-header"><p class="section-header__title">Audience Overlap</p></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;"><div><strong>Shared Segments</strong><ul><li>Retail brokerage platforms seeking AI-driven stock ratings (Bridgewise via embedded/white-label; Danelfin via direct consumer product and API)</li><li>Quantitative and algorithmic investors accessing AI signals via REST API</li><li>Self-directed investors interested in AI-generated equity scoring and screening</li></ul></div><div><strong>Our Exclusive Segments</strong><ul><li>Registered Investment Advisors (RIAs) needing institutional-grade, compliance-ready AI ratings</li><li>Asset managers and family offices using AI for portfolio construction and second-opinion research</li><li>Wealth managers requiring automated client-facing research report generation</li><li>Neobrokers and digital wealth apps seeking white-label embedded AI investment intelligence</li><li>Financial institutions requiring a branded conversational AI with regulatory auditability</li></ul></div><div><strong>Their Exclusive Segments</strong><ul><li>Self-directed retail investors using a direct consumer mobile app (iOS/Android) for stock picking</li><li>Active short-term traders using trade signal parameters (entry price, stop-loss, take-profit)</li><li>Retail investors building thematic portfolios across 1,600+ investment themes</li><li>Developers and fintech builders integrating AI signals via MCP Server (e.g., Claude AI)</li></ul></div></div><hr><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><div class="section-header"><p class="section-header__title">Our Strengths</p></div><ul><li>Institutional-grade, white-label distribution architecture: Bridgewise can embed AI ratings and commentary directly into partner platforms under the partner&#x27;s brand — a capability Danelfin entirely lacks.</li><li>Compliance-ready AI outputs: Bridgewise is explicitly designed to produce auditable, compliance-friendly research and recommendations, addressing a critical requirement for regulated financial institutions that Danelfin does not serve.</li><li>Conversational AI with intent detection and conversion mechanics: Bridget&#x27;s CTA funnel (1-in-8 interactions to trades), intent classification, and session-level auditability are unique capabilities with no Danelfin equivalent.</li><li>Broader institutional target market: Bridgewise serves RIAs, asset managers, family offices, and brokerage platforms — a larger and higher-AUM addressable market than Danelfin&#x27;s retail consumer base.</li><li>Financial research augmentation at scale: Automated research report generation and client-facing investment commentary for wealth managers and RIAs is a product category Danelfin does not address.</li><li>Global equities coverage with fundamental AI grounding: Bridgewise covers 10,000+ global equities with ratings grounded in fundamental financial data, suitable for institutional portfolio construction workflows.</li></ul></div><div><div class="section-header"><p class="section-header__title">Their Strengths</p></div><ul><li>Direct retail consumer traction and brand recognition: Danelfin has won the 2023 Benzinga Best Financial Research Company award and was named a Top 10 Startup on Sifted&#x27;s 2025 Leaderboard, indicating meaningful retail market validation.</li><li>Higher-frequency signal updates: Danelfin updates AI Scores daily (vs. Bridgewise&#x27;s weekly cadence), which is more relevant for active traders and short-term signal users.</li><li>Richer multi-factor feature engineering: Danelfin analyzes 10,000+ features per stock per day spanning technical, fundamental, sentiment, and risk dimensions, providing a broader signal basis than Bridgewise&#x27;s fundamental-data-focused model.</li><li>Mobile-first consumer experience: Danelfin offers native iOS and Android apps with push alerts and portfolio monitoring — Bridgewise has no direct-to-consumer mobile product.</li><li>Actionable trade parameters: Danelfin provides entry price, stop-loss, and take-profit levels alongside signals, adding practical risk management utility for retail traders that Bridgewise does not offer.</li><li>Thematic investing coverage: 1,600+ investment themes enable retail users to align portfolios with macro or sector trends — a granular consumer-facing capability absent from Bridgewise&#x27;s product set.</li><li>Historical backtesting transparency: Danelfin exposes AI Score backtesting data to 2017, giving users and developers quantifiable historical performance evidence (e.g., +21% alpha vs. S&amp;P 500 claimed for US model).</li><li>MCP Server integration: Danelfin&#x27;s Claude AI MCP Server connection enables developers to plug Danelfin signals into LLM workflows — a developer-ecosystem move Bridgewise has not publicly announced.</li></ul></div></div><hr><div class="section-header"><p class="section-header__title">Coverage Gaps</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><strong>We cover, they don't</strong><ul><li>White-label and embeddable AI investment intelligence for financial institution platforms (B2B2C distribution model)</li><li>Compliance-ready, auditable AI research outputs designed for regulated financial institutions</li><li>Conversational AI with intent detection, CTA funnels, and session-level compliance traceability (Bridget)</li><li>Automated investment research report and client-facing commentary generation for wealth managers and RIAs</li><li>Institutional client segments: RIAs, asset managers, family offices, and wealth management platforms</li><li>Multi-asset coverage beyond equities (Bridgewise references multi-asset for Research Assistant)</li></ul></div><div><strong>They cover, we don't</strong><ul><li>Direct-to-consumer retail investor product with mobile app (iOS/Android)</li><li>Daily AI Score updates (Bridgewise updates weekly)</li><li>Technical and sentiment analysis features alongside fundamental data (Danelfin uses 10,000+ features including technicals and sentiment; Bridgewise focuses on fundamental data)</li><li>Trade execution parameters: entry price, stop-loss, and take-profit levels for individual signals</li><li>Thematic investing across 1,600+ investment themes for retail users</li><li>Short-selling signals and long/short Trade Ideas with historical win rates</li><li>Historical AI Score backtesting data publicly accessible to users (back to 2017)</li><li>ETF coverage (Danelfin covers all US-listed ETFs; no ETF coverage mentioned for Bridgewise)</li><li>MCP Server integration for connecting AI signals to LLM environments (e.g., Claude AI)</li><li>AI price forecasts at multiple horizons (1, 3, 6, 12 months) as an explicit product feature</li></ul></div></div></div><div id="p3s2" class="inner-pane hidden"><div class="ca-info-banner" style="font-size:1.05rem;font-weight:600;">Bridgewise is the institutional AI intelligence layer that embeds into financial platforms under their brand — Danelfin is a retail consumer app with no white-label, no compliance architecture, and no enterprise distribution model.</div><div class="section-header"><p class="section-header__title">Top Differentiators</p></div><div style="display:flex;gap:0.75rem;flex-wrap:wrap;"><div class="ca-card" style="flex:1;min-width:180px;"><p class="ca-card__label" style="font-size:1.5rem;font-weight:700;color:var(--ca-accent);margin-bottom:0.5rem;">01</p><p class="ca-card__body">White-label embedded intelligence: Bridgewise plugs directly into broker and wealth platforms under the partner&#x27;s own brand — Danelfin has zero white-label capability, full stop.</p></div><div class="ca-card" style="flex:1;min-width:180px;"><p class="ca-card__label" style="font-size:1.5rem;font-weight:700;color:var(--ca-accent);margin-bottom:0.5rem;">02</p><p class="ca-card__body">Compliance-ready outputs: Bridgewise is built for regulated institutions with auditable, compliance-friendly AI research — Danelfin was designed for retail consumers, not regulators.</p></div><div class="ca-card" style="flex:1;min-width:180px;"><p class="ca-card__label" style="font-size:1.5rem;font-weight:700;color:var(--ca-accent);margin-bottom:0.5rem;">03</p><p class="ca-card__body">Bridget converts conversations to trades: our conversational AI drives 1-in-8 interactions to a trade action with full session-level auditability — Danelfin has no conversational AI whatsoever.</p></div></div><div class="section-header"><p class="section-header__title">Objection Handlers</p></div><details class="expander"><summary class="expander__summary">&ldquo;We already use Danelfin for AI stock ratings.&rdquo;</summary><div class="expander__body"><p>Danelfin gives you a consumer score — Bridgewise gives you an embeddable, white-labeled intelligence layer your clients see under your brand, with compliance-ready outputs your legal team can actually approve.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;Danelfin updates signals daily — Bridgewise is only weekly.&rdquo;</summary><div class="expander__body"><p>Daily updates matter for day traders. If your clients are RIAs, wealth managers, or institutional investors, weekly fundamental-grounded ratings with full auditability and compliance framing are what they need — and what Danelfin can&#x27;t deliver.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;Danelfin analyzes 10,000+ features including technicals and sentiment — that sounds more powerful.&rdquo;</summary><div class="expander__body"><p>More features isn&#x27;t the same as institutional utility. Bridgewise&#x27;s fundamental-grounded ratings are built for compliance-sensitive workflows — your regulators and clients can understand and defend them, which you can&#x27;t say about a 10,000-feature black box.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;Danelfin is cheaper and already has retail traction.&rdquo;</summary><div class="expander__body"><p>If you&#x27;re selling directly to retail consumers via a mobile app, Danelfin is probably fine. If you&#x27;re a platform that needs to embed AI intelligence, automate research, or serve regulated clients, you&#x27;re comparing the wrong products.</p></div></details><details class="expander"><summary class="expander__summary">&ldquo;Danelfin has public backtesting data showing strong alpha — where&#x27;s Bridgewise&#x27;s track record?&rdquo;</summary><div class="expander__body"><p>Backtesting alpha on a consumer score is a marketing metric. Ask your compliance team whether that&#x27;s the evidence base they&#x27;d want in a client-facing research workflow — then ask what Bridgewise&#x27;s auditable output trail looks like for your use case.</p></div></details><div class="section-header"><p class="section-header__title">When BW Wins / When They Win</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><strong>When BW Wins</strong><ul><li>A retail brokerage or neobroker wants to embed AI stock ratings and research into their platform under their own brand without building the AI themselves.</li><li>An RIA or wealth manager needs to automate client-facing investment research reports with compliance-ready commentary at scale.</li><li>A financial institution needs a conversational AI layer with intent detection, trade conversion funnels, and session-level regulatory auditability.</li><li>An asset manager or family office needs institutional-grade AI ratings grounded in fundamental data for portfolio construction and second-opinion research workflows.</li><li>A digital wealth platform needs a B2B2C AI intelligence layer — not a direct consumer product competing with their own brand.</li></ul></div><div><strong>When They Win</strong><ul><li>The buyer is building for self-directed retail investors who want a direct-to-consumer mobile app experience with daily signal updates, stop-loss levels, and thematic portfolios.</li><li>The use case requires daily-frequency AI signals for active or short-term trading strategies where weekly cadence is a genuine constraint.</li><li>A developer or quant wants to pull AI signals into an LLM environment via MCP Server and Danelfin&#x27;s Claude integration already fits their stack.</li><li>The buyer needs ETF coverage or short-selling signals with historical win rates — features Bridgewise does not currently offer.</li><li>Budget is extremely limited and a simple consumer-tier AI score is sufficient — Danelfin&#x27;s retail pricing will win on cost alone.</li></ul></div></div><div class="section-header"><p class="section-header__title">Discovery Questions</p></div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">1.</strong> How are your advisors or clients currently consuming AI-generated investment insights — and does your brand appear anywhere in that experience?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">2.</strong> When your compliance or legal team reviews AI-generated investment content, what do they require in terms of auditability and output format?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">3.</strong> Are you looking for a tool your end-users log into, or intelligence that lives inside your existing platform under your brand?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">4.</strong> How important is it that your AI research outputs can be defended to a regulator or used in a client-facing document?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">5.</strong> Do you have a conversational or chat interface for your clients today — and if not, is that on your roadmap?</div><div style="background:var(--ca-bg-raised);border-radius:6px;padding:0.6rem 0.9rem;margin-bottom:0.4rem;"><strong style="color:var(--ca-accent);">6.</strong> What happens today when a client asks your platform for a reason behind a stock rating — who or what answers that question?</div></div><div id="p3s3" class="inner-pane hidden"><div class="section-header"><p class="section-header__title">Sources Cited</p></div><ul><li><a href="https://danelfin.com" target="_blank">https://danelfin.com</a></li><li><a href="https://danelfin.com/about" target="_blank">https://danelfin.com/about</a></li><li><a href="https://danelfin.com/how-it-works" target="_blank">https://danelfin.com/how-it-works</a></li><li><a href="https://danelfin.com/pricing/monthly" target="_blank">https://danelfin.com/pricing/monthly</a></li><li><a href="https://danelfin.com/pricing/annual" target="_blank">https://danelfin.com/pricing/annual</a></li><li><a href="https://danelfin.com/pricing/api/annual" target="_blank">https://danelfin.com/pricing/api/annual</a></li><li><a href="https://danelfin.com/docs/api" target="_blank">https://danelfin.com/docs/api</a></li><li><a href="https://blog.danelfin.com/danelfin-ai-powered-stock-analytics-platform-raises-2m-retail-investors" target="_blank">https://blog.danelfin.com/danelfin-ai-powered-stock-analytics-platform-raises-2m-retail-investors</a></li><li><a href="https://blog.danelfin.com/new-danelfin-api-access-plans" target="_blank">https://blog.danelfin.com/new-danelfin-api-access-plans</a></li><li><a href="https://blog.danelfin.com/danelfin-api-v3-released" target="_blank">https://blog.danelfin.com/danelfin-api-v3-released</a></li><li><a href="https://blog.danelfin.com/danelfin-expands-european-stocks-coverage" target="_blank">https://blog.danelfin.com/danelfin-expands-european-stocks-coverage</a></li><li><a href="https://www.nautacapital.com/news-insights/danelfin-the-ai-powered-stock-analytics-platform-raises-eu2m-to-help-retail-investors-make-better-decisions" target="_blank">https://www.nautacapital.com/news-insights/danelfin-the-ai-powered-stock-analytics-platform-raises-eu2m-to-help-retail-investors-make-better-decisions</a></li><li><a href="https://tracxn.com/d/companies/danelfin/__EZQ3pz7k-Oe2w0ao5pvzrNf6DrSBLw0by9qpvtMAPZM" target="_blank">https://tracxn.com/d/companies/danelfin/__EZQ3pz7k-Oe2w0ao5pvzrNf6DrSBLw0by9qpvtMAPZM</a></li><li><a href="https://tracxn.com/d/companies/danelfin/__EZQ3pz7k-Oe2w0ao5pvzrNf6DrSBLw0by9qpvtMAPZM/funding-and-investors" target="_blank">https://tracxn.com/d/companies/danelfin/__EZQ3pz7k-Oe2w0ao5pvzrNf6DrSBLw0by9qpvtMAPZM/funding-and-investors</a></li><li><a href="https://www.cbinsights.com/company/danelfin" target="_blank">https://www.cbinsights.com/company/danelfin</a></li><li><a href="https://www.wallstreetzen.com/blog/danelfin-review/" target="_blank">https://www.wallstreetzen.com/blog/danelfin-review/</a></li><li><a href="https://www.thestockdork.com/danelfin-review/" target="_blank">https://www.thestockdork.com/danelfin-review/</a></li><li><a href="https://www.findmymoat.com/tools/danelfin" target="_blank">https://www.findmymoat.com/tools/danelfin</a></li><li><a href="https://tradingplatforms.ai/danelfin-review" target="_blank">https://tradingplatforms.ai/danelfin-review</a></li><li><a href="https://www.futurepedia.io/tool/danelfin" target="_blank">https://www.futurepedia.io/tool/danelfin</a></li><li><a href="https://play.google.com/store/apps/details?id=com.danelfin.app&amp;hl=en_US" target="_blank">https://play.google.com/store/apps/details?id=com.danelfin.app&amp;hl=en_US</a></li><li><a href="https://x.com/DanelfinAI/status/1847302837602050282" target="_blank">https://x.com/DanelfinAI/status/1847302837602050282</a></li><li><a href="https://x.com/DanelfinAI" target="_blank">https://x.com/DanelfinAI</a></li></ul><div class="section-header"><p class="section-header__title">Our Profile Files Loaded</p></div><ul><li><code>bridgewise_products.yaml</code></li><li><code>Updated Bridget slides.pdf</code></li></ul><hr><p style="font-size:0.8125rem;color:var(--ca-text-muted);">Generated: 2026-09-22T15:55:36.899638Z</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);">Model: <code>claude-sonnet-4-6</code></p></div></div><div id="panel-4" class="tab-panel hidden"><p style="color:var(--ca-text-secondary);margin-bottom:1.5rem;">Product landscape scan for <strong>AI Equity Ratings</strong>. 22 entries found.</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;"><div class="ca-card"><p class="ca-card__title">Danelfin</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Danelfin AI Score</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Assigns every listed US and European stock an AI Score from 1 to 10, representing the probability of that stock beating the market over the next 3 months, using over 10,000 features per stock per day drawn from 600+ technical, 150 fundamental, and 150 sentiment indicators — with explainable sub-scores per factor.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail investors, self-directed traders, financial advisors</p><a href="https://danelfin.com" target="_blank" style="font-size:0.8125rem;">https://danelfin.com</a></div><div class="ca-card"><p class="ca-card__title">Kavout</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Kai Score / AI Buy/Sell Rating Agent</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Generates a proprietary Kai Score (1–9) recalculated daily for every US-listed stock using machine learning models — including neural networks — that integrate fundamental data, price action, sentiment, and alternative data (e.g. satellite imagery). Outputs clear buy/sell/hold ratings with reasoning.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, hedge funds, sophisticated retail traders</p><a href="https://www.kavout.com" target="_blank" style="font-size:0.8125rem;">https://www.kavout.com</a></div><div class="ca-card"><p class="ca-card__title">Seeking Alpha</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Quant Ratings / Virtual Analyst Reports</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Algorithmic quant system that grades stocks A+ to F across five factors (Value, Growth, Profitability, Momentum, EPS Revisions) by analyzing 100+ fundamental and technical metrics per ticker, with Strong Buy/Buy/Hold/Sell/Strong Sell ratings. AI-generated Virtual Analyst Reports synthesize quant ratings, analyst opinions, and recent developments into stock summaries.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail investors, self-directed investors, fundamental equity researchers</p><a href="https://seekingalpha.com" target="_blank" style="font-size:0.8125rem;">https://seekingalpha.com</a></div><div class="ca-card"><p class="ca-card__title">WallStreetZen</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Zen Ratings</p><p class="ca-card__body" style="margin-bottom:0.5rem;">A 115-factor quant model with a proprietary AI factor (neural network trained on 20+ years of fundamental and technical data) that assigns each stock a letter grade from A to F, predicting its likelihood to outperform the market. A-rated stocks have historically delivered ~32% annual returns since 2003.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail investors, long-term individual investors</p><a href="https://www.wallstreetzen.com" target="_blank" style="font-size:0.8125rem;">https://www.wallstreetzen.com</a></div><div class="ca-card"><p class="ca-card__title">Boosted.ai</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Alfa / Boosted Insights</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Finance-specific machine learning platform that generates AI-driven stock rankings and conviction scores for institutional equity portfolios, identifying patterns across capital markets data; multi-model agents argue bull and bear cases against a fund&#x27;s own criteria and deliver citable memos with conviction scores.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Hedge funds, asset managers, wealth management firms, brokerages (white-label)</p><a href="https://www.boosted.ai" target="_blank" style="font-size:0.8125rem;">https://www.boosted.ai</a></div><div class="ca-card"><p class="ca-card__title">LSEG (London Stock Exchange Group)</p><p class="ca-card__label" style="margin-bottom:0.25rem;">StarMine (formerly Refinitiv StarMine)</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Builds quantitative factor models and equity scoring systems for institutional investors, including a Combined Alpha Model that produces a single stock score from value, momentum, ownership, and quality sub-models, plus SmartEstimates weighted toward top analysts&#x27; recent forecasts for earnings surprise prediction.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, asset managers, sell-side research firms</p><a href="https://www.refinitiv.com/en/products/starmine-financial-modeling" target="_blank" style="font-size:0.8125rem;">https://www.refinitiv.com/en/products/starmine-financial-modeling</a></div><div class="ca-card"><p class="ca-card__title">Intellectia AI</p><p class="ca-card__label" style="margin-bottom:0.25rem;">AI Stock Picker / AI Trading Signals</p><p class="ca-card__body" style="margin-bottom:0.5rem;">AI-driven investment platform that combines various AI agents to analyze large volumes of market data and deliver automated buy/sell stock picks, AI-driven trading strategies, and real-time market signals across equities and crypto, with quantitative modeling and backtesting.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Active retail traders, short-to-mid-term investors</p><a href="https://intellectia.ai" target="_blank" style="font-size:0.8125rem;">https://intellectia.ai</a></div><div class="ca-card"><p class="ca-card__title">Prospero.ai</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Prospero AI Stock Signals</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Provides retail investors with daily, institutional-grade buy/sell stock signals derived from options flow analysis, statistical modeling, and pattern recognition, packaged into a mobile-first interface with an educational layer to interpret each signal.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail investors, mobile-first individual investors</p><a href="https://www.prospero.ai" target="_blank" style="font-size:0.8125rem;">https://www.prospero.ai</a></div><div class="ca-card"><p class="ca-card__title">StockRank</p><p class="ca-card__label" style="margin-bottom:0.25rem;">StockRank AI Buy/Sell/Hold Ratings</p><p class="ca-card__body" style="margin-bottom:0.5rem;">An ensemble of deep-learning models that continuously generates Buy/Sell/Hold ratings for thousands of equity and crypto tickers by weighing price action, volume, sentiment, and macro signals simultaneously, delivering real-time push alerts.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail traders, active individual investors</p><a href="https://stocksrank.com" target="_blank" style="font-size:0.8125rem;">https://stocksrank.com</a></div><div class="ca-card"><p class="ca-card__title">StockRatings.ai</p><p class="ca-card__label" style="margin-bottom:0.25rem;">AI-Powered Stock Ratings</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Generates AI-powered stock ratings by combining fundamentals, price action, and news sentiment analysis into a ranked scoring system, with a model portfolio built on top-ranked stocks.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail investors, self-directed traders</p><a href="https://stockratings.ai" target="_blank" style="font-size:0.8125rem;">https://stockratings.ai</a></div><div class="ca-card"><p class="ca-card__title">Trade Ideas</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Holly AI</p><p class="ca-card__body" style="margin-bottom:0.5rem;">AI engine that scans every listed stock tick-by-tick using a suite of real-time algorithms, generating trade ideas complete with entry, stop, and target levels for intraday and swing setups, with automated strategy backtesting capabilities.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Active day traders, technical traders</p><a href="https://www.trade-ideas.com" target="_blank" style="font-size:0.8125rem;">https://www.trade-ideas.com</a></div><div class="ca-card"><p class="ca-card__title">Morningstar</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Morningstar Quantitative Rating / Medalist Rating</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Extends Morningstar&#x27;s analyst-driven equity and fund ratings to a broader universe using machine learning models trained on analyst-rated securities, producing systematic buy-equivalent (Gold/Silver/Bronze) or sell-equivalent (Negative) ratings with written rationale at scale.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail investors, financial advisors, asset managers</p><a href="https://www.morningstar.com" target="_blank" style="font-size:0.8125rem;">https://www.morningstar.com</a></div><div class="ca-card"><p class="ca-card__title">FactSet Research Systems</p><p class="ca-card__label" style="margin-bottom:0.25rem;">FactSet Quant Factor Library / ETF Analytics Scoring</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Provides institutional-grade quantitative factor models, composite scoring systems, and AI-enhanced analytics across global equities and ETFs; integrates multi-factor scoring (Value, Growth, Momentum, Volatility, Beta) used by investment teams for daily exposure, performance attribution, and stock selection.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, asset managers, sell-side analysts, quant teams</p><a href="https://www.factset.com" target="_blank" style="font-size:0.8125rem;">https://www.factset.com</a></div><div class="ca-card"><p class="ca-card__title">Bloomberg</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Bloomberg Intelligence / BQNT AI Models</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Delivers equity research analytics, AI/NLP-powered sentiment indicators, and quantitative scoring signals embedded within the Bloomberg Terminal, enabling analysts to screen and rank global equities using machine learning overlaid on fundamental and market data.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, sell-side analysts, hedge funds, banks</p><a href="https://www.bloomberg.com/professional" target="_blank" style="font-size:0.8125rem;">https://www.bloomberg.com/professional</a></div><div class="ca-card"><p class="ca-card__title">S&amp;P Global Market Intelligence</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Quantamental Research / AI-Powered Equity Scores</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Offers machine-learning-driven quantitative equity scoring and factor models — including earnings quality, earnings predictability, and financial health scores — across global equities, integrated into Capital IQ Pro for institutional research workflows.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, asset managers, investment banks, quant teams</p><a href="https://www.spglobal.com/marketintelligence" target="_blank" style="font-size:0.8125rem;">https://www.spglobal.com/marketintelligence</a></div><div class="ca-card"><p class="ca-card__title">Auquan</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Autonomous Investment Research Agents</p><p class="ca-card__body" style="margin-bottom:0.5rem;">End-to-end autonomous AI agent platform for institutional financial services that independently executes investment research workflows, credit analysis, and ESG assessments across 2M+ multilingual data sources, producing structured research outputs for buy-side teams.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional buy-side investors, hedge funds, asset managers</p><a href="https://www.auquan.com" target="_blank" style="font-size:0.8125rem;">https://www.auquan.com</a></div><div class="ca-card"><p class="ca-card__title">Tickeron</p><p class="ca-card__label" style="margin-bottom:0.25rem;">AI Pattern Recognition / Stock Ratings</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Uses AI and machine learning to generate buy/sell/hold signals and automated equity ratings based on technical pattern recognition, fundamental scoring, and real-time market data, with a confidence level attached to each rating.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Retail traders, active investors, technical analysts</p><a href="https://tickeron.com" target="_blank" style="font-size:0.8125rem;">https://tickeron.com</a></div><div class="ca-card"><p class="ca-card__title">Stock Story (AKA FinChat.io)</p><p class="ca-card__label" style="margin-bottom:0.25rem;">FinChat AI / Equity Research Summaries</p><p class="ca-card__body" style="margin-bottom:0.5rem;">AI-powered equity research platform that synthesizes earnings call transcripts, SEC filings, and fundamental data into AI-generated analyst-grade company summaries and investment assessments for global stocks.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Fundamental investors, equity analysts, self-directed retail investors</p><a href="https://finchat.io" target="_blank" style="font-size:0.8125rem;">https://finchat.io</a></div><div class="ca-card"><p class="ca-card__title">Quant AI</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Quant AI Equity Scoring System</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Continuously scores 1,000+ globally listed equities on fundamentals, behavioral signals, and regime shifts using multi-model AI, generating medium-term alpha signals rather than intraday noise, with a fully logged and auditable systematic trading record.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Quant-oriented investors, systematic fund managers</p><a href="https://www.quant-ai.app" target="_blank" style="font-size:0.8125rem;">https://www.quant-ai.app</a></div><div class="ca-card"><p class="ca-card__title">TrendSpider</p><p class="ca-card__label" style="margin-bottom:0.25rem;">AI Strategy Lab / Automated Ratings</p><p class="ca-card__body" style="margin-bottom:0.5rem;">AI-native platform specializing in automated technical analysis, pattern recognition, and strategy backtesting that identifies 220+ chart patterns and generates actionable signals and ratings for equities without manual intervention.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Active traders, technical analysts, quant strategy developers</p><a href="https://trendspider.com" target="_blank" style="font-size:0.8125rem;">https://trendspider.com</a></div><div class="ca-card"><p class="ca-card__title">Alpha Vee Solutions</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Alpha Vee Workstation</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Integrated institutional-grade alternative to FactSet/Bloomberg that covers 45,000+ global equities with factor-based scoring, universe selection, AI-driven equity research, backtesting, and portfolio optimization tools in one platform.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, asset managers, quant teams</p><a href="https://www.alphavee.com" target="_blank" style="font-size:0.8125rem;">https://www.alphavee.com</a></div><div class="ca-card"><p class="ca-card__title">Koyfin</p><p class="ca-card__label" style="margin-bottom:0.25rem;">Koyfin AI Research / Equity Screener</p><p class="ca-card__body" style="margin-bottom:0.5rem;">Financial data and analytics platform with AI-assisted equity screening, fundamental scoring, and research workflows across global equities and ETFs, providing deep datasets and customizable dashboards for equity analysis.</p><p style="font-size:0.8125rem;color:var(--ca-text-muted);margin-bottom:0.25rem;"><strong>Audience:</strong> Institutional investors, financial advisors, retail investors</p><a href="https://www.koyfin.com" target="_blank" style="font-size:0.8125rem;">https://www.koyfin.com</a></div></div></div>
+
+<script>
+function switchTab(idx) {
+  document.querySelectorAll('.tab-btn').forEach(function(b, i) {
+    if (i === idx) b.setAttribute('data-active', '');
+    else b.removeAttribute('data-active');
+  });
+  document.querySelectorAll('.tab-panel').forEach(function(p, i) {
+    if (i === idx) p.classList.remove('hidden');
+    else p.classList.add('hidden');
+  });
+}
+
+function switchInner(btn, paneId) {
+  var panel = btn.closest('.tab-panel');
+  panel.querySelectorAll('.inner-tab').forEach(function(b) {
+    b.removeAttribute('data-active');
+  });
+  btn.setAttribute('data-active', '');
+  panel.querySelectorAll('.inner-pane').forEach(function(p) {
+    p.classList.add('hidden');
+  });
+  document.getElementById(paneId).classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

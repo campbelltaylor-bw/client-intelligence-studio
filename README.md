@@ -1,6 +1,6 @@
-# Client Intelligence Studio
+# Competitor Intelligence Studio
 
-AI-powered collateral generation for sales and account teams. Combines CRM data, live web research, and a curated product and blog catalog to produce personalized, evidence-backed client briefs and outreach emails — all in a clean Streamlit interface.
+AI-powered competitive research for sales and product teams. Enter a competitor name — Claude searches the web, builds a structured profile, runs a comparative analysis against your company, and produces a sales-ready battle card.
 
 ![Python](https://img.shields.io/badge/python-3.11+-blue) ![Streamlit](https://img.shields.io/badge/streamlit-1.30+-red) ![Claude](https://img.shields.io/badge/claude-sonnet--4--6-blueviolet)
 
@@ -8,33 +8,46 @@ AI-powered collateral generation for sales and account teams. Combines CRM data,
 
 ## What it does
 
-1. **Select an account** — load from Monday.com CRM or mock data
-2. **Run the pipeline** — 6 stages: CRM enrichment, web research, product scoring, blog matching, AI generation, assembly
-3. **Review outputs** across four tabs:
-   - **Internal Brief** — account summary, CRM highlights, key opportunities (never shared with clients)
-   - **Web Research** — company overview, recent news, technology signals
-   - **Products** — ranked product recommendations with relevance scores
-   - **Outreach Emails** — three audience-specific drafts (Portfolio Manager, Quantitative Analyst, Risk Officer) generated from live blog content
-
-All facts carry a source tag (`CRM_FACT`, `PUBLIC_FACT`, `AI_INFERENCE`) that propagates through the entire pipeline.
+**Per competitor run:**
+1. **Web Research** (Claude Haiku) — tool-use loop, up to 5 searches → structured `CompetitorProfile`
+2. **Profile Load** — reads your company's YAML, markdown, and PDF files from the profile directory
+3. **Analysis** (Claude Sonnet) — comparative analysis against your products and positioning
+4. **Battle Card** (Claude Sonnet) — objection handlers, differentiators, win/loss scenarios
+5. **Cache** — saved to `competitor_intelligence/outputs/{mode}/` for instant reload
 
 ---
 
 ## Quick start
 
 ```bash
-# 1. Install dependencies
 pip install -r requirements.txt
-
-# 2. Configure environment
 cp .env.example .env
 # Add your ANTHROPIC_API_KEY to .env
 
-# 3. Run the app (mock data by default)
-streamlit run app/main.py
+streamlit run competitor_intelligence/Competitor_Landscape.py
 ```
 
-The app runs in mock mode out of the box — no CRM credentials required.
+---
+
+## Pages
+
+| Page | File | Description |
+|------|------|-------------|
+| Competitor Landscape | `Competitor_Landscape.py` | Research a single competitor — profile, analysis, battle card |
+| Product Landscape | `pages/1_Product_Landscape.py` | Scan the market for competitors in a given product category |
+
+---
+
+## Company modes
+
+Toggle between modes in the sidebar. Each mode has its own profile library, product catalog, watchlist, and output cache.
+
+| Mode | Profile Dir | Products | Watchlist | Output Cache |
+|------|-------------|----------|-----------|--------------|
+| **Context Analytics** | `our_profile/` | `data/context_analytics_products.yaml` | `competitors_to_watch.yaml` | `outputs/ca/` |
+| **Bridgewise** | `bridgewise_profile/` | `data/bridgewise_products.yaml` | `bridgewise_competitors_to_watch.yaml` | `outputs/bridgewise/` |
+
+Bridgewise mode draws on a curated profile library: ICP, company segments, buying personas, positioning/moat, sales cycle mechanics, and brand assets.
 
 ---
 
@@ -43,88 +56,45 @@ The app runs in mock mode out of the box — no CRM credentials required.
 | Variable | Required | Description |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | Yes | Claude API key |
-| `MONDAY_API_KEY` | No | Monday.com API key (real CRM mode only) |
-| `MONDAY_BOARD_ID` | No | Monday.com board ID (real CRM mode only) |
-
-To switch from mock to real integrations, set `USE_MOCK_DATA=false` in `.env`.
 
 ---
 
 ## Project structure
 
 ```
-app/
-  main.py                  — Streamlit entry point
-  views/                   — Page views (account selection, intelligence report)
-  components/              — UI helpers, theme CSS, output renderers
-
-src/
-  config.py                — Config loading and env var validation
-  models.py                — Pydantic data models
-  ai_client.py             — Anthropic SDK wrapper
-  pipeline/                — 6-stage pipeline (runner.py is the entry point)
-  prompts/prompts.py       — All Claude prompt templates
-  providers/               — CRM, web research, and blog catalog providers
-
-data/
-  blog_catalog.csv         — Research content catalog
-  context_analytics_products.yaml — Product definitions
-  mock_monday_accounts.json       — Mock CRM accounts
-  mock_web_research.json          — Mock web research results
-
-tests/                     — pytest suite
+competitor_intelligence/
+  Competitor_Landscape.py        — main Streamlit entry point
+  pages/
+    1_Product_Landscape.py       — market scanner page
+  config.py                      — multi-mode config (CA vs Bridgewise)
+  models.py                      — Pydantic models (CompetitorProfile, BattleCard, …)
+  researcher.py                  — web research agent (Haiku, tool-use loop)
+  analyzer.py                    — comparative analysis + battle card (Sonnet)
+  profile_loader.py              — loads YAML/MD/PDF from profile directory
+  watchlist.py                   — watchlist CRUD + AI-assisted discovery
+  renderer.py                    — Streamlit UI components
+  pdf_exporter.py                — PDF report export
+  prompts.py                     — all Claude prompt templates
+  data/
+    context_analytics_products.yaml
+    bridgewise_products.yaml
+  assets/
+    context_analytics_logo.png
+  our_profile/                   — CA reference materials (drop folder)
+  bridgewise_profile/            — Bridgewise reference materials (drop folder)
+  outputs/
+    ca/                          — cached CA reports (gitignored)
+    bridgewise/                  — cached Bridgewise reports (gitignored)
+  competitors_to_watch.yaml
+  bridgewise_competitors_to_watch.yaml
+  README.md                      — full app documentation
+  METHODOLOGY.md                 — technical methodology and architecture
 ```
-
----
-
-## Running tests
-
-```bash
-pytest tests/
-```
-
----
-
-## Deployment
-
-### Streamlit Community Cloud
-
-1. Fork or push this repo to GitHub
-2. Go to [share.streamlit.io](https://share.streamlit.io) and connect the repo
-3. Set main file: `app/main.py`
-4. Add `ANTHROPIC_API_KEY` under Secrets
-5. Deploy
-
-### Docker
-
-```bash
-docker build -t client-intelligence-studio .
-docker run -p 8501:8501 -e ANTHROPIC_API_KEY=sk-ant-... client-intelligence-studio
-```
-
----
-
-## Competitor Intelligence
-
-A separate Streamlit app for competitive research, included in this repo under `competitor_intelligence/`.
-
-```bash
-streamlit run competitor_intelligence/Competitor_Landscape.py
-```
-
-Enter a competitor name → Claude searches the web → generates a structured profile, comparative analysis, and sales battle card. Toggle between **Context Analytics** and **Bridgewise** modes via the sidebar.
-
-- Reports are cached to `outputs/ca/` or `outputs/bridgewise/`
-- Bridgewise mode draws on a curated profile library in `competitor_intelligence/bridgewise_profile/` (ICP, segments, personas, positioning, sales cycle, and more)
-- A second page (`pages/1_Product_Landscape.py`) scans the market for companies competing in a given product category
 
 See [`competitor_intelligence/README.md`](competitor_intelligence/README.md) for full documentation.
 
 ---
 
-## Security notes
+## Legacy
 
-- `ClientFacingOutputs` structurally excludes all CRM fields — internal data cannot leak into client-facing content
-- No email sending capability — outputs are copy-only
-- No CRM write-back — all CRM provider methods are read-only
-- API keys are never logged or surfaced in the UI
+The original CRM-based collateral generation app (Client Intelligence Studio) is archived under [`legacy/`](legacy/). It is not actively maintained.

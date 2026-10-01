@@ -1,51 +1,60 @@
-# Client Intelligence Studio
+# Competitor Intelligence Studio
 
-Hackathon MVP — generates personalized, evidence-backed client collateral for sales and account teams.
+AI-powered competitive research tool. The primary app is `competitor_intelligence/`.
 
 ## Quick Start
 
 ```bash
 pip install -r requirements.txt
 cp .env.example .env   # add ANTHROPIC_API_KEY
-streamlit run app/main.py
+streamlit run competitor_intelligence/Competitor_Landscape.py
 ```
 
-## Running Tests
+## Running Legacy Tests
 
 ```bash
-pytest tests/
+pytest legacy/tests/
 ```
 
-## Key Conventions
+## Key Conventions (Competitor Intelligence)
 
-- All source tags (`CRM_FACT`, `PUBLIC_FACT`, `AI_INFERENCE`) propagate from raw data through the entire pipeline.
-- `ClientFacingOutputs` structurally cannot contain CRM fields — never add CRM data there.
-- All prompt templates live in `src/prompts/prompts.py` as module-level string constants.
-- Mock data is the default (`USE_MOCK_DATA=true` in config.yaml). Flip to `false` in `.env` for real integrations.
-- There is no email sending capability anywhere in this codebase. "Copy to Clipboard" only.
-- There is no Monday write-back. `MondayCRMProvider` base class has read-only methods only.
+- All prompt templates live in `competitor_intelligence/prompts.py` as module-level string constants.
+- Company modes: `"ca"` (Context Analytics) and `"bridgewise"`. Config loaded via `competitor_intelligence/config.py`.
+- Product YAMLs live in `competitor_intelligence/data/`. Profile markdown/PDFs live in `our_profile/` or `bridgewise_profile/`.
+- Reports are cached to `competitor_intelligence/outputs/{mode}/`. The app reloads from cache on repeat visits.
+- The web research stage uses a tool-use loop (max 10 iterations, up to 5 searches per call) via Claude Haiku.
+- Analysis and battle cards use Claude Sonnet.
 
 ## Environment Variables
 
 Required:
 - `ANTHROPIC_API_KEY`
 
-Optional (only when USE_MOCK_DATA=false):
-- `MONDAY_API_KEY`
-- `MONDAY_BOARD_ID`
-
 ## Project Structure
 
 ```
-src/config.py          — config loading (validates all env vars at startup)
-src/models.py          — all Pydantic data models
-src/ai_client.py       — Anthropic SDK wrapper
-src/providers/         — CRM, web research, blog catalog providers (mock + real)
-src/pipeline/          — 6-stage pipeline (runner.py is the entry point)
-src/prompts/prompts.py — all Claude prompt templates
-app/main.py            — Streamlit entry point
-app/pages/             — 3 Streamlit pages
-tests/                 — pytest suite
-data/                  — mock data and catalogs
-outputs/               — saved pipeline outputs (gitignored)
+competitor_intelligence/         — PRIMARY APP
+  Competitor_Landscape.py        — Streamlit entry point
+  pages/1_Product_Landscape.py   — market scanner page
+  config.py                      — multi-mode config
+  models.py                      — Pydantic data models
+  researcher.py                  — web research agent (Haiku)
+  analyzer.py                    — analysis + battle cards (Sonnet)
+  profile_loader.py              — loads YAML/MD/PDF profile files
+  watchlist.py                   — watchlist CRUD + AI discovery
+  renderer.py                    — Streamlit UI
+  pdf_exporter.py                — PDF export
+  prompts.py                     — all Claude prompts
+  data/                          — product catalogs (CA + Bridgewise)
+  assets/                        — logos
+  our_profile/                   — CA reference materials
+  bridgewise_profile/            — Bridgewise reference materials
+  outputs/                       — cached reports (gitignored)
+
+legacy/                          — archived Client Intelligence Studio
+  app/main.py                    — original Streamlit entry point
+  src/                           — pipeline, models, providers
+  tests/                         — pytest suite
+  data/                          — mock data and catalogs
+  config/                        — config.yaml
 ```
